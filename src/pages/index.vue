@@ -1,9 +1,14 @@
 <template>
-  <div>主页</div>
+  <div :class="$style.red">主页</div>
 </template>
 
 <script setup>
 import {} from "vue";
 </script>
 
-<style scoped lang="less"></style>
+<style module lang="less">
+.red {
+  font-size: 1rem;
+}
+</style>
+

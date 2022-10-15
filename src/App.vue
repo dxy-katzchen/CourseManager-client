@@ -3,10 +3,13 @@
 </script>
 
 <template>
-Hello
-<RouterView></RouterView>
+  <router-view />
 </template>
 
-<style scoped>
-
+<style>
+:root {
+  font-size: 16px;
+ 
+  /* transition: font-size 0.3s; */
+}
 </style>
