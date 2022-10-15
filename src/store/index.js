@@ -8,3 +8,12 @@ export const useDarkStore = defineStore("darkStore", {
     };
   },
 });
+
+
+export const useAuthStore=defineStore('AuthStore',{
+  state:()=>{
+    return {
+      Auth:""
+    }
+  }
+})
