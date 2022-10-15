@@ -27,6 +27,7 @@
           </el-radio>
         </el-radio-group>
       </el-form-item>
+
       <el-form-item>
         <el-button
           :class="$style.submitBtn"
@@ -42,6 +43,7 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
+import router from "@/router";
 import api from "../../axios";
 
 import { user_register_role } from "@/roles/LoginReg.js";
@@ -70,12 +72,25 @@ const submitForm = async (formEl) => {
   if (!formEl) return;
   try {
     await formEl.validate();
-   
+
+    const data = await api.register(
+      form.username,
+      form.password,
+      form.id,
+      form.email,
+      form.role.selected
+    );
+    console.log(data);
+
     if (data.status === 0) {
-      ElMessage.success(data.message);
+      ElMessage.success(data.message + " 正在为您跳转到登陆界面...");
+
       //TODO:跳转到登录界面
+      router.push({ name: "Login" });
     }
   } catch (err) {
+    console.error(err);
+
     ElMessage.error(err);
   }
 };

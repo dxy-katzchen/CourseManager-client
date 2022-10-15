@@ -10,6 +10,18 @@ const api = {
         password,
       },
     }),
+  register: async (username, password, uid, email, role) =>
+    await axios({
+      url: "/user/register",
+      method: "POST",
+      data: {
+        username,
+        password,
+        uid,
+        email,
+        role,
+      },
+    }),
 };
 
 export default api;

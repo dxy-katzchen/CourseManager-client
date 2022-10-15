@@ -16,7 +16,7 @@ instance.interceptors.request.use(
     // 不以 /user/ 开头, 加 token
     if (!/$\/user\//.test(uri)) {
       const AuthStore = useAuthStore();
-      config.headers.set("Authorization",  AuthStore.Auth);
+      config.headers.set("Authorization", AuthStore.Auth);
     }
     return config;
   },
@@ -32,7 +32,6 @@ instance.interceptors.response.use(
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message);
     }
-
     return res.data;
   },
   (err) => {
