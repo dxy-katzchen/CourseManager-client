@@ -8,7 +8,11 @@
       </div>
     </div>
     <div :class="$style.right">
-      <router-view />
+      <router-view v-slot="{ Component, route }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" :key="route.path" />
+        </transition>
+      </router-view>
     </div>
   </BackGround>
 </template>
@@ -49,5 +53,26 @@ import BackGround from "./BackGround.vue";
   flex-direction: column;
   width: 45vw;
   height: 100vh;
+}
+</style>
+<style>
+/* 渐变设置 */
+.fade-enter-from{
+  transform: translateY(-30rem);
+  opacity: 0;
+}
+.fade-leave-to {
+  transform: translateY(10rem);
+  opacity: 0;
+}
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-enter-active {
+  transition: all 0.7s ease;
+}
+.fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.6, 0.6, 1);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.loginCard" class="animate__animated animate__fadeInDown">
+  <div :class="$style.loginCard">
     <span :class="$style.title">登录</span>
     <el-form
       ref="ruleFormRef"
@@ -31,6 +31,7 @@ import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import api from "../../axios";
 import { useAuthStore } from "../../store";
+import { user_login_role } from "@/roles/LoginReg.js";
 
 const ruleFormRef = ref(null);
 
@@ -41,21 +42,7 @@ const form = reactive({
 
 const AuthStore = useAuthStore();
 
-const rules = reactive({
-  id: [
-    { required: true, message: "学/工号不得为空", trigger: "blur" },
-    { min: 12, max: 12, message: "学/工号需要为12位", trigger: "blur" },
-  ],
-  password: [
-    { required: true, message: "密码不得为空", trigger: "blur" },
-    {
-      min: 6,
-      max: 12,
-      message: "密码需要为6-12位数字/字母",
-      trigger: "blur",
-    },
-  ],
-});
+const rules = reactive(user_login_role);
 
 const submitForm = async (formEl) => {
   if (!formEl) return;
@@ -113,6 +100,12 @@ const submitForm = async (formEl) => {
     color: #fff;
     margin-top: 0.6rem;
     height: 3.5rem;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: translateY(-0.2rem);
+      box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+      transition: all 0.3s ease;
+    }
   }
 }
 </style>
