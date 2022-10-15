@@ -80,7 +80,6 @@ const submitForm = async (formEl) => {
       form.email,
       form.role.selected
     );
-    console.log(data);
 
     if (data.status === 0) {
       ElMessage.success(data.message + " 正在为您跳转到登陆界面...");
@@ -89,8 +88,6 @@ const submitForm = async (formEl) => {
       router.push({ name: "Login" });
     }
   } catch (err) {
-    console.error(err);
-
     ElMessage.error(err);
   }
 };
