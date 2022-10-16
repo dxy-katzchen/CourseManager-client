@@ -12,7 +12,10 @@
         <el-input v-model="form.id" />
       </el-form-item>
       <el-form-item label="密码：" prop="password">
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" type="password" show-password />
+      </el-form-item>
+      <el-form-item label="验证码" >
+        <Captcha />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -27,11 +30,12 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import api from "../../axios";
 import { useAuthStore } from "../../store";
 import { user_login_role } from "@/roles/LoginReg.js";
+import Captcha from "../../components/captcha.vue";
 
 const ruleFormRef = ref(null);
 

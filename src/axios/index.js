@@ -22,6 +22,11 @@ const api = {
         role,
       },
     }),
+  captcha: async () =>
+    await axios({
+      url: "/user/captcha",
+      method: "GET",
+    }),
 };
 
 export default api;
