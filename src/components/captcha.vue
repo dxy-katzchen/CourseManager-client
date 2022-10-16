@@ -23,6 +23,7 @@ const check = () => {
 watch(is_equal, (val) => {
   emit("getData", val);
 });
+//点击更新
 const refresh = async () => {
   try {
     const data = await api.captcha();
@@ -36,4 +37,10 @@ const refresh = async () => {
 };
 </script>
 
-<style module lang="less"></style>
+<style module lang="less">
+span{
+    :hover{
+        cursor: pointer;
+    }
+}
+</style>
