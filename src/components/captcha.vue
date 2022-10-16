@@ -16,7 +16,8 @@ onMounted(() => {
   refresh();
 });
 const check = () => {
-  is_equal.value = checkCode.value === str.value;
+  let lowerCase = checkCode.value.toLowerCase();
+  is_equal.value = lowerCase === str.value;
 };
 //监听,只有状态改变才emit
 watch(is_equal, (val) => {
@@ -26,7 +27,7 @@ const refresh = async () => {
   try {
     const data = await api.captcha();
     if (data.status === 0) {
-      str.value = data.data.text;
+      str.value = data.data.text.toLowerCase();
       svg.value = `<div>${data.data.svg_img}</div>`;
     }
   } catch (error) {
