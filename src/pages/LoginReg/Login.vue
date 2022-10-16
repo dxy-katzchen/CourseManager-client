@@ -14,8 +14,8 @@
       <el-form-item label="密码：" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item label="验证码" >
-        <Captcha />
+      <el-form-item label="验证码" :error="is_human_error">
+        <Captcha @getData="getData" />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted } from "vue";
+import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import api from "../../axios";
 import { useAuthStore } from "../../store";
@@ -38,6 +38,8 @@ import { user_login_role } from "@/roles/LoginReg.js";
 import Captcha from "../../components/captcha.vue";
 
 const ruleFormRef = ref(null);
+
+const is_human_error = ref("");
 
 const form = reactive({
   id: "",
@@ -47,10 +49,13 @@ const form = reactive({
 const AuthStore = useAuthStore();
 
 const rules = reactive(user_login_role);
-
+const getData = (val) => {
+  is_human_error.value = val ? "" : "验证码错误";
+};
 const submitForm = async (formEl) => {
   if (!formEl) return;
   try {
+    if (is_human_error.value !== "") return;
     await formEl.validate();
     const data = await api.login(form.id, form.password);
     if (data.status === 0) {

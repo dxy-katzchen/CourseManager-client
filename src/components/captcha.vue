@@ -1,20 +1,22 @@
 <template>
-  <el-input v-model="checkCode" style="width: 50%" />
+  <el-input v-model="checkCode" style="width: 50%" @input="check" />
   <span v-html="svg" @click="refresh"></span>
 </template>
 
 <script setup>
-import { ref, onMounted} from "vue";
+import { ref, onMounted } from "vue";
 import api from "@/axios";
 const checkCode = ref("");
 const svg = ref(null);
 const str = ref("");
-
-
+const emit = defineEmits(["getData"]);
 
 onMounted(() => {
   refresh();
 });
+const check = () => {
+  emit("getData", checkCode.value === str.value);
+};
 const refresh = async () => {
   try {
     const data = await api.captcha();
@@ -26,7 +28,6 @@ const refresh = async () => {
     ElMessage.error(err);
   }
 };
-
 </script>
 
 <style module lang="less"></style>
