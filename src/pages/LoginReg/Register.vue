@@ -46,7 +46,7 @@ import { ElMessage } from "element-plus";
 import router from "@/router";
 import api from "../../axios";
 
-import { user_register_role } from "@/roles/LoginReg.js";
+import { user_register_rule } from "@/roles/LoginReg.js";
 
 const ruleFormRef = ref(null);
 
@@ -66,7 +66,7 @@ const form = reactive({
   },
 });
 
-const rules = reactive(user_register_role);
+const rules = reactive(user_register_rule);
 
 const submitForm = async (formEl) => {
   if (!formEl) return;

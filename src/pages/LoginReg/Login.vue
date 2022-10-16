@@ -34,7 +34,7 @@ import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import api from "../../axios";
 import { useAuthStore } from "../../store";
-import { user_login_role } from "@/roles/LoginReg.js";
+import { user_login_rule } from "@/roles/LoginReg.js";
 import Captcha from "../../components/captcha.vue";
 
 const ruleFormRef = ref(null);
@@ -48,7 +48,7 @@ const form = reactive({
 
 const AuthStore = useAuthStore();
 
-const rules = reactive(user_login_role);
+const rules = reactive(user_login_rule);
 const getData = (val) => {
   is_human_error.value = val ? "" : "验证码错误";
 };

@@ -27,6 +27,14 @@ const api = {
       url: "/user/captcha",
       method: "GET",
     }),
+  sendEmail: async (email) =>
+    await axios({
+      url: "/user/lostPwd/sendEmail",
+      method: "POST",
+      data: {
+        email,
+      },
+    }),
 };
 
 export default api;
