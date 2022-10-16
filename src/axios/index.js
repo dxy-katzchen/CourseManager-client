@@ -35,6 +35,15 @@ const api = {
         email,
       },
     }),
+  varify: async (email, checkCode) =>
+    await axios({
+      url: "/user/lostPwd/varify",
+      method: "POST",
+      data: {
+        email,
+        checkCode,
+      },
+    }),
 };
 
 export default api;

@@ -21,7 +21,7 @@
         <el-button
           :class="$style.submitBtn"
           type="primary"
-          @click="submitForm(ruleFormRef)"
+          @click="varifyCheckCode(ruleFormRef)"
           >提交</el-button
         >
       </el-form-item>
@@ -30,21 +30,31 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, computed } from "vue";
 import { ElMessage, ElNotification } from "element-plus";
 import api from "../../axios";
 
-import { forget_check_email_rule } from "@/roles/LoginReg.js";
+import {
+  forget_check_email_rule,
+  forget_check_code_rule,
+} from "@/roles/LoginReg.js";
+
+const rule1 = reactive(forget_check_email_rule);
+const rule2 = reactive(forget_check_code_rule);
+
+const rules = computed(() => {
+  return showCodeRule.value ? rule2 : rule1;
+});
 
 const ruleFormRef = ref(null);
-
+const showCodeRule = ref(false);
 const form = reactive({
   email: "",
   checkCode: "",
 });
 
-let rules = reactive(forget_check_email_rule);
 const sendEmail = async (formEl) => {
+  showCodeRule.value = false;
   if (!formEl) return;
   try {
     await formEl.validate();
@@ -56,18 +66,18 @@ const sendEmail = async (formEl) => {
         title: data.message,
         message: "邮箱已发送,请注意查收",
       });
+      showCodeRule.value = true;
     }
   } catch (err) {
     ElMessage.error(err);
   }
 };
-const submitForm = async (formEl) => {
+const varifyCheckCode = async (formEl) => {
+  showCodeRule.value = true;
   if (!formEl) return;
   try {
     await formEl.validate();
-    const data = await api.sendEmail(form.email);
-    console.log(data);
-
+    const data = await api.varify(form.email, form.checkCode);
     if (data.status === 0) {
       ElMessage.success(data.message);
     }
