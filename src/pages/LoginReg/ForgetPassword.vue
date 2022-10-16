@@ -40,12 +40,15 @@ import { reactive, ref, computed } from "vue";
 import { ElMessage, ElNotification } from "element-plus";
 import { useIntervalFn } from "@vueuse/core";
 import api from "../../axios";
+import { useInfoStore } from "../../store";
+import router from "@/router";
 
 import {
   forget_check_email_rule,
   forget_check_code_rule,
 } from "@/roles/LoginReg.js";
 
+const userInfo = useInfoStore();
 const rule1 = reactive(forget_check_email_rule);
 const rule2 = reactive(forget_check_code_rule);
 
@@ -88,6 +91,7 @@ const sendEmail = async (formEl) => {
         title: data.message,
         message: "邮箱已发送,请注意查收",
       });
+      userInfo.email = form.email;
       showCodeRule.value = true;
     }
   } catch (err) {
@@ -106,6 +110,7 @@ const varifyCheckCode = async (formEl) => {
       router.push({ name: "Reset" });
     }
   } catch (err) {
+    console.error(err);
     ElMessage.error(err);
   }
 };

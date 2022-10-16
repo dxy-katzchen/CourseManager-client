@@ -12,30 +12,28 @@ const router = createRouter({
       path: "/login",
       name: "LoginRegisterPage",
       component: () => import("@/pages/LoginReg/index.vue"),
-      children:[
+      children: [
         {
-          path:'',
-          name:'Login',
-          component:()=>import ('@/pages/LoginReg/Login.vue'),
+          path: "",
+          name: "Login",
+          component: () => import("@/pages/LoginReg/Login.vue"),
         },
         {
-          path:'register',
-          name:'Register',
-          component:()=>import ('@/pages/LoginReg/Register.vue'),
+          path: "register",
+          name: "Register",
+          component: () => import("@/pages/LoginReg/Register.vue"),
         },
         {
-          path:'forgetPassword',
-          name:'ForgetPassword',
-          component:()=>import ('@/pages/LoginReg/ForgetPassword.vue'),
-          children:[
-            {
-              path:'reset',
-              name:'Reset',
-              component:()=>import ('@/pages/LoginReg/ResetPassword.vue'),
-            },
-          ]
+          path: "forgetPassword",
+          name: "ForgetPassword",
+          component: () => import("@/pages/LoginReg/ForgetPassword.vue"),
         },
-      ]
+        {
+          path: "reset",
+          name: "Reset",
+          component: () => import("@/pages/LoginReg/ResetPassword.vue"),
+        },
+      ],
     },
   ],
 });

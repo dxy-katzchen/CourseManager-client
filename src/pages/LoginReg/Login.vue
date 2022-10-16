@@ -33,7 +33,7 @@
 import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import api from "../../axios";
-import { useAuthStore } from "../../store";
+import { useInfoStore } from "../../store";
 import { user_login_rule } from "@/roles/LoginReg.js";
 import Captcha from "../../components/captcha.vue";
 
@@ -46,7 +46,7 @@ const form = reactive({
   password: "",
 });
 
-const AuthStore = useAuthStore();
+const userInfo = useInfoStore();
 
 const rules = reactive(user_login_rule);
 const getData = (val) => {
@@ -59,7 +59,7 @@ const submitForm = async (formEl) => {
     await formEl.validate();
     const data = await api.login(form.id, form.password);
     if (data.status === 0) {
-      AuthStore.Auth = data.token;
+      userInfo.Auth = data.token;
       ElMessage.success(data.message);
       form.id = "";
       form.password = "";

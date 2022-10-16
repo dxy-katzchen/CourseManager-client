@@ -10,10 +10,11 @@ export const useDarkStore = defineStore("darkStore", {
 });
 
 
-export const useAuthStore=defineStore('AuthStore',{
+export const useInfoStore=defineStore('userInfo',{
   state:()=>{
     return {
-      Auth:""
+      Auth:"",
+      email:""
     }
   }
 })

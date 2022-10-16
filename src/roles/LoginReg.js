@@ -57,3 +57,25 @@ export const forget_check_code_rule = {
     { min: 6, max: 6, message: "请填写6位验证码", trigger: "blur" },
   ],
 };
+
+export const forget_reset_pwd_rule = {
+
+  password: [
+    { required: true, message: "密码不得为空", trigger: "blur" },
+    {
+      min: 6,
+      max: 12,
+      message: "密码需要为6-12位数字/字母",
+      trigger: "blur",
+    },
+  ],
+  passwordRepeat: [
+    { required: true, message: "确认密码不得为空", trigger: "blur" },
+    {
+      min: 6,
+      max: 12,
+      message: "确认密码需要为6-12位数字/字母",
+      trigger: "blur",
+    },
+  ],
+};
