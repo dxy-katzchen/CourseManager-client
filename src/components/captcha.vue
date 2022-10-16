@@ -1,6 +1,6 @@
 <template>
-  <el-input v-model="checkCode" style="width: 50%" @input="check" />
-  <span v-html="svg" @click="refresh"></span>
+  <el-input :class="$style.captchaInput" v-model="checkCode" @input="check" />
+  <span v-html="svg" @click="refresh" ></span>
 </template>
 
 <script setup>
@@ -38,9 +38,14 @@ const refresh = async () => {
 </script>
 
 <style module lang="less">
-span{
-    :hover{
-        cursor: pointer;
-    }
+.captchaInput {
+  width: 40%;
+  display: inline-block;
+
+  span {
+    display: inline-block;
+    width: 40%;
+    cursor: pointer;
+  }
 }
 </style>
