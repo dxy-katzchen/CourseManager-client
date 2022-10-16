@@ -13,8 +13,11 @@
       </el-form-item>
       <el-form-item label="验证码：" prop="checkCode">
         <el-input v-model="form.checkCode" :class="$style.checkCodeInput" />
-        <el-button :class="$style.checkCodeBtn" @click="sendEmail(ruleFormRef)"
-          >获取验证码</el-button
+        <el-button
+          :class="$style.checkCodeBtn"
+          :disabled="timer!==0"
+          @click="sendEmail(ruleFormRef)"
+          >{{ timer === 0 ? "获取验证码" : `${timer}秒后发送` }}</el-button
         >
       </el-form-item>
       <el-form-item>
@@ -32,6 +35,7 @@
 <script setup>
 import { reactive, ref, computed } from "vue";
 import { ElMessage, ElNotification } from "element-plus";
+import { useIntervalFn } from "@vueuse/core";
 import api from "../../axios";
 
 import {
@@ -53,9 +57,24 @@ const form = reactive({
   checkCode: "",
 });
 
+const timer = ref(0);
+
+const { pause, resume } = useIntervalFn(
+  () => {
+    timer.value--;
+    if (timer.value <= 0) pause();
+  },
+  1000,
+  { immediate: false }
+);
+
 const sendEmail = async (formEl) => {
   showCodeRule.value = false;
-  if (!formEl) return;
+
+  if (!formEl || timer.value !== 0) return;
+  timer.value = 60;
+  //重启定时器
+  resume();
   try {
     await formEl.validate();
 
