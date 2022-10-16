@@ -27,6 +27,13 @@ const router = createRouter({
           path:'forgetPassword',
           name:'ForgetPassword',
           component:()=>import ('@/pages/LoginReg/ForgetPassword.vue'),
+          children:[
+            {
+              path:'reset',
+              name:'Reset',
+              component:()=>import ('@/pages/LoginReg/ResetPassword.vue'),
+            },
+          ]
         },
       ]
     },
