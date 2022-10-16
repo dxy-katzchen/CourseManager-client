@@ -78,7 +78,7 @@ const sendEmail = async (formEl) => {
   showCodeRule.value = false;
 
   if (!formEl || timer.value !== 0) return;
-  timer.value = 60;
+  timer.value = 120;
   //重启定时器
   resume();
   try {
