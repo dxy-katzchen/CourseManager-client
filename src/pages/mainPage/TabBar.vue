@@ -30,8 +30,7 @@
 
 <script setup>
 import { onMounted } from "vue";
-import api from "@/axios";
-import { ElMessage } from "element-plus";
+
 import { useInfoStore } from "@/store";
 import router from "../../router";
 
