@@ -9,18 +9,25 @@ export const useDarkStore = defineStore("darkStore", {
   },
 });
 
+export const useInfoStore = defineStore("userInfo", {
+  state: () => ({
+    // Auth:"",
+    //是否登录,也就是是否有token,
+    //pinia不存token,只存状态.token存在localstorage
+    isAuthenticated: false,
+    user: {},
+  }),
 
-export const useInfoStore=defineStore('userInfo',{
-  state:()=>{
-    return {
-      Auth:"",
-      email:"",
-      avatar:null,
-      username:"",
-      uid:"",
-      upid:null,
-      role:null,
-    }
-  }
-})
-
+  getters: {
+    getAuthenticated: (state) => state.isAuthenticated,
+    getUserInfo: (state) => state.user,
+  },
+  actions: {
+    setAuth(isAuth) {
+      this.isAuthenticated = isAuth;
+    },
+    setUser(user) {
+      this.user = user;
+    },
+  },
+});

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useInfoStore } from "@/store";
+
 import { ElMessage } from "element-plus";
 
 const instance = axios.create({
@@ -15,9 +15,9 @@ instance.interceptors.request.use(
     const uri = config.url;
     // 不以 /user/ 开头, 加 token
     if (!/$\/user\//.test(uri)) {
-      const userInfo = useInfoStore();
+      
 
-      config.headers.set("Authorization", userInfo.Auth);
+      config.headers.set("Authorization", "Bearer "+localStorage.getItem('token'));
     }
     return config;
   },

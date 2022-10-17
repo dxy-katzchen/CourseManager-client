@@ -9,6 +9,16 @@ const router = createRouter({
       component: () => import("@/pages/mainPage/index.vue"),
     },
     {
+      path: "/userpage",
+      name: "Userpage",
+      component: () => import("@/pages/UserPage/index.vue"),
+    },
+    {
+      path: "/myInfo",
+      name: "MyInfo",
+      component: () => import("@/pages/MyInfo/index.vue"),
+    },
+    {
       path: "/login",
       name: "LoginRegisterPage",
       component: () => import("@/pages/LoginReg/index.vue"),
@@ -36,6 +46,15 @@ const router = createRouter({
       ],
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (!localStorage.token) {
+    if (to.name == "Login") next();
+    else router.push({ name: "Login" });
+  } else {
+    next();
+  }
 });
 
 export default router;
