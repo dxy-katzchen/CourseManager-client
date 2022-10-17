@@ -14,7 +14,12 @@ export const useInfoStore=defineStore('userInfo',{
   state:()=>{
     return {
       Auth:"",
-      email:""
+      email:"",
+      avatar:null,
+      username:"",
+      uid:"",
+      upid:null,
+      role:null,
     }
   }
 })

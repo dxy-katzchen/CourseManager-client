@@ -56,6 +56,11 @@ const api = {
         passwordRepeat,
       },
     }),
+  getUserInfo: async () =>
+    await axios({
+      url: "/my/userinfo",
+      method: "GET",
+    }),
 };
 
 export default api;
