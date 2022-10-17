@@ -1,11 +1,12 @@
 <template>
   <div :class="$style.mainPageTabBar">
+    <img src="../../../imgs/cherry.svg" alt="" style="width: 3rem" />
     <span :class="$style.title">CourseTable </span>
     <span :class="$style.ch">课程管理系统</span>
     <div :class="$style.middle"></div>
     <span :class="$style.username"> {{ userInfo.username }} , 你好!</span>
     <img
-      :src="userInfo.avatar ? `${userInfo.avatar}` : '../../../imgs/user.svg'"
+      :src="userInfo.avatar ? `${userInfo.avatar}` : '../../../imgs/peach.svg'"
       alt=""
       :class="$style.avatar"
     />
@@ -46,15 +47,19 @@ onMounted(async () => {
   top: 0;
   width: 100%;
   height: 3.5rem;
-  background-color: aqua;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  // background-color: aqua;
   line-height: 3.5rem;
   display: flex;
+  background-image: linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%);
+  color: #fff;
   .title {
     flex: 0 0 auto;
     order: 1;
     vertical-align: middle;
-    color: #6e35ae;
-    margin: 0 0.5rem 0 1.5rem;
+
+    margin: 0 0.5rem;
     font-size: 1.5rem;
     font-weight: bold;
     left: 1rem;
@@ -63,13 +68,13 @@ onMounted(async () => {
     flex: 0 0 auto;
     order: 2;
     vertical-align: middle;
-    color: #6e35ae;
+
     font-size: 1.2rem;
     font-weight: bold;
   }
   .middle {
     flex: 1 0 auto;
-    background: greenyellow;
+
     order: 3;
   }
   .username {
@@ -82,9 +87,8 @@ onMounted(async () => {
   .avatar {
     flex: 0 0 auto;
     order: 5;
-    width: 2rem;
-    padding-right: 2rem;
-    color: #797979;
+    width: 2.7rem;
+
     vertical-align: middle;
   }
 }

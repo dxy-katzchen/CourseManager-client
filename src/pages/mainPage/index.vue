@@ -15,7 +15,7 @@ import Aside from "./aside.vue";
 .main {
   font-size: 1rem;
   height: 100rem;
-  background-color: green;
+  // background-color: green;
   padding: 3.5rem 2rem 2rem 13rem;
 }
 </style>
