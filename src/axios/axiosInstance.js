@@ -16,6 +16,7 @@ instance.interceptors.request.use(
     // 不以 /user/ 开头, 加 token
     if (!/$\/user\//.test(uri)) {
       const userInfo = useInfoStore();
+
       config.headers.set("Authorization", userInfo.Auth);
     }
     return config;
