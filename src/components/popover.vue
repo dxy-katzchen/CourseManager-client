@@ -5,7 +5,7 @@
         :src="
           userInfo.getUserInfo.avatar
             ? `${userInfo.getUserInfo.avatar}`
-            : '../../public/imgs/peach.svg'
+            : '../../imgs/peach.svg'
         "
         alt=""
         class="avatar"

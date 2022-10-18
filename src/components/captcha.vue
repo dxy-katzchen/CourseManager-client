@@ -1,10 +1,10 @@
 <template>
   <el-input :class="$style.captchaInput" v-model="checkCode" @input="check" />
-  <span v-html="svg" @click="refresh" ></span>
+  <span v-html="svg" @click="refresh"></span>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 import api from "@/axios";
 const checkCode = ref("");
 const svg = ref(null);
@@ -14,6 +14,9 @@ const emit = defineEmits(["getData"]);
 
 onMounted(() => {
   refresh();
+});
+onUnmounted(() => {
+  checkCode.value = "";
 });
 const check = () => {
   let lowerCase = checkCode.value.toLowerCase();
