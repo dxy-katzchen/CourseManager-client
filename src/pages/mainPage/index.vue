@@ -7,7 +7,7 @@
 
 <script setup>
 import {} from "vue";
-import TabBar from "@/components/TabBar.vue";
+import TabBar from "./TabBar.vue";
 import Aside from "./aside.vue";
 </script>
 

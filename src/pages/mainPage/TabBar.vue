@@ -13,7 +13,7 @@
 
 <script setup>
 import { useInfoStore } from "@/store";
-import Popover from "./popover.vue";
+import Popover from "@/components/popover.vue";
 
 const userInfo = useInfoStore();
 </script>
