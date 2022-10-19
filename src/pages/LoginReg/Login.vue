@@ -34,7 +34,7 @@ import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import api from "../../axios";
 import { useInfoStore } from "../../store";
-import { user_login_rule } from "@/roles/LoginReg.js";
+import { user_login_rule } from "@/rules/LoginReg.js";
 import Captcha from "../../components/captcha.vue";
 import router from "@/router";
 import jwt_decode from "jwt-decode";

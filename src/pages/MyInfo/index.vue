@@ -1,14 +1,18 @@
 <template>
   <BackGround>
     <div :class="$style.topBar">
-      <i class="iconfont icon-zuojiantou_huaban" :class="$style.leftIcon"></i>
+      <i
+        class="iconfont icon-zuojiantou_huaban"
+        @click="router.back(-1)"
+        :class="$style.leftIcon"
+      ></i>
     </div>
     <div :class="$style.myInfo">
       <span :class="$style.title"> 我的信息 </span>
 
       <el-form
-        ref="ruleFormRef"
-        :module="form"
+        ref="infoFormRef"
+        :model="form"
         :rules="rules"
         label-width="5rem"
         :class="$style.form"
@@ -16,20 +20,33 @@
         <table :class="$style.table">
           <tr>
             <td rowspan="4">
-              <el-upload
-                action=""
-                :class="$style.uploader"
-                :http-request="upload"
-                :show-file-list="false"
-              >
-                <img
-                  v-if="form.avatar"
-                  :src="form.avatar"
-                  alt=""
-                  :class="$style.avatar"
-                />
-                <el-icon v-else :class="$style.uploaderIcon"><Plus /></el-icon>
-              </el-upload>
+              <div :class="$style.td">
+                <el-upload
+                  action=""
+                  :class="$style.uploader"
+                  :http-request="upload"
+                  :show-file-list="false"
+                >
+                  <img
+                    v-if="form.avatar"
+                    :src="form.avatar"
+                    alt=""
+                    :class="$style.avatar"
+                  />
+                  <el-icon v-else :class="$style.uploaderIcon"
+                    ><Plus
+                  /></el-icon>
+                </el-upload>
+                <div :class="$style.role" :style="roleColor">
+                  {{
+                    form.role === 1
+                      ? "学生"
+                      : form.role === 2
+                      ? "教师"
+                      : "管理员"
+                  }}
+                </div>
+              </div>
             </td>
 
             <td :class="$style.tableInput">
@@ -41,21 +58,29 @@
           <tr>
             <td :class="$style.tableInput">
               <el-form-item label="邮箱:" prop="email">
-                <el-input v-model="form.email" />
+                <el-input
+                  v-model="form.email"
+                  @blur="changeInfo(infoFormRef)"
+                />
               </el-form-item>
             </td>
           </tr>
           <tr>
             <td :class="$style.tableInput">
               <el-form-item label="用户名:" prop="username">
-                <el-input v-model="form.username" />
+                <el-input
+                  v-model="form.username"
+                  @blur="changeInfo(infoFormRef)"
+                />
               </el-form-item>
             </td>
           </tr>
           <tr>
             <td :class="$style.tableInput">
-              <el-form-item label="主页id:" prop="upid">
-                <el-input v-model="form.upid" />
+              <el-form-item label="主页">
+                <button :class="$style.myPageBtn">
+                  {{ form.upid ? "进入主页" : "创建主页" }}
+                </button>
               </el-form-item>
             </td>
           </tr>
@@ -66,11 +91,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useInfoStore } from "@/store";
-import { change_myinfo_rule } from "@/roles/myInfo.js";
+import { change_myinfo_rule } from "@/rules/myInfo.js";
 import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
+import router from "@/router";
 import BackGround from "./BackGround.vue";
 import axios from "axios";
 import api from "@/axios";
@@ -78,7 +104,7 @@ import api from "@/axios";
 const userInfo = useInfoStore();
 const rules = reactive(change_myinfo_rule);
 
-const ruleFormRef = ref(null);
+const infoFormRef = ref(null);
 
 const form = reactive({
   username: userInfo.getUserInfo.username, //可以改
@@ -89,9 +115,10 @@ const form = reactive({
   upid: userInfo.getUserInfo.upid, //可以改
 });
 
-const upload = (file) => {
+const upload = async (file) => {
   const formData = new FormData();
   formData.append("smfile", file.file);
+
   axios
     .post("/api/v2/upload", formData, {
       headers: {
@@ -106,30 +133,37 @@ const upload = (file) => {
 
         case "image_repeated":
           form.avatar = res.data.images;
-          try {
-            let data = await api.changeUserInfo(
-              form.username,
-              form.email,
-              form.avatar
-            );
-
-            if (data.status == 0) {
-              ElMessage.success(data.message);
-            }else{
-              ElMessage.warning(data.message);
-            }
-          } catch (error) {
-            ElMessage.error(error);
-          }
-
+          await changeInfo(infoFormRef.value);
           break;
-
         default:
           ElMessage.error("上传失败");
           break;
       }
     });
 };
+const changeInfo = async (formEl) => {
+  if (!formEl) return;
+  try {
+    await formEl.validate();
+    let data = await api.changeUserInfo(form.username, form.email, form.avatar);
+    if (data.status == 0) {
+      const user = Object.assign(userInfo.getUserInfo, form);
+      //状态管理同步
+      userInfo.setUser(user);
+
+      ElMessage.success(data.message);
+    } else {
+      ElMessage.warning(data.message);
+    }
+  } catch (error) {
+    ElMessage.error(error);
+  }
+};
+
+const roleColor = computed(() => ({
+  background:
+    form.role === 1 ? "#c44ae3" : form.role === 2 ? "#8c00be" : "#7e0681",
+}));
 </script>
 
 <style module lang="less">
@@ -147,11 +181,12 @@ const upload = (file) => {
   color: #fff;
   .leftIcon {
     font-size: 2rem;
+    cursor: pointer;
   }
 }
 .myInfo {
   width: 60%;
-  padding: 6rem 0 2rem 0;
+  padding: 8rem 0 2rem 0;
   text-align: center;
   .title {
     font-size: 2rem;
@@ -161,10 +196,56 @@ const upload = (file) => {
 
     .table {
       width: 100%;
+      .td {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .uploader {
+        width: 178px;
+        height: 178px;
+        border: 1px dashed var(--el-border-color);
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: var(--el-transition-duration-fast);
+        &:hover {
+          border-color: var(--el-color-primary);
+        }
+      }
+      .role {
+        width: 4rem;
+        height: 1.7rem;
+
+        line-height: 1.7rem;
+        text-align: center;
+        color: #fff;
+        margin-top: 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.8rem;
+      }
+      .uploaderIcon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        text-align: center;
+      }
       .tableInput {
         padding: 0.2rem 4rem 0.2rem 2rem;
         box-sizing: border-box;
         width: 80%;
+        .myPageBtn {
+          background-color: #7e0681;
+          width: 6rem;
+          margin-left: 0.5rem;
+          cursor: pointer;
+          height: 2.2rem;
+          border-radius: 0.8rem;
+          color: #fff;
+          border: 0;
+        }
       }
       .avatar {
         display: block;
@@ -173,27 +254,6 @@ const upload = (file) => {
         object-fit: cover;
       }
     }
-  }
-  .uploader {
-    width: 178px;
-    height: 178px;
-    border: 1px dashed var(--el-border-color);
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: var(--el-transition-duration-fast);
-    &:hover {
-      border-color: var(--el-color-primary);
-    }
-  }
-
-  .uploaderIcon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    text-align: center;
   }
 }
 </style>
