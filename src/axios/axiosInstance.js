@@ -15,9 +15,10 @@ instance.interceptors.request.use(
     const uri = config.url;
     // 不以 /user/ 开头, 加 token
     if (!/$\/user\//.test(uri)) {
-      
-
-      config.headers.set("Authorization", "Bearer "+localStorage.getItem('token'));
+      config.headers.set(
+        "Authorization",
+        "Bearer " + localStorage.getItem("token")
+      );
     }
     return config;
   },
@@ -41,3 +42,7 @@ instance.interceptors.response.use(
 );
 
 export default instance;
+
+
+
+

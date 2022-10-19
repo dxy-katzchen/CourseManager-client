@@ -1,4 +1,5 @@
 import axios from "./axiosInstance";
+
 import { useInfoStore } from "@/store";
 const userInfo = useInfoStore();
 
@@ -61,6 +62,7 @@ const api = {
       url: "/my/userinfo",
       method: "GET",
     }),
+  
 };
 
 export default api;

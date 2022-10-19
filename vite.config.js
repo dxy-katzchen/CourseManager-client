@@ -1,24 +1,32 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-// import { resolve } from 'path' // 主要用于alias文件路径别名
-import path from 'path'
-
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import path from "path";
 
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      "@": path.resolve(__dirname, "src"),
     },
   },
   css: {
     preprocessorOptions: {
-        less: {
-            // modifyVars: {
-            //     hack: `true; @import (reference) "${path.resolve("src/assets/css/base.less")}";`,
-            // },
-            javascriptEnabled: true,
-        },
+      less: {
+     
+        javascriptEnabled: true,
+      },
     },
-},
-})
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://smms.app",
+        changeOrigin: true,
+        secure: false,
+        headers: {
+          Referer: "https://smms.app",
+        },
+      },
+    },
+  },
+});
