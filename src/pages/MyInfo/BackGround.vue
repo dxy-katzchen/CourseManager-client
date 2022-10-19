@@ -15,14 +15,14 @@ onMounted(() => {
   effect = VANTA.WAVES({
     el: infoBg.value,
     mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0x8959ff,
-  zoom: 0.80
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.0,
+    minWidth: 200.0,
+    scale: 1.0,
+    scaleMobile: 1.0,
+    color: 0x725db9,
+    zoom: 0.8,
   });
 });
 

@@ -17,7 +17,7 @@ instance.interceptors.request.use(
     if (!/$\/user\//.test(uri)) {
       config.headers.set(
         "Authorization",
-        "Bearer " + localStorage.getItem("token")
+         localStorage.getItem("token")
       );
     }
     return config;

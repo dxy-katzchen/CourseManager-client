@@ -62,7 +62,16 @@ const api = {
       url: "/my/userinfo",
       method: "GET",
     }),
-  
+  changeUserInfo: async (username, email, avatar) =>
+    await axios({
+      url: "/my/userinfo",
+      method: "POST",
+      data: {
+        username,
+        email,
+        avatar,
+      },
+    }),
 };
 
 export default api;

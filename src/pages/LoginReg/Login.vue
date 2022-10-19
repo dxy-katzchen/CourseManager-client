@@ -62,6 +62,8 @@ const submitForm = async (formEl) => {
     const data = await api.login(form.id, form.password);
     if (data.status === 0) {
       localStorage.setItem("token", data.token);
+     
+      
       const decode = jwt_decode(data.token);
       userInfo.setUser(decode);
       userInfo.setAuth(!!decode);

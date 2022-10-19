@@ -73,6 +73,7 @@ import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
 import BackGround from "./BackGround.vue";
 import axios from "axios";
+import api from "@/axios";
 
 const userInfo = useInfoStore();
 const rules = reactive(change_myinfo_rule);
@@ -98,15 +99,34 @@ const upload = (file) => {
         Authorization: "SBla1ckE7r3c8z0KtSFyrtIiZIRdiSwc",
       },
     })
-    .then((res) => {
-      if (res.data.code === "success") {
-        form.avatar = res.data.data.url;
-        ElMessage.success("修改头像成功");
-      } else if (res.data.code === "image_repeated") {
-        form.avatar = res.data.images;
-        ElMessage.success("修改头像成功");
-      } else {
-        ElMessage.error("上传失败");
+    .then(async (res) => {
+      switch (res.data.code) {
+        case "success":
+          form.avatar = res.data.data.url;
+
+        case "image_repeated":
+          form.avatar = res.data.images;
+          try {
+            let data = await api.changeUserInfo(
+              form.username,
+              form.email,
+              form.avatar
+            );
+
+            if (data.status == 0) {
+              ElMessage.success(data.message);
+            }else{
+              ElMessage.warning(data.message);
+            }
+          } catch (error) {
+            ElMessage.error(error);
+          }
+
+          break;
+
+        default:
+          ElMessage.error("上传失败");
+          break;
       }
     });
 };
