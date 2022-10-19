@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <BackGround>
     <div :class="$style.topBar">
       <i class="iconfont icon-zuojiantou_huaban" :class="$style.leftIcon"></i>
     </div>
@@ -15,9 +15,10 @@
       >
         <table :class="$style.table">
           <tr>
-            <td rowspan="4" :class="$style.uploader">
+            <td rowspan="4">
               <el-upload
                 action=""
+                :class="$style.uploader"
                 :http-request="upload"
                 :show-file-list="false"
               >
@@ -61,7 +62,7 @@
         </table>
       </el-form>
     </div>
-  </div>
+  </BackGround>
 </template>
 
 <script setup>
@@ -70,6 +71,7 @@ import { useInfoStore } from "@/store";
 import { change_myinfo_rule } from "@/roles/myInfo.js";
 import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
+import BackGround from "./BackGround.vue";
 import axios from "axios";
 
 const userInfo = useInfoStore();
@@ -121,14 +123,15 @@ const upload = (file) => {
   // background-color: aqua;
   line-height: 3.5rem;
   display: flex;
-  background-image: linear-gradient(135deg, #ce9ffc 10%, #7367f0 100%);
+
   color: #fff;
   .leftIcon {
     font-size: 2rem;
   }
 }
 .myInfo {
-  padding: 6rem 4rem 2rem 4rem;
+  width: 60%;
+  padding: 6rem 0 2rem 0;
   text-align: center;
   .title {
     font-size: 2rem;
@@ -145,13 +148,15 @@ const upload = (file) => {
       }
       .avatar {
         display: block;
-        width: 100%;
-        height: 100%;
+        width: 178px;
+        height: 178px;
         object-fit: cover;
       }
     }
   }
   .uploader {
+    width: 178px;
+    height: 178px;
     border: 1px dashed var(--el-border-color);
     border-radius: 6px;
     cursor: pointer;
