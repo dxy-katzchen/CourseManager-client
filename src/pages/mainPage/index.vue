@@ -15,9 +15,11 @@ const userInfo = useInfoStore();
 
 onBeforeMount(async () => {
   try {
+    if (userInfo.token) {
+      return;
+    }
     const { data, status } = await api.getUserInfo();
-    
-    
+
     if (status === 0) {
       userInfo.user = data;
     }

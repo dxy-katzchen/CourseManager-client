@@ -21,7 +21,7 @@ export const useDarkStore = defineStore("darkStore", {
 export const useInfoStore = defineStore("userInfo", {
   state: () => ({
 
-    isAuthenticated: false,
+    
     token: "",
     user: {},
   }),
@@ -31,7 +31,7 @@ export const useInfoStore = defineStore("userInfo", {
     strategies: [
       {
         storage: localStorage,
-        paths: ["user", "isAuthenticated"],
+        paths: ["user", "token"],
       },
     ],
   },
