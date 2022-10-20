@@ -5,17 +5,21 @@
     <span :class="$style.ch">课程管理系统</span>
     <div :class="$style.middle"></div>
     <span :class="$style.username">
-      {{ userInfo.getUserInfo.username }} , 你好!</span
+      {{ userInfo.user.username }} , 你好!</span
     >
     <Popover />
   </div>
 </template>
 
 <script setup>
-import { useInfoStore } from "@/store";
+
 import Popover from "@/components/popover.vue";
+import { useInfoStore } from "@/store";
 
 const userInfo = useInfoStore();
+
+
+
 </script>
 
 <style module lang="less">

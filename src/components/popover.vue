@@ -1,12 +1,8 @@
 <template>
   <el-popover trigger="hover" placement="bottom" popper-class="infoPopover">
-    <template #reference >
+    <template #reference>
       <img
-        :src="
-          userInfo.getUserInfo.avatar
-            ? `${userInfo.getUserInfo.avatar}`
-            : '../../imgs/peach.svg'
-        "
+        :src="userInfo.user.avatar || '../../imgs/peach.svg'"
         alt=""
         class="avatar"
       />
@@ -29,12 +25,8 @@ import { useInfoStore } from "@/store";
 import router from "@/router";
 const userInfo = useInfoStore();
 
-
-
 const logout = () => {
-    router.push({ name: "Login" });
+  router.push({ name: "Login" });
   userInfo.$reset();
- 
 };
 </script>
-

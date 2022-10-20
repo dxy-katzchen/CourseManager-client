@@ -85,7 +85,11 @@
                 >
                   进入主页
                 </button>
-                <button  v-show="!form.upid" :class="$style.myPageBtn" @click="createMyPage">
+                <button
+                  v-show="!form.upid"
+                  :class="$style.myPageBtn"
+                  @click="createMyPage"
+                >
                   创建主页
                 </button>
               </el-form-item>
@@ -105,8 +109,8 @@ import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
 import router from "@/router";
 import BackGround from "./BackGround.vue";
-import axios from "axios";
 import api from "@/axios";
+import { uploadImg } from "@/axios/partThree";
 
 const userInfo = useInfoStore();
 const rules = reactive(change_myinfo_rule);
@@ -115,44 +119,25 @@ const infoFormRef = ref(null);
 
 const form = reactive({});
 onMounted(() => {
-  getInfo();
+  Object.assign(form, userInfo.user);
 });
 
-const getInfo = async () => {
-  try {
-    let data = await api.getUserInfo();
-    if (data.status === 0) {
-      Object.assign(form, data.data);
-    }
-  } catch (error) {
-    ElMessage.error(error);
+
+const upload = async ({ file }) => {
+  const res = await uploadImg(file);
+  switch (res.data.code) {
+    case "success":
+      form.avatar = res.data.data.url;
+      await changeInfo(infoFormRef.value);
+      break;
+    case "image_repeated":
+      form.avatar = res.data.images;
+      await changeInfo(infoFormRef.value);
+      break;
+    default:
+      ElMessage.error("上传失败");
+      break;
   }
-};
-const upload = async (file) => {
-  const formData = new FormData();
-  formData.append("smfile", file.file);
-
-  axios
-    .post("/api/v2/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: "SBla1ckE7r3c8z0KtSFyrtIiZIRdiSwc",
-      },
-    })
-    .then(async (res) => {
-      switch (res.data.code) {
-        case "success":
-          form.avatar = res.data.data.url;
-
-        case "image_repeated":
-          form.avatar = res.data.images;
-          await changeInfo(infoFormRef.value);
-          break;
-        default:
-          ElMessage.error("上传失败");
-          break;
-      }
-    });
 };
 const changeInfo = async (formEl) => {
   if (!formEl) return;
@@ -160,9 +145,8 @@ const changeInfo = async (formEl) => {
     await formEl.validate();
     let data = await api.changeUserInfo(form.username, form.email, form.avatar);
     if (data.status == 0) {
-      const user = Object.assign(userInfo.getUserInfo, form);
-      //状态管理同步
-      await userInfo.setUser(user);
+      Object.assign(userInfo.user, form);
+     
 
       ElMessage.success(data.message);
     } else {

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { ElMessage } from "element-plus";
+import { useInfoStore } from "@/store";
 
 const instance = axios.create({
   baseURL: "http://127.0.0.1:1111",
@@ -15,10 +16,8 @@ instance.interceptors.request.use(
     const uri = config.url;
     // 不以 /user/ 开头, 加 token
     if (!/$\/user\//.test(uri)) {
-      config.headers.set(
-        "Authorization",
-         localStorage.getItem("token")
-      );
+      const userInfo = useInfoStore();
+      config.headers.set("Authorization", userInfo.token);
     }
     return config;
   },
@@ -42,7 +41,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-
-
-
-

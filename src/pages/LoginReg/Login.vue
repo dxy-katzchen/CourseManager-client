@@ -37,7 +37,6 @@ import { useInfoStore } from "../../store";
 import { user_login_rule } from "@/rules/LoginReg.js";
 import Captcha from "../../components/captcha.vue";
 import router from "@/router";
-import jwt_decode from "jwt-decode";
 
 const ruleFormRef = ref(null);
 
@@ -61,12 +60,8 @@ const submitForm = async (formEl) => {
     await formEl.validate();
     const data = await api.login(form.id, form.password);
     if (data.status === 0) {
-      localStorage.setItem("token", data.token);
-     
-      
-      const decode = jwt_decode(data.token);
-      userInfo.setUser(decode);
-      userInfo.setAuth(!!decode);
+      userInfo.token = data.token;
+
       ElMessage.success(data.message);
 
       form.id = "";
