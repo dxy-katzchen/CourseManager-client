@@ -1,6 +1,6 @@
 <template>
   <el-popover trigger="hover" placement="bottom" popper-class="infoPopover">
-    <template #reference>
+    <template #reference >
       <img
         :src="
           userInfo.getUserInfo.avatar

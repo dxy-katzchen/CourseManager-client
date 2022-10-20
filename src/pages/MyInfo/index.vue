@@ -78,8 +78,15 @@
           <tr>
             <td :class="$style.tableInput">
               <el-form-item label="主页">
-                <button :class="$style.myPageBtn">
-                  {{ form.upid ? "进入主页" : "创建主页" }}
+                <button
+                  v-show="form.upid"
+                  :class="$style.myPageBtn"
+                  @click="goToMyPage"
+                >
+                  进入主页
+                </button>
+                <button  v-show="!form.upid" :class="$style.myPageBtn" @click="createMyPage">
+                  创建主页
                 </button>
               </el-form-item>
             </td>
@@ -91,7 +98,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, onMounted } from "vue";
 import { useInfoStore } from "@/store";
 import { change_myinfo_rule } from "@/rules/myInfo.js";
 import { ElMessage } from "element-plus";
@@ -106,15 +113,21 @@ const rules = reactive(change_myinfo_rule);
 
 const infoFormRef = ref(null);
 
-const form = reactive({
-  username: userInfo.getUserInfo.username, //可以改
-  uid: userInfo.getUserInfo.uid,
-  email: userInfo.getUserInfo.email, //可以改
-  avatar: userInfo.getUserInfo.avatar, //可以改
-  role: userInfo.getUserInfo.role,
-  upid: userInfo.getUserInfo.upid, //可以改
+const form = reactive({});
+onMounted(() => {
+  getInfo();
 });
 
+const getInfo = async () => {
+  try {
+    let data = await api.getUserInfo();
+    if (data.status === 0) {
+      Object.assign(form, data.data);
+    }
+  } catch (error) {
+    ElMessage.error(error);
+  }
+};
 const upload = async (file) => {
   const formData = new FormData();
   formData.append("smfile", file.file);
@@ -149,11 +162,26 @@ const changeInfo = async (formEl) => {
     if (data.status == 0) {
       const user = Object.assign(userInfo.getUserInfo, form);
       //状态管理同步
-      userInfo.setUser(user);
+      await userInfo.setUser(user);
 
       ElMessage.success(data.message);
     } else {
       ElMessage.warning(data.message);
+    }
+  } catch (error) {
+    ElMessage.error(error);
+  }
+};
+
+const createMyPage = async () => {
+  try {
+    const data = await api.createMyPage();
+
+    if (data.status === 0) {
+      const { upid } = data.data;
+      form.upid = upid;
+      userInfo.user.upid = upid;
+      ElMessage.success(data.message);
     }
   } catch (error) {
     ElMessage.error(error);
@@ -211,7 +239,7 @@ const roleColor = computed(() => ({
         overflow: hidden;
         transition: var(--el-transition-duration-fast);
         &:hover {
-          border-color: var(--el-color-primary);
+          border-color: #866dd8;
         }
       }
       .role {

@@ -62,7 +62,7 @@ const api = {
       url: "/my/userinfo",
       method: "GET",
     }),
- 
+
   changeUserInfo: async (username, email, avatar) =>
     await axios({
       url: "/my/userinfo",
@@ -72,6 +72,11 @@ const api = {
         email,
         avatar,
       },
+    }),
+  createMyPage: async () =>
+    await axios({
+      url: "/userpage/create",
+      method: "POST",
     }),
 };
 

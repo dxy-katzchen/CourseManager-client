@@ -67,13 +67,17 @@ const userInfo = useInfoStore();
   font-size: 2rem;
   padding: 0;
   --el-popover-padding: 0;
+  display: inline-block;
 }
 .avatar {
   flex: 0 0 auto;
   order: 5;
   width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 100%;
   cursor: pointer;
-  vertical-align: middle;
+  margin-top: 0.3rem;
+  right: 2rem;
 }
 .popoverList {
   display: flex;
