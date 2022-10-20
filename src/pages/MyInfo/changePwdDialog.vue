@@ -1,5 +1,8 @@
 <template>
   <el-dialog v-model="visible" title="修改密码">
+    <el-form>
+
+    </el-form>
     <template #footer>
       <span>
         <el-button @click="close">取消</el-button>
@@ -10,7 +13,8 @@
 </template>
 
 <script setup>
-import { ref, watch} from "vue";
+import { ref, watch,reactive} from "vue";
+
 const props = defineProps({
   visible: Boolean,
 });
@@ -19,7 +23,6 @@ const v = ref(props.visible);
 watch(
   () => props.visible,
   (value) => {
-    console.log(value);
     v.value = value;
   }
 );

@@ -100,7 +100,7 @@
               <el-form-item label="密码">
                 <button
                   :class="$style.myPageBtn"
-                  @click="visible = true"
+                  @click="is_visible = true"
                 >
                   修改密码
                 </button>
@@ -110,7 +110,7 @@
         </table>
       </el-form>
     </div>
-    <ChangePwdDialog v-model:visible='visible'/>
+    <ChangePwdDialog v-model:visible='is_visible'/>
   </BackGround>
 </template>
 
@@ -128,7 +128,7 @@ import { uploadImg } from "@/axios/partThree";
 
 const userInfo = useInfoStore();
 const rules = reactive(change_myinfo_rule);
-const visible = ref(false);
+const is_visible = ref(false);
 const infoFormRef = ref(null);
 
 const form = reactive({});
