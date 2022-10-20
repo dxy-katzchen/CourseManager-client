@@ -46,7 +46,7 @@ import { ElMessage } from "element-plus";
 import router from "@/router";
 import api from "../../axios";
 
-import { user_register_rule } from "@/roles/LoginReg.js";
+import { user_register_rule } from "@/rules/LoginReg.js";
 
 const ruleFormRef = ref(null);
 

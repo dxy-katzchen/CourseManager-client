@@ -46,7 +46,7 @@ import router from "@/router";
 import {
   forget_check_email_rule,
   forget_check_code_rule,
-} from "@/roles/LoginReg.js";
+} from "@/rules/LoginReg.js";
 
 
 const rule1 = reactive(forget_check_email_rule);

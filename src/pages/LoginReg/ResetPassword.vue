@@ -35,7 +35,7 @@
 import { reactive, ref } from "vue";
 import api from "../../axios";
 import router from "@/router";
-import { forget_reset_pwd_rule } from "@/roles/LoginReg.js";
+import { forget_reset_pwd_rule } from "@/rules/LoginReg.js";
 import { ElMessage } from "element-plus";
 
 const ruleFormRef = ref(null);
