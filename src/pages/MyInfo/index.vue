@@ -19,7 +19,7 @@
       >
         <table :class="$style.table">
           <tr>
-            <td rowspan="4">
+            <td rowspan="5">
               <div :class="$style.td">
                 <el-upload
                   action=""
@@ -95,9 +95,22 @@
               </el-form-item>
             </td>
           </tr>
+          <tr>
+            <td :class="$style.tableInput">
+              <el-form-item label="密码">
+                <button
+                  :class="$style.myPageBtn"
+                  @click="visible = true"
+                >
+                  修改密码
+                </button>
+              </el-form-item>
+            </td>
+          </tr>
         </table>
       </el-form>
     </div>
+    <ChangePwdDialog v-model:visible='visible'/>
   </BackGround>
 </template>
 
@@ -107,6 +120,7 @@ import { useInfoStore } from "@/store";
 import { change_myinfo_rule } from "@/rules/myInfo.js";
 import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
+import ChangePwdDialog from "./changePwdDialog.vue";
 import router from "@/router";
 import BackGround from "./BackGround.vue";
 import api from "@/axios";
@@ -114,14 +128,13 @@ import { uploadImg } from "@/axios/partThree";
 
 const userInfo = useInfoStore();
 const rules = reactive(change_myinfo_rule);
-
+const visible = ref(false);
 const infoFormRef = ref(null);
 
 const form = reactive({});
 onMounted(() => {
   Object.assign(form, userInfo.user);
 });
-
 
 const upload = async ({ file }) => {
   const res = await uploadImg(file);
@@ -146,7 +159,6 @@ const changeInfo = async (formEl) => {
     let data = await api.changeUserInfo(form.username, form.email, form.avatar);
     if (data.status == 0) {
       Object.assign(userInfo.user, form);
-     
 
       ElMessage.success(data.message);
     } else {

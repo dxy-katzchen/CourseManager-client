@@ -1,10 +1,4 @@
-<script setup>
-
-
-
-
-
-</script>
+<script setup></script>
 
 <template>
   <router-view />
@@ -13,7 +7,7 @@
 <style>
 :root {
   font-size: 16px;
- 
+  --el-color-primary: #7e0681;
   /* transition: font-size 0.3s; */
 }
 </style>
