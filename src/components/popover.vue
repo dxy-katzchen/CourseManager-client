@@ -29,6 +29,9 @@ const userInfo = useInfoStore();
 
 
 const logout = () => {
+  
+  
+  
   router.push({ name: "Login" });
   userInfo.$reset();
 };

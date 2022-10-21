@@ -1,5 +1,9 @@
 <template>
-  <el-dialog v-model="visible" title="修改密码">
+  <el-dialog
+    :before-close="() => (isVisible = false)"
+    v-model="isVisible"
+    title="修改密码"
+  >
     <el-form
       ref="ruleFormRef"
       :model="form"
@@ -21,7 +25,7 @@
     </el-form>
     <template #footer>
       <span>
-        <el-button @click="close">取消</el-button>
+        <el-button @click="() => (isVisible = false)">取消</el-button>
         <el-button type="primary" @click="submitForm(ruleFormRef)"
           >确认</el-button
         >
@@ -31,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, watch, reactive } from "vue";
+import { ref, watch, reactive, computed } from "vue";
 import api from "@/axios";
 import { forget_reset_pwd_rule } from "@/rules/LoginReg.js";
 import { ElMessage } from "element-plus";
@@ -56,8 +60,8 @@ const submitForm = async (formEl) => {
     }
     const data = await api.resetPassword(form.password, form.passwordRepeat);
     if (data.status === 0) {
-      ElMessage.success(data.message + "正在跳转到登陆页面...");
-      close();
+      ElMessage.success(data.message);
+      isVisible.value = false;
     }
   } catch (err) {
     console.error(err);
@@ -68,20 +72,17 @@ const submitForm = async (formEl) => {
 const props = defineProps({
   visible: Boolean,
 });
-const v = ref(props.visible);
 
-watch(
-  () => props.visible,
-  (value) => {
-    v.value = value;
-  }
-);
 const emit = defineEmits(["update:visible"]);
-// 关闭弹窗
-const close = () => {
-  v.value = false;
-  emit("update:visible", v.value);
-};
+
+const isVisible = computed({
+  get() {
+    return props.visible;
+  },
+  set(value) {
+    emit("update:visible", value);
+  },
+});
 </script>
 
 <style module lang="less"></style>

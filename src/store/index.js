@@ -22,8 +22,8 @@ export const useInfoStore = defineStore("userInfo", {
   state: () => ({
 
     
-    token: "",
-    user: {},
+    token: null,
+    user: null,
   }),
 
   persist: {

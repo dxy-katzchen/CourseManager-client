@@ -6,27 +6,8 @@
 </template>
 
 <script setup>
-import { onBeforeMount } from "vue";
 import TabBar from "./TabBar.vue";
 import Aside from "./aside.vue";
-import api from "@/axios";
-import { useInfoStore } from "@/store";
-const userInfo = useInfoStore();
-
-onBeforeMount(async () => {
-  try {
-    if (userInfo.token) {
-      return;
-    }
-    const { data, status } = await api.getUserInfo();
-
-    if (status === 0) {
-      userInfo.user = data;
-    }
-  } catch (error) {
-    ElMessage.error(error);
-  }
-});
 </script>
 
 <style module lang="less">

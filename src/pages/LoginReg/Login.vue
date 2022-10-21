@@ -60,11 +60,17 @@ const submitForm = async (formEl) => {
   try {
     if (is_human_error.value !== "") return;
     await formEl.validate();
-    const data = await api.login(form.id, form.password);
-    if (data.status === 0) {
-      userInfo.token = data.token;
+    const res = await api.login(form.id, form.password);
+    if (res.status === 0) {
+      userInfo.token = res.token;
 
-      ElMessage.success(data.message);
+      const { data, status } = await api.getUserInfo();
+
+      if (status === 0) {
+        userInfo.user = data;
+      }
+
+      ElMessage.success(res.message);
 
       router.replace({ name: "Index" });
     }
