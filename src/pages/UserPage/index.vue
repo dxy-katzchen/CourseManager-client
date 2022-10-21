@@ -33,13 +33,13 @@
           myPageInfo.comment || "暂无"
         }}</el-tab-pane>
         <el-tab-pane label="博客">{{ myPageInfo.blog || "暂无" }}</el-tab-pane>
-        <el-tab-pane label="研究方向">{{
+        <el-tab-pane v-if="isTeacher" label="研究方向">{{
           myPageInfo.search || "暂无"
         }}</el-tab-pane>
-        <el-tab-pane label="教授课程">{{
+        <el-tab-pane v-if="isTeacher" label="教授课程">{{
           myPageInfo.teachcourse || "暂无"
         }}</el-tab-pane>
-        <el-tab-pane label="学术著作">{{
+        <el-tab-pane v-if="isTeacher" label="学术著作">{{
           myPageInfo.book || "暂无"
         }}</el-tab-pane>
       </el-tabs>
@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, reactive } from "vue";
+import { onBeforeMount, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useInfoStore } from "@/store";
 import { ElMessage } from "element-plus";
@@ -66,6 +66,9 @@ onBeforeMount(async () => {
     ElMessage.error(error);
   }
 });
+const isTeacher = computed(() =>
+  userInfo.user.role === 1 || 3 ? false : true
+);
 </script>
 
 <style module lang="less">
@@ -124,7 +127,6 @@ onBeforeMount(async () => {
       box-shadow: 0.7rem 0.6rem 6rem -1rem rgba(0, 0, 0, 0.32);
     }
     .tabs {
-    
       position: relative;
       top: 2rem;
       height: 60vh;
