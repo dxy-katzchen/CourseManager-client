@@ -11,13 +11,8 @@
       <el-form-item label="密码：" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item label="确认密码：" prop="passwordRepeat">
-        <el-input
-          v-model="form.passwordRepeat"
-          type="password"
-          show-password
-          :error="repeatErr"
-        />
+      <el-form-item label="确认密码：" prop="passwordRepeat" :error="repeatErr">
+        <el-input v-model="form.passwordRepeat" type="password" show-password />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -55,7 +50,7 @@ const submitForm = async (formEl) => {
       repeatErr.value = "密码不一致";
       return;
     } else {
-      repeatErr = "";
+      repeatErr.value = "";
     }
     const data = await api.resetPassword(form.password, form.passwordRepeat);
     if (data.status === 0) {

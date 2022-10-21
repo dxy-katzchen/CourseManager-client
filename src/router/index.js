@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-
+import { useInfoStore } from "@/store";
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -20,7 +20,7 @@ const router = createRouter({
     },
     {
       path: "/login",
-    
+
       component: () => import("@/pages/LoginReg/index.vue"),
       children: [
         {
@@ -48,13 +48,14 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (!localStorage.token) {
-    if (to.name == "Login") next();
-    else router.push({ name: "Login" });
-  } else {
-    next();
-  }
+router.beforeEach((to, from) => {
+  const userInfo = useInfoStore();
+  if (
+    userInfo.token ||
+    ["Login", "Register", "ForgetPassword", "Reset"].includes(to.name)
+  )
+    return true;
+  return { name: "Login" };
 });
 
 export default router;

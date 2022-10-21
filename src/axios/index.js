@@ -1,7 +1,6 @@
 import axios from "./axiosInstance";
 
 import { useInfoStore } from "@/store";
-const userInfo = useInfoStore();
 
 const api = {
   login: async (uid, password) =>
@@ -47,16 +46,18 @@ const api = {
         checkCode,
       },
     }),
-  resetPassword: async (password, passwordRepeat) =>
-    await axios({
+  resetPassword: async (password, passwordRepeat) => {
+    const userInfo = useInfoStore();
+    return await axios({
       url: "/user/lostPwd/resetPwd",
       method: "POST",
       data: {
-        email: userInfo.email,
+        email: userInfo.user.email,
         password,
         passwordRepeat,
       },
-    }),
+    });
+  },
   getUserInfo: async () =>
     await axios({
       url: "/my/userinfo",
