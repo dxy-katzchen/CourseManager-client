@@ -20,10 +20,13 @@
 </template>
 
 <script setup>
-import {} from "vue";
+
 import { useInfoStore } from "@/store";
-import router from "@/router";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 const userInfo = useInfoStore();
+
 
 const logout = () => {
   router.push({ name: "Login" });

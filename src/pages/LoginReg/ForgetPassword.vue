@@ -41,14 +41,16 @@ import { ElMessage, ElNotification } from "element-plus";
 import { useIntervalFn } from "@vueuse/core";
 import api from "../../axios";
 
-import router from "@/router";
+import { useRouter } from "vue-router";
+
+
 
 import {
   forget_check_email_rule,
   forget_check_code_rule,
 } from "@/rules/LoginReg.js";
 
-
+const router = useRouter();
 const rule1 = reactive(forget_check_email_rule);
 const rule2 = reactive(forget_check_code_rule);
 

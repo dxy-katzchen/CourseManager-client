@@ -33,11 +33,12 @@
 
 <script setup>
 import { reactive, ref } from "vue";
-import api from "../../axios";
-import router from "@/router";
+import api from "@/axios";
+import { useRouter } from "vue-router";
 import { forget_reset_pwd_rule } from "@/rules/LoginReg.js";
 import { ElMessage } from "element-plus";
 
+const router = useRouter();
 const ruleFormRef = ref(null);
 const rules = reactive(forget_reset_pwd_rule);
 const form = reactive({

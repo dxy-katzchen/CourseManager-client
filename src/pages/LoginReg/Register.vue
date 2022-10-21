@@ -43,13 +43,14 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
-import router from "@/router";
+
 import api from "../../axios";
 
+import { useRouter } from "vue-router";
 import { user_register_rule } from "@/rules/LoginReg.js";
 
 const ruleFormRef = ref(null);
-
+const router = useRouter();
 const form = reactive({
   id: "",
   username: "",

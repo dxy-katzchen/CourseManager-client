@@ -20,7 +20,7 @@ const router = createRouter({
     },
     {
       path: "/login",
-      name: "LoginRegisterPage",
+    
       component: () => import("@/pages/LoginReg/index.vue"),
       children: [
         {

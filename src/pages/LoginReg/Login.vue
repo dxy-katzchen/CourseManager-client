@@ -36,7 +36,9 @@ import api from "../../axios";
 import { useInfoStore } from "../../store";
 import { user_login_rule } from "@/rules/LoginReg.js";
 import Captcha from "../../components/captcha.vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const ruleFormRef = ref(null);
 
@@ -64,9 +66,7 @@ const submitForm = async (formEl) => {
 
       ElMessage.success(data.message);
 
-      form.id = "";
-      form.password = "";
-      router.push({ name: "Index" });
+      router.replace({ name: "Index" });
     }
   } catch (err) {
     ElMessage.error(err);
