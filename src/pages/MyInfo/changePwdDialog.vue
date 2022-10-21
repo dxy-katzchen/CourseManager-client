@@ -14,13 +14,8 @@
       <el-form-item label="密码：" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item label="确认密码：" prop="passwordRepeat"  :error="repeatErr">
-        <el-input
-          v-model="form.passwordRepeat"
-          type="password"
-          show-password
-         
-        />
+      <el-form-item label="确认密码：" prop="passwordRepeat" :error="repeatErr">
+        <el-input v-model="form.passwordRepeat" type="password" show-password />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -35,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref,  reactive, computed } from "vue";
+import { ref, reactive, computed } from "vue";
 import api from "@/axios";
 import { forget_reset_pwd_rule } from "@/rules/LoginReg.js";
 import { ElMessage } from "element-plus";
@@ -51,20 +46,16 @@ let repeatErr = ref("");
 const submitForm = async (formEl) => {
   if (!formEl) return;
   try {
-    
     await formEl.validate();
-   
-    if (form.password !== form.passwordRepeat) {
 
+    if (form.password !== form.passwordRepeat) {
       repeatErr.value = "密码不一致";
       return;
     } else {
       repeatErr.value = "";
     }
     const data = await api.resetPassword(form.password, form.passwordRepeat);
-    
-    console.log(data);
-    
+
     if (data.status === 0) {
       ElMessage.success(data.message);
       isVisible.value = false;

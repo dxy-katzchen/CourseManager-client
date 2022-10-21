@@ -121,11 +121,12 @@ import { change_myinfo_rule } from "@/rules/myInfo.js";
 import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
 import ChangePwdDialog from "./changePwdDialog.vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
 import BackGround from "./BackGround.vue";
 import api from "@/axios";
 import { uploadImg } from "@/axios/partThree";
 
+const router=useRouter()
 const userInfo = useInfoStore();
 const rules = reactive(change_myinfo_rule);
 const is_visible = ref(false);
@@ -183,7 +184,9 @@ const createMyPage = async () => {
     ElMessage.error(error);
   }
 };
-
+const goToMyPage=()=>{
+  router.push({name:'Userpage'})
+}
 const roleColor = computed(() => ({
   background:
     form.role === 1 ? "#c44ae3" : form.role === 2 ? "#8c00be" : "#7e0681",
@@ -198,7 +201,7 @@ const roleColor = computed(() => ({
   height: 3.5rem;
   padding: 0 2rem;
   box-sizing: border-box;
-  // background-color: aqua;
+ 
   line-height: 3.5rem;
   display: flex;
 

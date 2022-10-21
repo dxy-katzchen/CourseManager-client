@@ -8,6 +8,9 @@
 :root {
   font-size: 16px;
   --el-color-primary: #7e0681;
+  --el-color-primary-light-3: #a346bf;
+  --el-color-primary-light-9: #faecfd;
+  --el-color-primary-light-7: var(--el-color-primary);
   /* transition: font-size 0.3s; */
 }
 </style>
