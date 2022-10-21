@@ -24,6 +24,7 @@ export const useInfoStore = defineStore("userInfo", {
     
     token: null,
     user: null,
+    myPageInfo:null,
   }),
 
   persist: {
@@ -31,7 +32,7 @@ export const useInfoStore = defineStore("userInfo", {
     strategies: [
       {
         storage: localStorage,
-        paths: ["user", "token"],
+        paths: ["user", "token",'myPageInfo'],
       },
     ],
   },

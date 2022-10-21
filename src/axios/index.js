@@ -79,6 +79,11 @@ const api = {
       url: "/userpage/create",
       method: "POST",
     }),
+  getMyPageInfo: async () =>
+    await axios({
+      url: "/userpage/info",
+      method: "GET",
+    }),
 };
 
 export default api;
