@@ -84,6 +84,17 @@ const api = {
       url: "/userpage/info",
       method: "GET",
     }),
+  updateUserInfo: async (name, value) => {
+    const userInfo = useInfoStore();
+    return await axios({
+      url: "/userpage/update",
+      method: "POST",
+      data: {
+        upid: userInfo.user.upid,
+        [name]: value,
+      },
+    });
+  },
 };
 
 export default api;

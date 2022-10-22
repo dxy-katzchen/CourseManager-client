@@ -98,10 +98,7 @@
           <tr>
             <td :class="$style.tableInput">
               <el-form-item label="密码">
-                <button
-                  :class="$style.myPageBtn"
-                  @click="is_visible = true"
-                >
+                <button :class="$style.myPageBtn" @click="is_visible = true">
                   修改密码
                 </button>
               </el-form-item>
@@ -110,7 +107,7 @@
         </table>
       </el-form>
     </div>
-    <ChangePwdDialog v-model:visible='is_visible'/>
+    <ChangePwdDialog v-model:visible="is_visible" />
   </BackGround>
 </template>
 
@@ -126,7 +123,7 @@ import BackGround from "./BackGround.vue";
 import api from "@/axios";
 import { uploadImg } from "@/axios/partThree";
 
-const router=useRouter()
+const router = useRouter();
 const userInfo = useInfoStore();
 const rules = reactive(change_myinfo_rule);
 const is_visible = ref(false);
@@ -184,9 +181,9 @@ const createMyPage = async () => {
     ElMessage.error(error);
   }
 };
-const goToMyPage=()=>{
-  router.push({name:'Userpage'})
-}
+const goToMyPage = () => {
+  router.push({ name: "Userpage" });
+};
 const roleColor = computed(() => ({
   background:
     form.role === 1 ? "#c44ae3" : form.role === 2 ? "#8c00be" : "#7e0681",
@@ -201,7 +198,7 @@ const roleColor = computed(() => ({
   height: 3.5rem;
   padding: 0 2rem;
   box-sizing: border-box;
- 
+
   line-height: 3.5rem;
   display: flex;
 
