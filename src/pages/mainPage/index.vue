@@ -2,7 +2,9 @@
   <TabBar />
   <Aside />
 
-  <div :class="$style.main">主页</div>
+  <div :class="$style.main">
+  <router-view/>
+  </div>
 </template>
 
 <script setup>

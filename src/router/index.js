@@ -7,6 +7,13 @@ const router = createRouter({
       path: "/",
       name: "Index",
       component: () => import("@/pages/mainPage/index.vue"),
+      children:[
+        {
+          path: "management",
+          name: "Management",
+          component: () => import("@/pages/Management/index.vue"),
+        },
+      ]
     },
     {
       path: "/userpage",
@@ -45,6 +52,7 @@ const router = createRouter({
         },
       ],
     },
+   
   ],
 });
 

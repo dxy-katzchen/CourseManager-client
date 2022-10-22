@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.aside">
-    <el-menu default-active="2" @open="handleOpen" @close="handleClose" :class="$style.menu">
+    <el-menu router default-active="2"  :class="$style.menu">
       <el-sub-menu index="1">
         <template #title>
           <span>课程相关</span>
@@ -13,7 +13,7 @@
         <template #title>
           <span>学工信息</span>
         </template>
-        <el-menu-item index="2-1">首页</el-menu-item>
+        <el-menu-item index="/management" >首页</el-menu-item>
         <el-menu-item index="2-2" v-if="role===3">文章列表</el-menu-item>
         <el-menu-item index="2-3" v-if="role===3">回收站</el-menu-item>
       </el-sub-menu>
@@ -27,8 +27,8 @@ import { useInfoStore } from "@/store";
 
 const userInfo=useInfoStore()
 const role=ref(userInfo.user.role)
-const handleOpen=()=>{}
-const handleClose=()=>{}
+
+
 </script>
 
 <style module lang="less">

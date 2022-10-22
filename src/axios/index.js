@@ -95,6 +95,17 @@ const api = {
       },
     });
   },
+  getManageList: async (type, pageSize, pageCurr) =>
+    await axios({
+      url: "/manage/getList",
+      method: "POST",
+
+      data: {
+        type,
+        pageSize,
+        pageCurr,
+      },
+    }),
 };
 
 export default api;
