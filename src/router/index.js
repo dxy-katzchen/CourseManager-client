@@ -16,6 +16,12 @@ const router = createRouter({
       ]
     },
     {
+      path: "/editArticle",
+      name: "EditArticle",
+      component: () => import("@/pages/Management/editArticle.vue"),
+      props: route => ({ mid: route.query.mid })
+    },
+    {
       path: "/userpage",
       name: "Userpage",
       component: () => import("@/pages/UserPage/index.vue"),

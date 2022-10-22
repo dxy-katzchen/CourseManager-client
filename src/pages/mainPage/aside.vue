@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.aside">
-    <el-menu router default-active="2"  :class="$style.menu">
+    <el-menu router default-active="2" :class="$style.menu">
       <el-sub-menu index="1">
         <template #title>
           <span>课程相关</span>
@@ -13,22 +13,22 @@
         <template #title>
           <span>学工信息</span>
         </template>
-        <el-menu-item index="/management" >首页</el-menu-item>
-        <el-menu-item index="2-2" v-if="role===3">创建文章</el-menu-item>
-        <el-menu-item index="2-3" v-if="role===3">回收站</el-menu-item>
+        <el-menu-item index="/management">首页</el-menu-item>
+        <template v-if="role === 3">
+          <el-menu-item index="/editArticle">创建文章</el-menu-item>
+          <el-menu-item index="2-3">回收站</el-menu-item>
+        </template>
       </el-sub-menu>
     </el-menu>
   </div>
 </template>
 
 <script setup>
-import {ref} from "vue";
+import { ref } from "vue";
 import { useInfoStore } from "@/store";
 
-const userInfo=useInfoStore()
-const role=ref(userInfo.user.role)
-
-
+const userInfo = useInfoStore();
+const role = ref(userInfo.user.role);
 </script>
 
 <style module lang="less">
@@ -38,8 +38,8 @@ const role=ref(userInfo.user.role)
   bottom: 0;
   left: 0;
   width: 13rem;
- .menu{
-   height:100%
- }
+  .menu {
+    height: 100%;
+  }
 }
 </style>

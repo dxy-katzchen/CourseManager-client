@@ -1,10 +1,10 @@
 <template>
   <el-table :data="dataRef" stripe>
-    <el-table-column align="center" prop="mid" label="id" width="100"/>
+    <el-table-column align="center" prop="mid" label="id" width="100" />
     <el-table-column align="center" prop="title" label="题目" />
     <el-table-column align="center" prop="author" label="作者" />
     <el-table-column align="center" prop="edit_time" label="编辑时间" />
-    <el-table-column align="center" width="200" v-if="role===3">
+    <el-table-column align="center" width="200" v-if="role === 3">
       <template #header> 操作 </template>
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
@@ -26,26 +26,28 @@ import { ref, watch } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
 import { useInfoStore } from "@/store";
+import { useRouter } from "vue-router";
 
-const userInfo=useInfoStore()
-const role=ref(userInfo.user.role)
+const router = useRouter();
+const userInfo = useInfoStore();
+const role = ref(userInfo.user.role);
 const props = defineProps(["type", "isActive"]);
 
 const dataRef = ref();
 
-
 const handleDelete = (index, row) => {
   console.log(index, row);
 };
-const handleEdit = (index, row) => {
-  console.log(index, row);
+const handleEdit = (_, row) => {
+  const { mid } = row;
+
+  router.push({ name: "EditArticle", query: { mid } });
 };
 const getTableData = async () => {
   try {
     const { data, status } = await api.getManageList(props.type, 10, 1);
     if (status === 0) {
       dataRef.value = data;
-      console.log(data);
     }
   } catch (error) {
     ElMessage.error(error);
