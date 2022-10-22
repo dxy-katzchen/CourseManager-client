@@ -4,7 +4,7 @@
     <el-table-column align="center" prop="title" label="题目" />
     <el-table-column align="center" prop="author" label="作者" />
     <el-table-column align="center" prop="edit_time" label="编辑时间" />
-    <el-table-column align="center" width="200">
+    <el-table-column align="center" width="200" v-if="role===3">
       <template #header> 操作 </template>
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
@@ -25,7 +25,10 @@
 import { ref, watch } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
+import { useInfoStore } from "@/store";
 
+const userInfo=useInfoStore()
+const role=ref(userInfo.user.role)
 const props = defineProps(["type", "isActive"]);
 
 const dataRef = ref();

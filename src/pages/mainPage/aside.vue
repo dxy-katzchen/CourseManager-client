@@ -14,7 +14,7 @@
           <span>学工信息</span>
         </template>
         <el-menu-item index="/management" >首页</el-menu-item>
-        <el-menu-item index="2-2" v-if="role===3">文章列表</el-menu-item>
+        <el-menu-item index="2-2" v-if="role===3">创建文章</el-menu-item>
         <el-menu-item index="2-3" v-if="role===3">回收站</el-menu-item>
       </el-sub-menu>
     </el-menu>
