@@ -1,18 +1,45 @@
 <template>
-<div :class="$style.aside"></div>
+  <div :class="$style.aside">
+    <el-menu default-active="2" @open="handleOpen" @close="handleClose" :class="$style.menu">
+      <el-sub-menu index="1">
+        <template #title>
+          <span>课程相关</span>
+        </template>
+        <el-menu-item index="1-1">创建课程</el-menu-item>
+        <el-menu-item index="1-2">选课管理</el-menu-item>
+        <el-menu-item index="1-3">选课管理</el-menu-item>
+      </el-sub-menu>
+      <el-sub-menu index="2">
+        <template #title>
+          <span>学工信息</span>
+        </template>
+        <el-menu-item index="2-1">首页</el-menu-item>
+        <el-menu-item index="2-2" v-if="role===3">文章列表</el-menu-item>
+        <el-menu-item index="2-3" v-if="role===3">回收站</el-menu-item>
+      </el-sub-menu>
+    </el-menu>
+  </div>
 </template>
 
 <script setup>
-import {} from 'vue'
+import {ref} from "vue";
+import { useInfoStore } from "@/store";
+
+const userInfo=useInfoStore()
+const role=ref(userInfo.user.role)
+const handleOpen=()=>{}
+const handleClose=()=>{}
 </script>
 
-<style module lang='less'>
+<style module lang="less">
 .aside {
   position: fixed;
   top: 3.5em;
   bottom: 0;
   left: 0;
   width: 13rem;
-  background-color: red;
+ .menu{
+   height:100%
+ }
 }
 </style>
