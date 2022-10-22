@@ -106,6 +106,15 @@ const api = {
         pageCurr,
       },
     }),
+  getPageDetails: async (mid) =>
+    await axios({
+      url: "/manage/getPageDetails",
+      method: "POST",
+
+      data: {
+        mid,
+      },
+    }),
 };
 
 export default api;

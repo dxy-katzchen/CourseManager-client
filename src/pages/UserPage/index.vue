@@ -72,7 +72,7 @@ import { ElMessage } from "element-plus";
 import BackGround from "./BackGround.vue";
 import api from "@/axios";
 
-import { uploadImg } from "@/axios/partThree";
+import  UploadImg  from "@/Hooks/UpLoadImg.js";
 
 const router = useRouter();
 const userInfo = useInfoStore();
@@ -124,25 +124,7 @@ const changeTab = (tabName) => {
   text.value = infoArr[Number(tabName)].value;
 };
 const Upload = async (files, callback) => {
-  const res = await Promise.all(
-    files.map(async (file) => {
-      return await uploadImg(file);
-    })
-  );
-
-  callback(
-    res.map((item) => {
-      switch (item.data.code) {
-        case "success":
-          return item.data.data.url;
-        case "image_repeated":
-          return item.data.images;
-        default:
-          ElMessage.error("上传失败");
-          break;
-      }
-    })
-  );
+ await UploadImg(files,callback)
 };
 
 const open = async (value) => {

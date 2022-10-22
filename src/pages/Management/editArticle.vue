@@ -5,28 +5,48 @@
       @click="router.back(-1)"
       :class="$style.leftIcon"
     ></i>
-    <input type="text" :class="$style.title" />
+    <input type="text" :class="$style.title" v-model="PageDetail.title" />
     <button v-if="props.mid" :class="$style.submitBtn">修改文章</button>
     <button v-else :class="$style.submitBtn">发布文章</button>
   </div>
   <div :class="$style.editorContent">
-    <MdEditor :class="$style.editor" />
+    <MdEditor :class="$style.editor" @onUploadImg="Upload" v-model="PageDetail.content" />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
+import  UploadImg  from "@/Hooks/UpLoadImg.js";
 import MdEditor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
+import api from "@/axios";
 
 const props = defineProps(["mid"]);
 
 const router = useRouter();
 
-onMounted(() => {
-  console.log(props.mid);
+const PageDetail = reactive({});
+
+onMounted(async () => {
+  if (props.mid) {
+    try {
+      const { mid } = props;
+      const { data, status } = await api.getPageDetails(mid);
+      if (status === 0) {
+        console.log(data);
+        
+        Object.assign(PageDetail, data);
+      }
+    } catch (error) {
+      ElMessage.error(error);
+    }
+  }
 });
+const Upload = async (files, callback) => {
+ await UploadImg(files,callback)
+};
 </script>
 
 <style module lang="less">
