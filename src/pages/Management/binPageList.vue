@@ -1,36 +1,39 @@
 <template>
-  <el-pagination
-    v-model:currentPage="currentPage"
-    v-model:page-size="pageSize"
-    :page-sizes="[10, 20, 50, 100]"
-    background
-    :class="$style.pagination"
-    layout=" sizes, prev, pager, next, jumper"
-    :total="totalNumber"
-    @size-change="handlePagChange"
-    @current-change="handlePagChange"
-  />
+  <div :class="$style.content">
+    <span :class="$style.title">回收站</span>
+    <el-pagination
+      v-model:currentPage="currentPage"
+      v-model:page-size="pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      background
+      :class="$style.pagination"
+      layout=" sizes, prev, pager, next, jumper"
+      :total="totalNumber"
+      @size-change="handlePagChange"
+      @current-change="handlePagChange"
+    />
 
-  <div :class="$style.tableCard">
-    <el-table :data="dataRef" @row-click="goDetails">
-      <el-table-column align="center" prop="title" label="题目" />
-      <el-table-column align="center" prop="author" label="作者" />
-      <el-table-column align="center" prop="edit_time" label="编辑时间" />
-      <el-table-column align="center" width="200">
-        <template #header> 操作 </template>
-        <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="small"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >完全删除</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
+    <div :class="$style.tableCard">
+      <el-table :data="dataRef" @row-click="goDetails">
+        <el-table-column align="center" prop="title" label="题目" />
+        <el-table-column align="center" prop="author" label="作者" />
+        <el-table-column align="center" prop="edit_time" label="编辑时间" />
+        <el-table-column align="center" width="200">
+          <template #header> 操作 </template>
+          <template #default="scope">
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              size="small"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              >完全删除</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -99,25 +102,41 @@ const handlePagChange = async () => {
 </script>
 
 <style module lang="less">
-.pagination {
-  justify-content: center;
-  background-color: #faecfd;
-
-  width: 50%;
-  border-radius: 2rem;
-  margin: 1.2rem auto;
-  height: 3.5rem;
-}
-.tableCard {
-  overflow: hidden;
-  padding: 1rem 0;
-  margin: 2rem 2rem;
-
-  box-shadow: 0 0 10px blueviolet;
-  border-radius: 2rem;
-}
-.bin {
-  font-size: 1.2rem;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(231, 217, 245);
+  height:calc(100vh - 3.5rem);
+  .title{
+      margin:2rem 0 1rem 0;
+      font-size: 2rem;
+      color: blueviolet;
+      font-weight: bold;
+      letter-spacing: 4px;
+  }
+  .pagination {
+    display: flex;
+    width: 50%;
+    min-width: 500px;
+    justify-content: center;
+    background-color: #faecfd;
+    border-radius: 2rem;
+    height: 3.5rem;
+    margin-top: 1rem;
+  }
+  .tableCard {
+    overflow: hidden;
+    padding: 1rem 0;
+    margin: 2rem 0;
+    width: 80%;
+    box-shadow: 0 0 10px blueviolet;
+    border-radius: 2rem;
+    background-color: #fff;
+  }
+  .bin {
+    font-size: 1.2rem;
+  }
 }
 </style>
 
