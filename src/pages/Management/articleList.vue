@@ -1,37 +1,37 @@
-<template>
-  
-    <el-pagination
-      v-model:currentPage="currentPage"
-      v-model:page-size="pageSize"
-      :page-sizes="[10, 20, 50, 100]"
-      background
-      :class="$style.pagination"
-      layout=" sizes, prev, pager, next, jumper"
-      :total="totalNumber"
-      @size-change="handlePagChange"
-      @current-change="handlePagChange"
-    />
-  
+<template >
+  <el-pagination
+    v-model:currentPage="currentPage"
+    v-model:page-size="pageSize"
+    :page-sizes="[10, 20, 50, 100]"
+    background
+    :class="$style.pagination"
+    layout=" sizes, prev, pager, next, jumper"
+    :total="totalNumber"
+    @size-change="handlePagChange"
+    @current-change="handlePagChange"
+  />
 
-  <el-table :data="dataRef" @current-change="handleCurrentChange">
-    <el-table-column align="center" prop="title" label="题目" />
-    <el-table-column align="center" prop="author" label="作者" />
-    <el-table-column align="center" prop="edit_time" label="编辑时间" />
-    <el-table-column align="center" width="200" v-if="role === 3">
-      <template #header> 操作 </template>
-      <template #default="scope">
-        <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-          >编辑</el-button
-        >
-        <el-button
-          size="small"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-          ><i class="iconfont icon-ashbin" :class="$style.bin"></i
-        ></el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+  <div :class="$style.tableCard">
+    <el-table :data="dataRef" @current-change="handleCurrentChange">
+      <el-table-column align="center" prop="title" label="题目" />
+      <el-table-column align="center" prop="author" label="作者" />
+      <el-table-column align="center" prop="edit_time" label="编辑时间" />
+      <el-table-column align="center" width="200" v-if="role === 3">
+        <template #header> 操作 </template>
+        <template #default="scope">
+          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button
+          >
+          <el-button
+            size="small"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)"
+            ><i class="iconfont icon-ashbin" :class="$style.bin"></i
+          ></el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script setup>
@@ -111,18 +111,33 @@ watch(
 </script>
 
 <style module lang="less">
-.pagination{
+.pagination {
   justify-content: center;
+  background-color: #faecfd;
+  width: 50%;
+  border-radius: 2rem;
+  margin: 0 auto;
+  height:3.5rem;
+}
+.tableCard{
+  overflow: hidden;
+  padding: 1rem 0;
+  margin:1rem 2rem;
+  box-shadow: 0 0 5px blueviolet;
+  border-radius: 2rem;
 }
 .bin {
   font-size: 1.2rem;
 }
 </style>
 
-<style>
+<style lang="less">
 .el-table__body tr:hover > td {
   background-color: #faecfd !important;
   cursor: pointer;
   color: blueviolet;
 }
+
+
+
 </style>

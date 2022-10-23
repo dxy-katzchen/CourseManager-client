@@ -3,6 +3,7 @@
     <el-tabs v-model="activeName" type="card" >
       <el-tab-pane
         v-for="article in articleList"
+       
         :key="article"
         :label="article.label"
         :name="article.id"
@@ -28,4 +29,6 @@ const articleList = reactive([
 
 </script>
 
-<style module lang="less"></style>
+<style module lang="less">
+
+</style>
