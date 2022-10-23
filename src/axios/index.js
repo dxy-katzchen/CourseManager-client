@@ -141,6 +141,23 @@ const api = {
         mid,
       },
     }),
+  getBinList: async (pageSize, pageCurr) =>
+    await axios({
+      url: "/manage/getBinList",
+      method: "POST",
+      data: {
+        pageSize,
+        pageCurr,
+      },
+    }),
+    deleteCompletely:async(mid)=>
+    await axios({
+      url: "/manage/delete",
+      method: "POST",
+      data: {
+      mid
+      },
+    }),
 };
 
 export default api;

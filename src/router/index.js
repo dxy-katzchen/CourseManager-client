@@ -13,6 +13,11 @@ const router = createRouter({
           name: "Management",
           component: () => import("@/pages/Management/index.vue"),
         },
+        {
+          path: "bin",
+          name: "Bin",
+          component: () => import("@/pages/Management/binPageList.vue"),
+        },
       ]
     },
     {

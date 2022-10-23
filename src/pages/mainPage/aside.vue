@@ -16,7 +16,7 @@
         <el-menu-item index="/management">首页</el-menu-item>
         <template v-if="role === 3">
           <el-menu-item index="/editArticle">创建文章</el-menu-item>
-          <el-menu-item index="2-3">回收站</el-menu-item>
+          <el-menu-item index="/bin">回收站</el-menu-item>
         </template>
       </el-sub-menu>
     </el-menu>

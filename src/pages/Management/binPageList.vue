@@ -16,7 +16,7 @@
       <el-table-column align="center" prop="title" label="题目" />
       <el-table-column align="center" prop="author" label="作者" />
       <el-table-column align="center" prop="edit_time" label="编辑时间" />
-      <el-table-column align="center" width="200" v-if="role === 3">
+      <el-table-column align="center" width="200">
         <template #header> 操作 </template>
         <template #default="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
@@ -26,8 +26,8 @@
             size="small"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
-            ><i class="iconfont icon-ashbin" :class="$style.bin"></i
-          ></el-button>
+            >完全删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -35,25 +35,24 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
-import { useInfoStore } from "@/store";
+
 import { useRouter } from "vue-router";
 
 const currentPage = ref(1);
 const pageSize = ref(10);
 const totalNumber = ref(0);
 const router = useRouter();
-const userInfo = useInfoStore();
-const role = ref(userInfo.user.role);
-const props = defineProps(["type", "isActive"]);
 
 const dataRef = ref();
+onMounted(async () => {
+  await getTableData();
+});
 const getTableData = async () => {
   try {
-    const { data, status, total } = await api.getManageList(
-      props.type,
+    const { data, status, total } = await api.getBinList(
       pageSize.value,
       currentPage.value
     );
@@ -67,17 +66,11 @@ const getTableData = async () => {
     ElMessage.error(error);
   }
 };
-const goDetails = (row, column) => {
-  const { mid } = row;
-  if (column.label) {
-    router.push({ name: "ArticleDetail", query: { mid } });
-  }
-};
 //放到回收站里
 const handleDelete = async (index, row) => {
   const { mid } = row;
   try {
-    const { status, message } = await api.toBin(mid);
+    const { status, message } = await api.deleteCompletely(mid);
     if (status !== 0) {
       ElMessage.error(message);
       return;
@@ -88,7 +81,12 @@ const handleDelete = async (index, row) => {
     ElMessage.error(error);
   }
 };
-
+const goDetails = (row, column) => {
+  const { mid } = row;
+  if (column.label) {
+    router.push({ name: "ArticleDetail", query: { mid } });
+  }
+};
 const handleEdit = (_, row) => {
   const { mid } = row;
 
@@ -98,18 +96,6 @@ const handleEdit = (_, row) => {
 const handlePagChange = async () => {
   await getTableData();
 };
-
-watch(
-  () => props.isActive,
-  async (flag) => {
-    if (flag && dataRef.value === undefined) {
-      await getTableData();
-    }
-  },
-  {
-    immediate: true,
-  }
-);
 </script>
 
 <style module lang="less">
