@@ -27,6 +27,7 @@ export default defineConfig({
           Referer: "https://smms.app",
         },
       },
+      
     },
   },
 });

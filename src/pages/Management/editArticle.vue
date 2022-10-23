@@ -6,28 +6,71 @@
       :class="$style.leftIcon"
     ></i>
     <input type="text" :class="$style.title" v-model="PageDetail.title" />
-    <button v-if="props.mid" :class="$style.submitBtn">修改文章</button>
-    <button v-else :class="$style.submitBtn">发布文章</button>
+    <button v-if="props.mid" :class="$style.submitBtn" @click="submit">
+      修改文章
+    </button>
+    <button v-else :class="$style.submitBtn" @click="submit">发布文章</button>
   </div>
   <div :class="$style.editorContent">
-    <MdEditor :class="$style.editor" @onUploadImg="Upload" v-model="PageDetail.content" />
+    <MdEditor
+      :class="$style.editor"
+      @onUploadImg="Upload"
+      v-model="PageDetail.content"
+    />
   </div>
+  <el-dialog v-model="dialogVisible" title="发布文章">
+    <el-form :model="PageDetail" :rules="rules">
+      <el-form-item label="封面" label-width="10rem">
+        <el-input v-model="PageDetail.banner_pic" />
+      </el-form-item>
+      <el-form-item
+        label="封面预览"
+        v-show="PageDetail.banner_pic.length > 0"
+        label-width="10rem"
+      >
+        <img :src="PageDetail.banner_pic" alt="" :class="$style.pic" />
+      </el-form-item>
+      <el-form-item label="作者" label-width="10rem" prop="author">
+        <el-input v-model="PageDetail.author" />
+      </el-form-item>
+      <el-form-item label="类别" label-width="10rem">
+        <el-radio-group v-model="PageDetail.type">
+          <el-radio :label="1" :v-model="1" size="large">社会实践</el-radio>
+          <el-radio :label="2" :v-model="2" size="large">课外活动</el-radio>
+          <el-radio :label="3" :v-model="3" size="large">研究成果</el-radio>
+        </el-radio-group>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="publish"> 发布 </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
 import { onMounted, ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
-import  UploadImg  from "@/Hooks/UpLoadImg.js";
+import { edit_article_rule } from "@/rules/management.js";
+import UploadImg from "@/Hooks/UpLoadImg.js";
 import MdEditor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import api from "@/axios";
 
 const props = defineProps(["mid"]);
-
+const dialogVisible = ref(false);
 const router = useRouter();
-
-const PageDetail = reactive({});
+const rules = reactive(edit_article_rule);
+const PageDetail = reactive({
+  title: "",
+  content: "",
+  type: 1,
+  author: "",
+  banner_pic: "",
+});
 
 onMounted(async () => {
   if (props.mid) {
@@ -35,8 +78,6 @@ onMounted(async () => {
       const { mid } = props;
       const { data, status } = await api.getPageDetails(mid);
       if (status === 0) {
-        console.log(data);
-        
         Object.assign(PageDetail, data);
       }
     } catch (error) {
@@ -44,9 +85,70 @@ onMounted(async () => {
     }
   }
 });
-const Upload = async (files, callback) => {
- await UploadImg(files,callback)
+const submit = async () => {
+  dialogVisible.value = true;
+  if (PageDetail.banner_pic !== "") return;
+  const reg = new RegExp(
+    '(https?:[^:<>"]*\/)([^:<>"]*)(\.((png!thumbnail)|(png)|(jpg)|(webp)))',
+    "g"
+  );
+  const imgArr = reg.exec(PageDetail.content);
+
+  if (imgArr !== null) {
+    PageDetail.banner_pic = imgArr[0];
+  }
 };
+const Upload = async (files, callback) => {
+  await UploadImg(files, callback);
+};
+const getMid = async () => {
+  if (!props.mid) {
+    try {
+      const { status, mid, message } = await api.createPage();
+      if (status !== 0) {
+        ElMessage.error(message);
+        return;
+      }
+      return mid;
+    } catch (error) {
+      ElMessage.error(error);
+    }
+    //创建文章
+  } else {
+    return props.mid;
+  }
+};
+const publish = async () => {
+  try {
+    let { title, content, type, author, banner_pic } = PageDetail;
+    if (banner_pic === "") {
+      //添加默认封面
+      banner_pic = "https://www.sdu.edu.cn/images/jjzs.jpg";
+    }
+    const mid = await getMid();
+
+    const data = await api.updatePage(
+      mid,
+      title,
+      content,
+      type,
+      author,
+      banner_pic
+    );
+
+    const { message, status } = data;
+    if (status === 0) {
+      ElMessage.success(message);
+      dialogVisible.value = false;
+    } else {
+      ElMessage.warning(message);
+    }
+  } catch (error) {
+    console.error(error);
+    ElMessage.error(error);
+  }
+};
+
 </script>
 
 <style module lang="less">
@@ -111,5 +213,12 @@ const Upload = async (files, callback) => {
   .editor {
     height: 100%;
   }
+}
+.pic {
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  object-fit: cover;
+  border-radius: 1rem;
 }
 </style>

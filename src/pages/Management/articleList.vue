@@ -1,6 +1,6 @@
 <template>
   <el-table :data="dataRef" stripe>
-    <el-table-column align="center" prop="mid" label="id" width="100" />
+    <!-- <el-table-column align="center" prop="mid" label="id" width="100" /> -->
     <el-table-column align="center" prop="title" label="题目" />
     <el-table-column align="center" prop="author" label="作者" />
     <el-table-column align="center" prop="edit_time" label="编辑时间" />
@@ -14,8 +14,8 @@
           size="small"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)"
-          >删除</el-button
-        >
+          ><i class="iconfont icon-ashbin" :class="$style.bin"></i
+        ></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -34,9 +34,20 @@ const role = ref(userInfo.user.role);
 const props = defineProps(["type", "isActive"]);
 
 const dataRef = ref();
-
-const handleDelete = (index, row) => {
-  console.log(index, row);
+//放到回收站里
+const handleDelete = async (index, row) => {
+  const { mid } = row;
+  try {
+    const { status, message } = await api.toBin(mid);
+    if (status !== 0) {
+      ElMessage.error(message);
+      return;
+    }
+    ElMessage.success(message);
+    dataRef.value.splice(index, 1);
+  } catch (error) {
+    ElMessage.error(error);
+  }
 };
 const handleEdit = (_, row) => {
   const { mid } = row;
@@ -66,4 +77,8 @@ watch(
 );
 </script>
 
-<style module lang="less"></style>
+<style module lang="less">
+.bin {
+  font-size: 1.2rem;
+}
+</style>

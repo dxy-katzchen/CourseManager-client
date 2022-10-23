@@ -115,6 +115,32 @@ const api = {
         mid,
       },
     }),
+  updatePage: async (mid, title, content, type, author, banner_pic) =>
+    await axios({
+      url: "/manage/update",
+      method: "POST",
+      data: {
+        mid,
+        title,
+        content,
+        type,
+        author,
+        banner_pic,
+      },
+    }),
+  createPage: async () =>
+    await axios({
+      url: "/manage/create",
+      method: "POST",
+    }),
+  toBin: async (mid) =>
+    await axios({
+      url: "/manage/toBin",
+      method: "POST",
+      data: {
+        mid,
+      },
+    }),
 };
 
 export default api;
