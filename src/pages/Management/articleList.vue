@@ -1,6 +1,19 @@
 <template>
-  <el-table :data="dataRef" stripe>
-    <!-- <el-table-column align="center" prop="mid" label="id" width="100" /> -->
+  
+    <el-pagination
+      v-model:currentPage="currentPage"
+      v-model:page-size="pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      background
+      :class="$style.pagination"
+      layout=" sizes, prev, pager, next, jumper"
+      :total="totalNumber"
+      @size-change="handlePagChange"
+      @current-change="handlePagChange"
+    />
+  
+
+  <el-table :data="dataRef" @current-change="handleCurrentChange">
     <el-table-column align="center" prop="title" label="题目" />
     <el-table-column align="center" prop="author" label="作者" />
     <el-table-column align="center" prop="edit_time" label="编辑时间" />
@@ -28,12 +41,32 @@ import api from "@/axios";
 import { useInfoStore } from "@/store";
 import { useRouter } from "vue-router";
 
+const currentPage = ref(1);
+const pageSize = ref(10);
+const totalNumber = ref(0);
 const router = useRouter();
 const userInfo = useInfoStore();
 const role = ref(userInfo.user.role);
 const props = defineProps(["type", "isActive"]);
 
 const dataRef = ref();
+const getTableData = async () => {
+  try {
+    const { data, status, total } = await api.getManageList(
+      props.type,
+      pageSize.value,
+      currentPage.value
+    );
+
+    if (status === 0) {
+      dataRef.value = data;
+      totalNumber.value = total;
+    }
+  } catch (error) {
+    console.error(error);
+    ElMessage.error(error);
+  }
+};
 //放到回收站里
 const handleDelete = async (index, row) => {
   const { mid } = row;
@@ -49,21 +82,21 @@ const handleDelete = async (index, row) => {
     ElMessage.error(error);
   }
 };
+const handleCurrentChange = (val) => {
+  const { mid } = val;
+
+  router.push({ name: "ArticleDetail", query: { mid } });
+};
 const handleEdit = (_, row) => {
   const { mid } = row;
 
   router.push({ name: "EditArticle", query: { mid } });
 };
-const getTableData = async () => {
-  try {
-    const { data, status } = await api.getManageList(props.type, 10, 1);
-    if (status === 0) {
-      dataRef.value = data;
-    }
-  } catch (error) {
-    ElMessage.error(error);
-  }
+
+const handlePagChange = async () => {
+  await getTableData();
 };
+
 watch(
   () => props.isActive,
   async (flag) => {
@@ -78,7 +111,18 @@ watch(
 </script>
 
 <style module lang="less">
+.pagination{
+  justify-content: center;
+}
 .bin {
   font-size: 1.2rem;
+}
+</style>
+
+<style>
+.el-table__body tr:hover > td {
+  background-color: #faecfd !important;
+  cursor: pointer;
+  color: blueviolet;
 }
 </style>

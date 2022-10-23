@@ -22,6 +22,12 @@ const router = createRouter({
       props: route => ({ mid: route.query.mid })
     },
     {
+      path: "/articleDetail",
+      name: "ArticleDetail",
+      component: () => import("@/pages/Management/articleDetail.vue"),
+      props: route => ({ mid: route.query.mid })
+    },
+    {
       path: "/userpage",
       name: "Userpage",
       component: () => import("@/pages/UserPage/index.vue"),
