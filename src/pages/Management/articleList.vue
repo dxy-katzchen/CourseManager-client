@@ -114,16 +114,18 @@ watch(
 .pagination {
   justify-content: center;
   background-color: #faecfd;
+
   width: 50%;
   border-radius: 2rem;
-  margin: 0 auto;
+  margin: 1.2rem auto;
   height:3.5rem;
 }
 .tableCard{
   overflow: hidden;
   padding: 1rem 0;
-  margin:1rem 2rem;
-  box-shadow: 0 0 5px blueviolet;
+  margin:2rem 2rem;
+ 
+  box-shadow: 0 0 10px blueviolet;
   border-radius: 2rem;
 }
 .bin {

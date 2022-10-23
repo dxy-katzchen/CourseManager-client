@@ -23,6 +23,7 @@ const userInfo = useInfoStore();
 
 <style module lang="less">
 .mainPageTabBar {
+  z-index: 999;
   position: fixed;
   top: 0;
   width: 100%;
