@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.mainPageTabBar">
-    <img src="../../../imgs/cherry.svg" alt="" style="width: 3rem" />
+    <img :src="cherry" alt="" style="width: 3rem" />
     <span :class="$style.title">CourseTable </span>
     <span :class="$style.ch">课程管理系统</span>
     <div :class="$style.middle"></div>
@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-
+import cherry from "@/assets/cherry.svg";
 import Popover from "@/components/popover.vue";
 import { useInfoStore } from "@/store";
 

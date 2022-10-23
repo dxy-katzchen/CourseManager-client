@@ -123,7 +123,7 @@ const publish = async () => {
     let { title, content, type, author, banner_pic } = PageDetail;
     if (banner_pic === "") {
       //添加默认封面
-      banner_pic = "https://www.sdu.edu.cn/images/jjzs.jpg";
+      banner_pic = "default";
     }
     const mid = await getMid();
 

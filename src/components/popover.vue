@@ -2,7 +2,7 @@
   <el-popover trigger="hover" placement="bottom" popper-class="infoPopover">
     <template #reference>
       <img
-        :src="userInfo.user.avatar || '../../imgs/peach.svg'"
+        :src="userInfo.user.avatar || peach"
         alt=""
         class="avatar"
       />
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-
+import peach from "@/assets/peach.svg";
 import { useInfoStore } from "@/store";
 import { useRouter } from "vue-router";
 
