@@ -2,50 +2,59 @@
   <div :class="$style.content">
     <el-form :inline="true" :model="queryForm" :class="$style.query">
       <el-form-item>
-        <el-input v-model.trim.number="queryForm.cid" placeholder="课程id" />
+        <el-input
+          v-model.trim.number="queryForm.cid"
+          placeholder="课程id"
+          @blur="query"
+        />
       </el-form-item>
       <el-form-item>
-        <el-input v-model.trim="queryForm.cname" placeholder="课程名称" />
+        <el-input
+          v-model.trim="queryForm.cname"
+          placeholder="课程名称"
+          @blur="query"
+        />
       </el-form-item>
       <el-form-item>
-        <el-input v-model.trim="queryForm.tname" placeholder="教师名称" />
+        <el-input
+          v-model.trim="queryForm.tname"
+          placeholder="教师名称"
+          @blur="query"
+        />
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary">重置</el-button>
-      </el-form-item>
-      <!-- <el-form-item label="是否开放">
-        <el-select v-model="queryForm.is_open" placeholder="是否开放">
+
+      <el-form-item label="是否开放">
+        <el-select
+          v-model="queryForm.is_open"
+          placeholder="是否开放"
+          @change="query"
+        >
           <el-option label="所有" :value="-1" />
           <el-option label="未开放" :value="0" />
           <el-option label="开放" :value="1" />
         </el-select>
       </el-form-item>
       <el-form-item label="课程类别">
-        <el-select v-model="queryForm.type" placeholder="课程类别">
+        <el-select
+          v-model="queryForm.type"
+          placeholder="课程类别"
+          @change="query"
+        >
           <el-option label="所有" :value="-1" />
           <el-option label="必修" :value="1" />
           <el-option label="限选" :value="2" />
           <el-option label="选修" :value="3" />
         </el-select>
-      </el-form-item> -->
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="reset">重置</el-button>
+      </el-form-item>
     </el-form>
-    <el-button @click="is_visible = true" v-if="role === 3" type="primary"
-      >添加课程</el-button
-    >
+
     <div :class="$style.tableCard">
       <el-table :data="dataRef">
         <el-table-column align="center" prop="cid" label="课程id" />
-        <el-table-column
-          align="center"
-          prop="is_open"
-          :filters="[
-            { text: '未开放', value: 0 },
-            { text: '已开放', value: 1 },
-          ]"
-          :filter-method="filterIfOpen"
-          :filter-multiple="false"
-          label="是否开放"
-        />
+        <el-table-column align="center" prop="is_open" label="是否开放" />
         <el-table-column align="center" prop="cname" label="课程名" />
         <el-table-column align="center" prop="credit" label="学分" />
         <el-table-column align="center" prop="type" label="类别" />
@@ -78,6 +87,14 @@
       />
     </div>
   </div>
+  <el-button
+    @click="is_visible = true"
+    v-if="role === 3"
+    type="primary"
+    :class="$style.addCourseBtn"
+  >
+    + 添加课程
+  </el-button>
   <AddCourseDialog v-model:visible="is_visible" />
 </template>
 
@@ -115,11 +132,16 @@ watch(is_visible, async (newval) => {
     await query();
   }
 });
-const filterIfOpen = (value, row) => {
-  return row.is_open === value;
-  // await query();
+const reset = () => {
+  const originObj = {
+    cid: null,
+    cname: "",
+    is_open: -1,
+    tname: "",
+    type: -1,
+  };
+  Object.assign(queryForm, originObj);
 };
-
 const query = async () => {
   try {
     const { cid, cname, is_open, tname, type } = queryForm;
@@ -171,6 +193,9 @@ const handleEdit = (_, row) => {
 const handlePagChange = async () => {
   await query();
 };
+watch(queryForm, async () => {
+  await query();
+});
 </script>
 
 <style module lang="less">
@@ -179,6 +204,23 @@ const handlePagChange = async () => {
   flex-direction: column;
   align-items: center;
   padding: 2rem 3rem;
+  .query {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    > * {
+      margin-right: 20px;
+    }
+    > :nth-child(4) {
+      flex: 0 1 12rem;
+    }
+    > :nth-child(5) {
+      flex: 0 1 12rem;
+    }
+    > :last-child {
+      margin-right: 0;
+    }
+  }
   .tableCard {
     overflow: hidden;
     padding: 1rem 0;
@@ -200,6 +242,16 @@ const handlePagChange = async () => {
   .bin {
     font-size: 1.2rem;
   }
+}
+.addCourseBtn {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 14.5rem;
+  border-radius: 2rem;
+
+  z-index: 999;
+  height: 2.8rem;
+  width: 8rem;
 }
 </style>
 
