@@ -115,8 +115,7 @@ watch(is_visible, async (newval) => {
     await query();
   }
 });
-const filterIfOpen =  (value, row) => {
- 
+const filterIfOpen = (value, row) => {
   return row.is_open === value;
   // await query();
 };
