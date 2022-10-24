@@ -69,8 +69,8 @@
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-              ><i class="iconfont icon-ashbin" :class="$style.bin"></i
-            ></el-button>
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -88,14 +88,14 @@
     </div>
   </div>
   <el-button
-    @click="is_visible = true"
+    @click="addCourse"
     v-if="role === 3"
     type="primary"
     :class="$style.addCourseBtn"
   >
     + 添加课程
   </el-button>
-  <AddCourseDialog v-model:visible="is_visible" />
+  <AddCourseDialog v-model:visible="is_visible" :courseInfo="courseRow" />
 </template>
 
 <script setup>
@@ -111,6 +111,7 @@ const pageSize = ref(10);
 const totalNumber = ref(0);
 const router = useRouter();
 const userInfo = useInfoStore();
+const courseRow = reactive({});
 
 const is_visible = ref(false);
 const queryForm = reactive({
@@ -142,6 +143,15 @@ const reset = () => {
   };
   Object.assign(queryForm, originObj);
 };
+
+const addCourse = () => {
+  //清除原来的props值
+  Object.keys(courseRow).map((key) => {
+    delete courseRow[key];
+  });
+
+  is_visible.value = true;
+};
 const query = async () => {
   try {
     const { cid, cname, is_open, tname, type } = queryForm;
@@ -156,7 +166,7 @@ const query = async () => {
       type
     );
     totalNumber.value = total;
-    console.log(total);
+   
 
     if (status === 0) {
       dataRef.value = data;
@@ -168,26 +178,27 @@ const query = async () => {
     ElMessage.error(error);
   }
 };
-//放到回收站里
-const handleDelete = async (index, row) => {
-  const { mid } = row;
+//删除课程
+const handleDelete = async (_, row) => {
+  const { cid } = row;
   try {
-    const { status, message } = await api.toBin(mid);
+    const { status, message } = await api.deleteCourse(cid);
     if (status !== 0) {
       ElMessage.error(message);
       return;
     }
     ElMessage.success(message);
-    dataRef.value.splice(index, 1);
+    await query();
   } catch (error) {
     ElMessage.error(error);
   }
 };
 
 const handleEdit = (_, row) => {
-  const { mid } = row;
+  // const { cid,is_open, cname, credit, tname, tid, type } = row;
+  Object.assign(courseRow, row);
 
-  router.push({ name: "EditArticle", query: { mid } });
+  is_visible.value = true;
 };
 
 const handlePagChange = async () => {

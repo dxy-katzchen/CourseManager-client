@@ -6,11 +6,23 @@
     :class="$style.dialog"
   >
     <el-form :model="form" ref="ruleFormRef" :rules="rules" label-width="6rem">
+      <el-form-item
+        label="课程id"
+        v-if="JSON.stringify(props.courseInfo) !== '{}'"
+      >
+        <el-input v-model.trim="form.cid" placeholder="课程id" disabled />
+      </el-form-item>
       <el-form-item label="课程名称" prop="cname">
         <el-input v-model.trim="form.cname" placeholder="课程名称" />
       </el-form-item>
       <el-form-item label="学分" prop="credit">
         <el-input v-model.trim.number="form.credit" placeholder="学分" />
+      </el-form-item>
+      <el-form-item
+        label="教师名称"
+        v-if="JSON.stringify(props.courseInfo) !== '{}'"
+      >
+        <el-input v-model.trim="form.tname" placeholder="教师名称" disabled />
       </el-form-item>
       <el-form-item label="教师id" prop="tid">
         <el-input v-model.trim="form.tid" placeholder="教师id" />
@@ -45,16 +57,10 @@ import { computed, reactive, ref } from "vue";
 import { add_course_rule } from "@/rules/course.js";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
-const props = defineProps({ visible: Boolean });
+const props = defineProps({ visible: Boolean, courseInfo: Object });
 const ruleFormRef = ref(null);
 const emits = defineEmits(["update:visible"]);
-const form = reactive({
-  is_open: 0,
-  cname: "",
-  credit: null,
-  type: 1,
-  tid: "",
-});
+
 const rules = reactive(add_course_rule);
 
 const isVisible = computed({
@@ -65,6 +71,21 @@ const isVisible = computed({
     emits("update:visible", val);
   },
 });
+const form = computed({
+  get() {
+    if (JSON.stringify(props.courseInfo) == "{}") {
+      return {
+        is_open: 0,
+        cname: "",
+        credit: null,
+        type: 1,
+        tid: "",
+      };
+    }
+    return props.courseInfo;
+  },
+});
+
 const addCourse = async (formEl) => {
   if (!formEl) return;
   try {

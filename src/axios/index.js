@@ -185,6 +185,23 @@ const api = {
         type,
       },
     }),
+    deleteCourse:async(cid)=>
+    await axios({
+      url:'/course/delete',
+      method:'POST',
+      data:{
+        cid
+      }
+    }),
+    updateCourse:async(cid,is_open, cname, credit, tname, tid, type)=>
+    await axios({
+      url:'/course/update',
+      method:'POST',
+      data:{
+        cid,is_open, cname, credit, tname, tid, type
+      }
+    }),
+
 };
 
 export default api;
