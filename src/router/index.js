@@ -18,6 +18,11 @@ const router = createRouter({
           name: "Bin",
           component: () => import("@/pages/Management/binPageList.vue"),
         },
+        {
+          path: "courseTable",
+          name: "CourseTable",
+          component: () => import("@/pages/CourseTable/index.vue"),
+        },
       ]
     },
     {

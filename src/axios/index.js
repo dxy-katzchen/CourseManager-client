@@ -150,15 +150,41 @@ const api = {
         pageCurr,
       },
     }),
-    deleteCompletely:async(mid)=>
+  deleteCompletely: async (mid) =>
     await axios({
       url: "/manage/delete",
       method: "POST",
       data: {
-      mid
+        mid,
       },
     }),
-    
+  getCourseList: async (pageSize, pageCurr, cid, cname, is_open, tname, type) =>
+    await axios({
+      url: "/course/getCourseList",
+      method: "POST",
+      data: {
+        pageSize,
+        pageCurr,
+        cid,
+        cname,
+        is_open,
+        tname,
+        type,
+      },
+    }),
+  addCourse: async (is_open, cname, credit, tname, tid, type) =>
+    await axios({
+      url: "/course/create",
+      method: "POST",
+      data: {
+        is_open,
+        cname,
+        credit,
+        tname,
+        tid,
+        type,
+      },
+    }),
 };
 
 export default api;

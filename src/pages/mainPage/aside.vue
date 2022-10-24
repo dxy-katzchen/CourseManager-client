@@ -5,7 +5,7 @@
         <template #title>
           <span>课程相关</span>
         </template>
-        <el-menu-item index="1-1">创建课程</el-menu-item>
+        <el-menu-item index="/courseTable">课程列表</el-menu-item>
         <el-menu-item index="1-2">选课管理</el-menu-item>
         <el-menu-item index="1-3">选课管理</el-menu-item>
       </el-sub-menu>
