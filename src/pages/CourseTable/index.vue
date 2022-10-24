@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.content">
-    <el-form :inline="true" :model="queryForm" class="query">
+    <el-form :inline="true" :model="queryForm" :class="$style.query">
       <el-form-item>
         <el-input v-model.trim.number="queryForm.cid" placeholder="课程id" />
       </el-form-item>
@@ -10,7 +10,10 @@
       <el-form-item>
         <el-input v-model.trim="queryForm.tname" placeholder="教师名称" />
       </el-form-item>
-      <el-form-item label="是否开放">
+      <el-form-item>
+        <el-button type="primary">重置</el-button>
+      </el-form-item>
+      <!-- <el-form-item label="是否开放">
         <el-select v-model="queryForm.is_open" placeholder="是否开放">
           <el-option label="所有" :value="-1" />
           <el-option label="未开放" :value="0" />
@@ -24,10 +27,7 @@
           <el-option label="限选" :value="2" />
           <el-option label="选修" :value="3" />
         </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="query">查询</el-button>
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
     <el-button @click="is_visible = true" v-if="role === 3" type="primary"
       >添加课程</el-button
@@ -35,7 +35,17 @@
     <div :class="$style.tableCard">
       <el-table :data="dataRef">
         <el-table-column align="center" prop="cid" label="课程id" />
-        <el-table-column align="center" prop="is_open" label="是否开放" />
+        <el-table-column
+          align="center"
+          prop="is_open"
+          :filters="[
+            { text: '未开放', value: 0 },
+            { text: '已开放', value: 1 },
+          ]"
+          :filter-method="filterIfOpen"
+          :filter-multiple="false"
+          label="是否开放"
+        />
         <el-table-column align="center" prop="cname" label="课程名" />
         <el-table-column align="center" prop="credit" label="学分" />
         <el-table-column align="center" prop="type" label="类别" />
@@ -61,7 +71,7 @@
         :page-sizes="[10, 20, 50, 100]"
         background
         :class="$style.pagination"
-        layout=" sizes, prev, pager, next"
+        layout="sizes, prev, pager, next"
         :total="totalNumber"
         @size-change="handlePagChange"
         @current-change="handlePagChange"
@@ -72,7 +82,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, watch } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
 import { useInfoStore } from "@/store";
@@ -98,15 +108,23 @@ const role = ref(userInfo.user.role);
 
 const dataRef = ref();
 onMounted(async () => {
-  await getTableData();
-});
-const getTableData = async () => {
   await query();
+});
+watch(is_visible, async (newval) => {
+  if (!newval) {
+    await query();
+  }
+});
+const filterIfOpen =  (value, row) => {
+ 
+  return row.is_open === value;
+  // await query();
 };
+
 const query = async () => {
   try {
     const { cid, cname, is_open, tname, type } = queryForm;
-    const { data, message, status } = await api.getCourseList(
+    const { data, total, status, message } = await api.getCourseList(
       //参数列表:pageSize,pageCurr,cid,cname,is_open,tname,type
       pageSize.value,
       currentPage.value,
@@ -116,6 +134,8 @@ const query = async () => {
       tname,
       type
     );
+    totalNumber.value = total;
+    console.log(total);
 
     if (status === 0) {
       dataRef.value = data;
@@ -150,7 +170,7 @@ const handleEdit = (_, row) => {
 };
 
 const handlePagChange = async () => {
-  await getTableData();
+  await query();
 };
 </script>
 
@@ -159,16 +179,16 @@ const handlePagChange = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  padding: 2rem 3rem;
   .tableCard {
     overflow: hidden;
     padding: 1rem 0;
     margin: 2rem 0;
-    width: 80%;
+    width: 100%;
     box-shadow: 0 0 10px blueviolet;
     border-radius: 2rem;
     .pagination {
-      margin: 0 auto;
+      margin: 1rem auto 0 auto;
       display: flex;
       width: 50%;
       min-width: 500px;
