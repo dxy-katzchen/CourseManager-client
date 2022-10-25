@@ -50,25 +50,60 @@
         <el-button type="primary" @click="reset">重置</el-button>
       </el-form-item>
     </el-form>
-
     <div :class="$style.tableCard">
       <el-table :data="dataRef">
         <el-table-column align="center" prop="cid" label="课程id" />
-        <el-table-column align="center" prop="is_open" label="是否开放" />
+        <el-table-column align="center" prop="is_open" label="是否开放">
+          <template #default="scope">
+            <el-tag
+              size="small"
+              effect="dark"
+              :type="scope.row.is_open === 0 ? 'danger' : 'success'"
+              >{{ scope.row.is_open === 0 ? "未开放" : "已开放" }}</el-tag
+            >
+          </template>
+        </el-table-column>
         <el-table-column align="center" prop="cname" label="课程名" />
         <el-table-column align="center" prop="credit" label="学分" />
-        <el-table-column align="center" prop="type" label="类别" />
+        <el-table-column align="center" prop="type" label="类别">
+          <template #default="scope">
+            <div
+              :class="$style.typeTag"
+              :style="{
+                background: `${
+                  scope.row.type === 1
+                    ? '#951db9'
+                    : scope.row.type === 2
+                    ? '#3461e5'
+                    : '#95c900'
+                }`,
+              }"
+            >
+              {{
+                scope.row.type === 1
+                  ? "必修"
+                  : scope.row.type === 2
+                  ? "限选"
+                  : "选修"
+              }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column align="center" prop="tname" label="任课教师" />
-        <el-table-column align="center" width="200" v-if="role === 3">
+        <el-table-column align="center" width="200">
           <template #header> 操作 </template>
           <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+            <el-button
+              size="small"
+              @click="handleEdit(scope.$index, scope.row)"
+              v-if="role === 3"
               >编辑</el-button
             >
             <el-button
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
+              v-if="role === 3"
               >删除</el-button
             >
           </template>
@@ -99,12 +134,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, watch } from "vue";
+import { ref, onMounted, reactive, watch, computed } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
 import { useInfoStore } from "@/store";
 import { useRouter } from "vue-router";
 import AddCourseDialog from "./addCourseDialog.vue";
+import { Scope } from "eslint-scope";
 
 const currentPage = ref(1);
 const pageSize = ref(10);
@@ -166,7 +202,6 @@ const query = async () => {
       type
     );
     totalNumber.value = total;
-   
 
     if (status === 0) {
       dataRef.value = data;
@@ -239,6 +274,16 @@ watch(queryForm, async () => {
     width: 100%;
     box-shadow: 0 0 10px blueviolet;
     border-radius: 2rem;
+    .typeTag{
+      color:#fff;
+      font-size: 0.7rem;
+      height:22px;
+      line-height: 22px;
+      border-radius: 20px;
+      padding: 0 7px;
+      width: 3.1rem;
+      margin: 0 auto;
+    }
     .pagination {
       margin: 1rem auto 0 auto;
       display: flex;
