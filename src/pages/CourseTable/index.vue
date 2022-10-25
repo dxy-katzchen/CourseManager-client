@@ -270,12 +270,18 @@ watch(queryForm, async () => {
   flex-direction: column;
   align-items: center;
   padding: 2rem 3rem;
+ 
   .query {
     display: flex;
+    background-color: #fff;
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 1rem;
     > * {
-      margin-right: 20px;
+     
+      margin:0 20px 0 0;
     }
     > :nth-child(4) {
       flex: 0 1 12rem;
@@ -288,11 +294,12 @@ watch(queryForm, async () => {
     }
   }
   .tableCard {
+    background-color: #fff;
     overflow: hidden;
     padding: 1rem 0;
     margin: 2rem 0;
     width: 100%;
-    box-shadow: 0 0 10px blueviolet;
+   
     border-radius: 2rem;
     .typeTag {
       color: #fff;
@@ -315,9 +322,7 @@ watch(queryForm, async () => {
       height: 3.5rem;
     }
   }
-  .bin {
-    font-size: 1.2rem;
-  }
+ 
 }
 .addCourseBtn {
   position: fixed;

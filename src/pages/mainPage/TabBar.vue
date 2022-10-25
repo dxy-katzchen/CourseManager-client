@@ -4,9 +4,7 @@
     <span :class="$style.title">CourseTable </span>
     <span :class="$style.ch">课程管理系统</span>
     <div :class="$style.middle"></div>
-    <span :class="$style.username">
-      {{ userInfo.user.username }} , 你好!</span
-    >
+    <span :class="$style.username"> {{ userInfo.user.username }} , 你好!</span>
     <Popover />
   </div>
 </template>
@@ -17,8 +15,6 @@ import Popover from "@/components/popover.vue";
 import { useInfoStore } from "@/store";
 
 const userInfo = useInfoStore();
-
-
 </script>
 
 <style module lang="less">
@@ -33,7 +29,7 @@ const userInfo = useInfoStore();
   // background-color: aqua;
   line-height: 3.5rem;
   display: flex;
-  background-image: linear-gradient(135deg, #ce9ffc 10%, #7367f0 100%);
+  background-color: #daa4ff;
   color: #fff;
   .title {
     flex: 0 0 auto;

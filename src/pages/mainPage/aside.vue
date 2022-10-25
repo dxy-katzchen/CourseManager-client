@@ -6,7 +6,7 @@
           <span>课程相关</span>
         </template>
         <el-menu-item index="/courseTable">课程列表</el-menu-item>
-        <el-menu-item index="/studentCourseList" v-if="role === 1">选课管理</el-menu-item>
+        <el-menu-item index="/studentCourseList" v-if="role === 1">我选的课</el-menu-item>
         <el-menu-item index="1-3">选课管理</el-menu-item>
       </el-sub-menu>
       <el-sub-menu index="2">
@@ -24,11 +24,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+
 import { useInfoStore } from "@/store";
 
 const userInfo = useInfoStore();
-const role = ref(userInfo.user.role);
+const {role}=userInfo.user
+
 </script>
 
 <style module lang="less">

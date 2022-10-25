@@ -215,6 +215,23 @@ const api = {
         cid,
       },
     }),
+  stuGetChooseCourseList: async (pageSize, pageCurr) =>
+    await axios({
+      url: "/course/student/getMyCourse",
+      method: "POST",
+      data: {
+        pageSize,
+        pageCurr,
+      },
+    }),
+  stuWithdraw: async (cid) =>
+    await axios({
+      url: "/course/student/withdraw",
+      method: "POST",
+      data: {
+        cid,
+      },
+    }),
 };
 
 export default api;

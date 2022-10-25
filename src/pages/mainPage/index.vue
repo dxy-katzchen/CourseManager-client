@@ -3,7 +3,7 @@
   <Aside />
 
   <div :class="$style.main">
-  <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -17,5 +17,7 @@ import Aside from "./aside.vue";
   font-size: 1rem;
   // background-color: green;
   padding: 3.5rem 0 0 13rem;
+  background: url("@/assets/tableBg1.svg");
+  min-height: calc(100vh - 3.5rem);
 }
 </style>
