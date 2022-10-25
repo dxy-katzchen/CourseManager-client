@@ -6,7 +6,7 @@
           <span>课程相关</span>
         </template>
         <el-menu-item index="/courseTable">课程列表</el-menu-item>
-        <el-menu-item index="1-2">选课管理</el-menu-item>
+        <el-menu-item index="/studentCourseList" v-if="role === 1">选课管理</el-menu-item>
         <el-menu-item index="1-3">选课管理</el-menu-item>
       </el-sub-menu>
       <el-sub-menu index="2">

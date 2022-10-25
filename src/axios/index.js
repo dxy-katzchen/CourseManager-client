@@ -185,23 +185,36 @@ const api = {
         type,
       },
     }),
-    deleteCourse:async(cid)=>
+  deleteCourse: async (cid) =>
     await axios({
-      url:'/course/delete',
-      method:'POST',
-      data:{
-        cid
-      }
+      url: "/course/delete",
+      method: "POST",
+      data: {
+        cid,
+      },
     }),
-    updateCourse:async(cid,is_open, cname, credit, tname, tid, type)=>
+  updateCourse: async (cid, is_open, cname, credit, tname, tid, type) =>
     await axios({
-      url:'/course/update',
-      method:'POST',
-      data:{
-        cid,is_open, cname, credit, tname, tid, type
-      }
+      url: "/course/update",
+      method: "POST",
+      data: {
+        cid,
+        is_open,
+        cname,
+        credit,
+        tname,
+        tid,
+        type,
+      },
     }),
-
+  stuChooseCourse: async (cid) =>
+    await axios({
+      url: "/course/student/choose",
+      method: "POST",
+      data: {
+        cid,
+      },
+    }),
 };
 
 export default api;

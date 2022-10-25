@@ -75,7 +75,7 @@
                     ? '#951db9'
                     : scope.row.type === 2
                     ? '#1dbcb6'
-                    : '#95c900'
+                    : '#df3a01'
                 }`,
               }"
             >
@@ -93,6 +93,14 @@
         <el-table-column align="center" width="200">
           <template #header> 操作 </template>
           <template #default="scope">
+            <el-button
+              size="small"
+              type="primary"
+              plain
+              @click="handleStuChoose(scope.$index, scope.row)"
+              v-if="role === 1"
+              >选课</el-button
+            >
             <el-button
               size="small"
               @click="handleEdit(scope.$index, scope.row)"
@@ -134,18 +142,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, watch, computed } from "vue";
+import { ref, onMounted, reactive, watch } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
 import { useInfoStore } from "@/store";
-import { useRouter } from "vue-router";
+
 import AddCourseDialog from "./addCourseDialog.vue";
-import { Scope } from "eslint-scope";
 
 const currentPage = ref(1);
 const pageSize = ref(10);
 const totalNumber = ref(0);
-const router = useRouter();
+
 const userInfo = useInfoStore();
 const courseRow = reactive({});
 
@@ -169,6 +176,19 @@ watch(is_visible, async (newval) => {
     await query();
   }
 });
+
+const handleStuChoose = async (_, row) => {
+  const { cid } = row;
+  try {
+    let { status, message } = await api.stuChooseCourse(cid);
+    if (status === 0) {
+      ElMessage.success(message);
+    }
+  } catch (error) {
+    console.error(error);
+    ElMessage.error(error);
+  }
+};
 const reset = () => {
   const originObj = {
     cid: null,
@@ -274,10 +294,10 @@ watch(queryForm, async () => {
     width: 100%;
     box-shadow: 0 0 10px blueviolet;
     border-radius: 2rem;
-    .typeTag{
-      color:#fff;
+    .typeTag {
+      color: #fff;
       font-size: 0.7rem;
-      height:22px;
+      height: 22px;
       line-height: 22px;
       border-radius: 20px;
       padding: 0 7px;

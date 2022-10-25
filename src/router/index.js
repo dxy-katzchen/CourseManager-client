@@ -23,6 +23,11 @@ const router = createRouter({
           name: "CourseTable",
           component: () => import("@/pages/CourseTable/index.vue"),
         },
+        {
+          path: "studentCourseList",
+          name: "StudentCourseList",
+          component: () => import("@/pages/CourseTable/StuCourseList.vue"),
+        },
       ]
     },
     {
