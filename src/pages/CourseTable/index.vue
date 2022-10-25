@@ -74,7 +74,7 @@
                   scope.row.type === 1
                     ? '#951db9'
                     : scope.row.type === 2
-                    ? '#3461e5'
+                    ? '#1dbcb6'
                     : '#95c900'
                 }`,
               }"
