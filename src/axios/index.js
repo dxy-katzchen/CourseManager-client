@@ -232,6 +232,15 @@ const api = {
         cid,
       },
     }),
+  stuEvalute: async (cid, ev_score) =>
+    await axios({
+      url: "/course/student/evaluate",
+      method: "POST",
+      data: {
+        cid,
+        ev_score,
+      },
+    }),
 };
 
 export default api;

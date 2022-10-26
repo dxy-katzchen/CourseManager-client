@@ -1,5 +1,4 @@
 <template>
-    
   <el-pagination
     v-model:currentPage="currentPage"
     v-model:page-size="pageSize"
@@ -20,7 +19,7 @@
             size="small"
             effect="dark"
             :type="scope.row.is_open === 0 ? 'danger' : 'success'"
-            >{{ scope.row.is_open === 0 ? "未开放" : "已开放" }}</el-tag
+            >{{ scope.row.is_open === 0 ? "已结束" : "开放中" }}</el-tag
           >
         </template>
       </el-table-column>
@@ -51,12 +50,50 @@
         </template>
       </el-table-column>
       <el-table-column align="center" prop="tname" label="任课教师" />
+      <el-table-column
+        align="center"
+        prop="stu_score"
+        label="我的分数"
+        :formatter="scoreFormat"
+      />
+      <el-table-column
+        align="center"
+        prop="ev_score"
+        label="我的评价"
+        :formatter="scoreEvFormat"
+      />
       <el-table-column align="center" width="200">
         <template #header> 操作 </template>
+
         <template #default="scope">
+          <el-popover
+            placement="top"
+            v-if="scope.row.is_open === 0"
+            title="请评价:"
+          >
+            <template #reference>
+              <el-button
+                size="small"
+                type="success"
+                :disabled="scope.row.ev_score!==null"
+                >评价</el-button
+              >
+            </template>
+            <el-rate v-model="score" allow-half :colors="colors" />
+
+            <el-button
+              type="primary"
+              size="small"
+              @click="submitScore(scope.row)"
+              :class="$style.popoverBtn"
+              >提交</el-button
+            >
+          </el-popover>
+
           <el-button
             size="small"
             type="danger"
+            v-if="scope.row.is_open === 1"
             @click="withdrawal(scope.$index, scope.row)"
             >退课</el-button
           >
@@ -67,17 +104,38 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
+
 const currentPage = ref(1);
 const pageSize = ref(10);
 const totalNumber = ref(0);
 const dataRef = ref();
+const score = ref();
+const colors = ref(["#99A9BF", "#F7BA2A", "#FF9900"]);
 
+const ev_score = computed(() => score.value * 20);
 onMounted(async () => {
   await getMyChooseCourse();
 });
+
+const submitScore = async (row) => {
+  const { cid } = row;
+  try {
+    console.log(ev_score.value);
+
+    const { status, message } = await api.stuEvalute(cid, ev_score.value);
+    if (status === 0) ElMessage.success(message);
+  } catch (error) {
+    console.error(error);
+    ElMessage.error(error);
+  }
+};
+
+const scoreFormat = (row) => (row.stu_score ? row.stu_score : "--");
+const scoreEvFormat = (row) => (row.ev_score ? row.ev_score : "--");
+
 const getMyChooseCourse = async () => {
   try {
     const { data, total, status } = await api.stuGetChooseCourseList(
@@ -86,6 +144,8 @@ const getMyChooseCourse = async () => {
     );
     if (status === 0) {
       dataRef.value = data;
+      console.log(data);
+
       totalNumber.value = total;
     }
   } catch (error) {
@@ -115,9 +175,9 @@ const withdrawal = async (_, row) => {
   overflow: hidden;
   padding: 1rem 0;
   margin: 2rem 0;
-background-color: #fff;
+  background-color: #fff;
   margin: 2rem 3rem;
-  box-shadow: 1px 1px 15px rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.3);
   border-radius: 2rem;
   .typeTag {
     color: #fff;
@@ -130,6 +190,11 @@ background-color: #fff;
     margin: 0 auto;
   }
 }
+.popoverBtn {
+  float: right;
+  margin: 10px 2px 0 2px;
+}
+
 .pagination {
   margin: 1rem auto 0 auto;
   display: flex;
