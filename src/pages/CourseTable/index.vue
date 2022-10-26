@@ -90,7 +90,11 @@
           </template>
         </el-table-column>
         <el-table-column align="center" prop="tname" label="任课教师" />
-        <el-table-column align="center" width="200">
+        <el-table-column
+          align="center"
+          width="200"
+          v-if="role === 1 || role === 3"
+        >
           <template #header> 操作 </template>
           <template #default="scope">
             <el-button
@@ -279,7 +283,7 @@ watch(queryForm, async () => {
     align-items: center;
     padding: 1rem;
     border-radius: 1rem;
-    background-color: #FAECFD;
+    background-color: #faecfd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     > * {
       margin: 0 20px 0 0;

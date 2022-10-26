@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.content">
     <el-tabs v-model="activeName" type="card">
       <el-tab-pane
         v-for="article in articleList"
@@ -26,11 +26,15 @@ const articleList = reactive([
 </script>
 
 <style module lang="less">
-.pane {
+.content{
+  padding-left:1rem;
+  .pane {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+}
+
 </style>
 <style lang="less" scoped>
 :deep(.el-tabs__item)  {

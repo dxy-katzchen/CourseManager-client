@@ -28,6 +28,11 @@ const router = createRouter({
           name: "StudentCourseList",
           component: () => import("@/pages/CourseTable/StuCourseList.vue"),
         },
+        {
+          path: "teacherCourseList",
+          name: "TeacherCourseList",
+          component: () => import("@/pages/CourseTable/TeacherCourseList.vue"),
+        },
       ]
     },
     {
