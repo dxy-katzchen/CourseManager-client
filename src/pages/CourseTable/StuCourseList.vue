@@ -115,9 +115,9 @@ const withdrawal = async (_, row) => {
   overflow: hidden;
   padding: 1rem 0;
   margin: 2rem 0;
-
+background-color: #fff;
   margin: 2rem 3rem;
-  box-shadow: 0 0 10px blueviolet;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.3);
   border-radius: 2rem;
   .typeTag {
     color: #fff;

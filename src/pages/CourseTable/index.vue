@@ -270,7 +270,7 @@ watch(queryForm, async () => {
   flex-direction: column;
   align-items: center;
   padding: 2rem 3rem;
- 
+
   .query {
     display: flex;
     background-color: #fff;
@@ -279,9 +279,9 @@ watch(queryForm, async () => {
     align-items: center;
     padding: 1rem;
     border-radius: 1rem;
+    background-color: #FAECFD;
     > * {
-     
-      margin:0 20px 0 0;
+      margin: 0 20px 0 0;
     }
     > :nth-child(4) {
       flex: 0 1 12rem;
@@ -299,7 +299,7 @@ watch(queryForm, async () => {
     padding: 1rem 0;
     margin: 2rem 0;
     width: 100%;
-   
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.3);
     border-radius: 2rem;
     .typeTag {
       color: #fff;
@@ -322,7 +322,6 @@ watch(queryForm, async () => {
       height: 3.5rem;
     }
   }
- 
 }
 .addCourseBtn {
   position: fixed;
