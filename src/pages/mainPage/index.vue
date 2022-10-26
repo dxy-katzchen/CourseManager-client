@@ -16,7 +16,7 @@ import Aside from "./aside.vue";
 .main {
   font-size: 1rem;
   // background-color: green;
-  padding: 3.5rem 0 0 14rem;
+  padding: 3.5rem 0 0 15rem;
   background: url("@/assets/tableBg1.svg");
   min-height: calc(100vh - 3.5rem);
 }

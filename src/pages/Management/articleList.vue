@@ -126,7 +126,7 @@ watch(
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   margin: 3rem 0 2rem 0;
-  width: 85%;
+  width: 90%;
   border-radius: 2rem;
 }
 .bin {

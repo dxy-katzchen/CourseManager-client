@@ -174,9 +174,9 @@ const withdrawal = async (_, row) => {
 .tableCard {
   overflow: hidden;
   padding: 1rem 0;
-  margin: 2rem 0;
+ 
   background-color: #fff;
-  margin: 2rem 3rem;
+  margin: 2rem ;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.3);
   border-radius: 2rem;
   .typeTag {

@@ -273,7 +273,7 @@ watch(queryForm, async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 3rem;
+  padding: 2rem ;
 
   .query {
     display: flex;
