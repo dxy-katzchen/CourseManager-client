@@ -60,7 +60,7 @@
         align="center"
         prop="ev_score"
         label="我的评价"
-        :formatter="scoreEvFormat"
+        :formatter="scoreFormat"
       />
       <el-table-column align="center" width="200">
         <template #header> 操作 </template>
@@ -133,8 +133,10 @@ const submitScore = async (row) => {
   }
 };
 
-const scoreFormat = (row) => (row.stu_score ? row.stu_score : "--");
-const scoreEvFormat = (row) => (row.ev_score ? row.ev_score : "--");
+const scoreFormat = (row,column,cellVal) =>
+cellVal?cellVal:"--"
+;
+
 
 const getMyChooseCourse = async () => {
   try {

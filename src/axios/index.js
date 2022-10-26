@@ -241,6 +241,23 @@ const api = {
         ev_score,
       },
     }),
+  teacherGetCourseList: async (pageSize, pageCurr) =>
+    await axios({
+      url: "/course/teacher/getTeacherCourseList",
+      method: "POST",
+      data: {
+        pageSize,
+        pageCurr,
+      },
+    }),
+  getMyStudent: async (cid) =>
+    await axios({
+      url: "/course/teacher/getCourseStuList",
+      method: "POST",
+      data: {
+        cid,
+      },
+    }),
 };
 
 export default api;
