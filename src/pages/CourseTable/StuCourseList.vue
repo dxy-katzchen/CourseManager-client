@@ -139,5 +139,6 @@ background-color: #fff;
   background-color: #faecfd;
   border-radius: 2rem;
   height: 3.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 </style>

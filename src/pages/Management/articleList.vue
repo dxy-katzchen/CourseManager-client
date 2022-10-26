@@ -11,27 +11,25 @@
     @current-change="handlePagChange"
   />
 
-  <div :class="$style.tableCard">
-    <el-table :data="dataRef" @row-click="goDetails">
-      <el-table-column align="center" prop="title" label="题目" />
-      <el-table-column align="center" prop="author" label="作者" />
-      <el-table-column align="center" prop="edit_time" label="编辑时间" />
-      <el-table-column align="center" width="200" v-if="role === 3">
-        <template #header> 操作 </template>
-        <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="small"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            ><i class="iconfont icon-ashbin" :class="$style.bin"></i
-          ></el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+  <el-table :class="$style.table" :data="dataRef" @row-click="goDetails">
+    <el-table-column align="center" prop="title" label="题目" />
+    <el-table-column align="center" prop="author" label="作者" />
+    <el-table-column align="center" prop="edit_time" label="编辑时间" />
+    <el-table-column align="center" width="200" v-if="role === 3">
+      <template #header> 操作 </template>
+      <template #default="scope">
+        <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button
+        >
+        <el-button
+          size="small"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          ><i class="iconfont icon-ashbin" :class="$style.bin"></i
+        ></el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script setup>
@@ -122,13 +120,13 @@ watch(
   border-radius: 2rem;
   height: 3.5rem;
   margin-top: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
-.tableCard {
+.table {
   overflow: hidden;
-  padding: 1rem 0;
-  margin: 2rem 0;
-  width: 80%;
-  box-shadow: 0 0 10px blueviolet;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  margin: 3rem 0 2rem 0;
+  width: 85%;
   border-radius: 2rem;
 }
 .bin {

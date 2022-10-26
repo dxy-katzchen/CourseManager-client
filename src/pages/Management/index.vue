@@ -30,5 +30,11 @@ const articleList = reactive([
   display: flex;
   flex-direction: column;
   align-items: center;
-} 
+}
+</style>
+<style lang="less" scoped>
+:deep(.el-tabs__item)  {
+  background: rgba(255, 255, 255, 0.5)
+}
+
 </style>

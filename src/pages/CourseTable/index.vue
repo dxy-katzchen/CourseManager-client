@@ -280,6 +280,7 @@ watch(queryForm, async () => {
     padding: 1rem;
     border-radius: 1rem;
     background-color: #FAECFD;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     > * {
       margin: 0 20px 0 0;
     }
