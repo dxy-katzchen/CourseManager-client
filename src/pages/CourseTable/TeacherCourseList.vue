@@ -11,7 +11,7 @@
     @current-change="handlePagChange"
   />
   <div :class="$style.tableCard">
-    <el-table :data="dataRef" row-key="cid" @expand-change="changeStuList">
+    <el-table :data="dataRef" row-key="cid" @expand-change="getStuList">
       <el-table-column type="expand">
         <template #default="props">
           <el-table :data="props.row.stuList" border>
@@ -23,7 +23,38 @@
               :formatter="scoreFormat"
             />
             <el-table-column align="center" label="姓名" prop="stu_name" />
-            <el-table-column align="center" label="成绩" prop="stu_score"   :formatter="scoreFormat"/>
+            <el-table-column
+              align="center"
+              label="成绩"
+              prop="stu_score"
+              :formatter="scoreFormat"
+            />
+            <el-table-column align="center" width="200">
+              <template #header> 操作 </template>
+              <template #default="scope">
+                <el-popover placement="top" title="请打分:">
+                  <template #reference>
+                    <el-button size="small" type="success">打分</el-button>
+                  </template>
+                  <el-input
+                    type="number"
+                    :min="1"
+                    :max="100"
+                    v-model="stu_score"
+                    size="small"
+                    placeholder="请输入学生分数"
+                  />
+
+                  <el-button
+                    type="primary"
+                    size="small"
+                    @click="submitScore(scope.row)"
+                    :class="$style.popoverBtn"
+                    >提交</el-button
+                  >
+                </el-popover>
+              </template>
+            </el-table-column>
           </el-table>
         </template>
       </el-table-column>
@@ -64,49 +95,12 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column align="center" width="200">
-        <template #header> 操作 </template>
-
-        <template #default="scope">
-          <el-popover
-            placement="top"
-            v-if="scope.row.is_open === 0"
-            title="请评价:"
-          >
-            <template #reference>
-              <el-button
-                size="small"
-                type="success"
-                :disabled="scope.row.ev_score !== null"
-                >评价</el-button
-              >
-            </template>
-            <el-rate v-model="score" allow-half :colors="colors" />
-
-            <el-button
-              type="primary"
-              size="small"
-              @click="submitScore(scope.row)"
-              :class="$style.popoverBtn"
-              >提交</el-button
-            >
-          </el-popover>
-
-          <el-button
-            size="small"
-            type="danger"
-            v-if="scope.row.is_open === 1"
-            @click="withdrawal(scope.$index, scope.row)"
-            >退课</el-button
-          >
-        </template>
-      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import api from "@/axios";
 
@@ -114,10 +108,9 @@ const currentPage = ref(1);
 const pageSize = ref(10);
 const totalNumber = ref(0);
 const dataRef = ref();
-const score = ref();
-const colors = ref(["#99A9BF", "#F7BA2A", "#FF9900"]);
 
-const ev_score = computed(() => score.value * 20);
+const stu_score = ref(null);
+
 onMounted(async () => {
   await getMyTeachCourse();
   dataRef.value = dataRef.value.map((item) => {
@@ -125,27 +118,41 @@ onMounted(async () => {
     return item;
   });
 });
-const scoreFormat = (row, column, cellVal) =>
-  cellVal?cellVal:'--'
-;
-const changeStuList = async (row) => {
+const submitScore = async (row) => {
+  const { uid, cid } = row;
+
+  stu_score.value = Number(stu_score.value);
+  if (
+    stu_score.value < 1 ||
+    stu_score.value > 100 ||
+    stu_score.value % 1 !== 0
+  ) {
+    return ElMessage.error("成绩数据不合法");
+  }
+
   try {
-    const { data, message, status } = await api.getMyStudent(row.cid);
+    const { status, message } = await api.markMyStudent(
+      cid,
+      uid,
+      stu_score.value
+    );
     if (status === 0) {
-      row.stuList = data;
+      ElMessage.success(message);
+      stu_score.value = null;
     }
   } catch (error) {
     console.error(error);
     ElMessage.error(error);
   }
 };
-const submitScore = async (row) => {
-  const { cid } = row;
-  try {
-    console.log(ev_score.value);
 
-    const { status, message } = await api.stuEvalute(cid, ev_score.value);
-    if (status === 0) ElMessage.success(message);
+const scoreFormat = (_, __, cellVal) => (cellVal ? cellVal : "--");
+const getStuList = async (row) => {
+  try {
+    const { data, message, status } = await api.getMyStudent(row.cid);
+    if (status === 0) {
+      row.stuList = data;
+    }
   } catch (error) {
     console.error(error);
     ElMessage.error(error);

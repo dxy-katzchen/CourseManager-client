@@ -258,6 +258,16 @@ const api = {
         cid,
       },
     }),
+  markMyStudent: async (cid, stu_id, score) =>
+    await axios({
+      url: "/course/teacher/mark",
+      method: "POST",
+      data: {
+        cid,
+        stu_id,
+        score,
+      },
+    }),
 };
 
 export default api;

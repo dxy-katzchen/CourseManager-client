@@ -75,7 +75,7 @@
               <el-button
                 size="small"
                 type="success"
-                :disabled="scope.row.ev_score!==null"
+                :disabled="scope.row.ev_score !== null"
                 >评价</el-button
               >
             </template>
@@ -123,7 +123,7 @@ onMounted(async () => {
 const submitScore = async (row) => {
   const { cid } = row;
   try {
-    console.log(ev_score.value);
+  
 
     const { status, message } = await api.stuEvalute(cid, ev_score.value);
     if (status === 0) ElMessage.success(message);
@@ -133,11 +133,7 @@ const submitScore = async (row) => {
   }
 };
 
-const scoreFormat = (row,column,cellVal) =>
-cellVal?cellVal:"--"
-;
-
-
+const scoreFormat = (_, __, cellVal) => (cellVal ? cellVal : "--");
 const getMyChooseCourse = async () => {
   try {
     const { data, total, status } = await api.stuGetChooseCourseList(
@@ -176,9 +172,9 @@ const withdrawal = async (_, row) => {
 .tableCard {
   overflow: hidden;
   padding: 1rem 0;
- 
+
   background-color: #fff;
-  margin: 2rem ;
+  margin: 2rem;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.3);
   border-radius: 2rem;
   .typeTag {
