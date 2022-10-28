@@ -3,7 +3,7 @@
     draggable
     :before-close="() => (isVisible = false)"
     v-model="isVisible"
-    title="添加课程"
+    :title="is_created?'添加课程':'编辑课程'"
     :class="$style.dialog"
   >
     <el-form :model="form" ref="ruleFormRef" :rules="rules" label-width="6rem">

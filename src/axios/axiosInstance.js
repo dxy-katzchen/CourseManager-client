@@ -5,6 +5,8 @@ import { useInfoStore } from "@/store";
 
 const instance = axios.create({
   baseURL: "http://127.0.0.1:1111",
+  //服务器
+  // baseURL: "http://101.43.193.7/CMapi",
   timeout: 2000,
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
