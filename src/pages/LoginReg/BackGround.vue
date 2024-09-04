@@ -13,33 +13,27 @@ const darkStore = useDarkStore();
 const loginBg = ref(null);
 
 const darkOption = {
-  backgroundColor: 0x1746,
-  color1: 0x4a00ff,
-  color2: 0x95ff00,
-  colorMode: "varianceGradient",
+  baseColor: 0xd6d96,
+  backgroundColor: 0x63c,
 };
 const lightOption = {
-  backgroundColor: 0x7c90f2,
-  color1: 0x9116e8,
-  color2: 0xb4c065,
-  colorMode: "variance",
+  baseColor: 0x0,
+  backgroundColor: 0x3344e1,
 };
 let effect = null;
 
 onMounted(() => {
-  effect = VANTA.BIRDS({
+  effect = VANTA.HALO({
     el: loginBg.value,
-    colorMode: "varianceGradient",
+
     mouseControls: true,
     touchControls: true,
     gyroControls: false,
-    minHeight: window.innerHeight,
-    minWidth: window.innerWidth,
-    scale: 1.0,
-    scaleMobile: 1.0,
-    backgroundColor: 0x1746,
-    color1: 0x4a00ff,
-    color2: 0x95ff00,
+    minHeight: 200.0,
+    minWidth: 200.0,
+    xOffset: -0.21,
+    baseColor: 0xd6d96,
+    backgroundColor: 0x63c,
   });
 });
 
