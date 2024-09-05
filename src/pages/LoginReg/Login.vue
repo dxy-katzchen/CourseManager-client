@@ -8,13 +8,13 @@
       label-width="6rem"
       size="large"
     >
-      <el-form-item label="Student/Teacher ID:" prop="id">
+      <el-form-item label="ID:" prop="id">
         <el-input v-model="form.id" />
       </el-form-item>
       <el-form-item label="Password:" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item label="Check Code:" :error="is_human_error">
+      <el-form-item label="Code:" :error="is_human_error">
         <Captcha @getData="getData" />
       </el-form-item>
       <el-form-item>
