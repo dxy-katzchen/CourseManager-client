@@ -90,7 +90,7 @@
                   :class="$style.myPageBtn"
                   @click="createMyPage"
                 >
-                  Create My Page
+                  Create
                 </button>
               </el-form-item>
             </td>
@@ -99,7 +99,7 @@
             <td :class="$style.tableInput">
               <el-form-item label="Password">
                 <button :class="$style.myPageBtn" @click="is_visible = true">
-                  Change Password
+                  Change
                 </button>
               </el-form-item>
             </td>

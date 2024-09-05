@@ -11,7 +11,7 @@
       <el-form-item label="Email:" prop="email">
         <el-input v-model="form.email" />
       </el-form-item>
-      <el-form-item label="Check Code:" prop="checkCode">
+      <el-form-item label="Code:" prop="checkCode">
         <el-input
           v-model="form.checkCode"
           style="width: 50%; margin-right: 10%"
@@ -39,6 +39,7 @@
 import { reactive, ref, computed } from "vue";
 import { ElMessage, ElNotification } from "element-plus";
 import { useIntervalFn } from "@vueuse/core";
+import { useResetPasswordStore } from "@/store";
 import api from "../../axios";
 
 import { useRouter } from "vue-router";
@@ -49,6 +50,7 @@ import {
 } from "@/rules/LoginReg.js";
 
 const router = useRouter();
+const resetPasswordStore = useResetPasswordStore();
 const rule1 = reactive(forget_check_email_rule);
 const rule2 = reactive(forget_check_code_rule);
 
@@ -98,6 +100,9 @@ const sendEmail = async (formEl) => {
     ElMessage.error(err);
   }
 };
+const storeEmail = () => {
+  resetPasswordStore.email = form.email;
+};
 //验证验证码是否正确
 const varifyCheckCode = async (formEl) => {
   showCodeRule.value = true;
@@ -107,6 +112,7 @@ const varifyCheckCode = async (formEl) => {
     const data = await api.varify(form.email, form.checkCode);
     if (data.status === 0) {
       ElMessage.success(data.message);
+      storeEmail();
       router.push({ name: "Reset" });
     }
   } catch (err) {

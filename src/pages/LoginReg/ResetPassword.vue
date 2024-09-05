@@ -11,11 +11,7 @@
       <el-form-item label="Password" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item
-        label="Confirm Password"
-        prop="passwordRepeat"
-        :error="repeatErr"
-      >
+      <el-form-item label="Confirm" prop="passwordRepeat" :error="repeatErr">
         <el-input v-model="form.passwordRepeat" type="password" show-password />
       </el-form-item>
       <el-form-item>
@@ -36,6 +32,7 @@ import api from "@/axios";
 import { useRouter } from "vue-router";
 import { forget_reset_pwd_rule } from "@/rules/LoginReg.js";
 import { ElMessage } from "element-plus";
+import { useResetPasswordStore } from "@/store";
 
 const router = useRouter();
 const ruleFormRef = ref(null);
@@ -44,6 +41,7 @@ const form = reactive({
   password: "",
   passwordRepeat: "",
 });
+const resetPasswordStore = useResetPasswordStore();
 let repeatErr = ref("");
 
 const submitForm = async (formEl) => {
@@ -56,7 +54,11 @@ const submitForm = async (formEl) => {
     } else {
       repeatErr.value = "";
     }
-    const data = await api.resetPassword(form.password, form.passwordRepeat);
+    const data = await api.resetPasswordWithoutLogin(
+      resetPasswordStore.email,
+      form.password,
+      form.passwordRepeat
+    );
     if (data.status === 0) {
       ElMessage.success(data.message + " Redirecting to login page...");
       router.push({ name: "Login" });

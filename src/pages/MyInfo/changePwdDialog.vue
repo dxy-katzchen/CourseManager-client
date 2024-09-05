@@ -8,7 +8,7 @@
       ref="ruleFormRef"
       :model="form"
       :rules="rules"
-      label-width="6rem"
+      label-width="12rem"
       size="large"
     >
       <el-form-item label="Password：" prop="password">
@@ -58,7 +58,10 @@ const submitForm = async (formEl) => {
     } else {
       repeatErr.value = "";
     }
-    const data = await api.resetPassword(form.password, form.passwordRepeat);
+    const data = await api.resetPasswordAfterLogin(
+      form.password,
+      form.passwordRepeat
+    );
 
     if (data.status === 0) {
       ElMessage.success(data.message);

@@ -20,11 +20,8 @@ export const useDarkStore = defineStore("darkStore", {
 
 export const useInfoStore = defineStore("userInfo", {
   state: () => ({
-
-    
     token: null,
     user: null,
-   
   }),
 
   persist: {
@@ -32,7 +29,21 @@ export const useInfoStore = defineStore("userInfo", {
     strategies: [
       {
         storage: localStorage,
-        paths: ["user", "token",],
+        paths: ["user", "token"],
+      },
+    ],
+  },
+});
+export const useResetPasswordStore = defineStore("email", {
+  state: () => ({
+    email: "",
+  }),
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        storage: localStorage,
+        paths: ["email"],
       },
     ],
   },

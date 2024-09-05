@@ -46,13 +46,24 @@ const api = {
         checkCode,
       },
     }),
-  resetPassword: async (password, passwordRepeat) => {
+  resetPasswordAfterLogin: async (password, passwordRepeat) => {
     const userInfo = useInfoStore();
     return await axios({
       url: "/user/lostPwd/resetPwd",
       method: "POST",
       data: {
         email: userInfo.user.email,
+        password,
+        passwordRepeat,
+      },
+    });
+  },
+  resetPasswordWithoutLogin: async (email, password, passwordRepeat) => {
+    return await axios({
+      url: "/user/lostPwd/resetPwd",
+      method: "POST",
+      data: {
+        email,
         password,
         passwordRepeat,
       },
