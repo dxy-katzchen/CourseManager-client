@@ -2,7 +2,7 @@
   <el-dialog
     :before-close="() => (isVisible = false)"
     v-model="isVisible"
-    title="修改密码"
+    title="Change Password"
   >
     <el-form
       ref="ruleFormRef"
@@ -11,18 +11,22 @@
       label-width="6rem"
       size="large"
     >
-      <el-form-item label="密码：" prop="password">
+      <el-form-item label="Password：" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item label="确认密码：" prop="passwordRepeat" :error="repeatErr">
+      <el-form-item
+        label="Confirm Password："
+        prop="passwordRepeat"
+        :error="repeatErr"
+      >
         <el-input v-model="form.passwordRepeat" type="password" show-password />
       </el-form-item>
     </el-form>
     <template #footer>
       <span>
-        <el-button @click="() => (isVisible = false)">取消</el-button>
+        <el-button @click="() => (isVisible = false)">Cancel</el-button>
         <el-button type="primary" @click="submitForm(ruleFormRef)"
-          >确认</el-button
+          >Confirm</el-button
         >
       </span>
     </template>
@@ -49,7 +53,7 @@ const submitForm = async (formEl) => {
     await formEl.validate();
 
     if (form.password !== form.passwordRepeat) {
-      repeatErr.value = "密码不一致";
+      repeatErr.value = "Password not consistent";
       return;
     } else {
       repeatErr.value = "";

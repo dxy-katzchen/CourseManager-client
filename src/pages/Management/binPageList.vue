@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.content">
-    <span :class="$style.title">回收站</span>
+    <span :class="$style.title">Recycle Bin</span>
     <el-pagination
       v-model:currentPage="currentPage"
       v-model:page-size="pageSize"
@@ -19,16 +19,16 @@
         <el-table-column align="center" prop="author" label="作者" />
         <el-table-column align="center" prop="edit_time" label="编辑时间" />
         <el-table-column align="center" width="200">
-          <template #header> 操作 </template>
+          <template #header> Operation </template>
           <template #default="scope">
             <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-              >编辑</el-button
+              >Edit</el-button
             >
             <el-button
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-              >完全删除</el-button
+              >Delete</el-button
             >
           </template>
         </el-table-column>
@@ -107,13 +107,13 @@ const handlePagChange = async () => {
   flex-direction: column;
   align-items: center;
   background-color: rgb(231, 217, 245);
-  height:calc(100vh - 3.5rem);
-  .title{
-      margin:2rem 0 1rem 0;
-      font-size: 2rem;
-      color: blueviolet;
-      font-weight: bold;
-      letter-spacing: 4px;
+  height: calc(100vh - 3.5rem);
+  .title {
+    margin: 2rem 0 1rem 0;
+    font-size: 2rem;
+    color: blueviolet;
+    font-weight: bold;
+    letter-spacing: 4px;
   }
   .pagination {
     display: flex;

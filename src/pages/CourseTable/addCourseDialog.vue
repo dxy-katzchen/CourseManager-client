@@ -3,51 +3,51 @@
     draggable
     :before-close="() => (isVisible = false)"
     v-model="isVisible"
-    :title="is_created?'添加课程':'编辑课程'"
+    :title="is_created ? 'Add Course' : 'Edit Course'"
     :class="$style.dialog"
   >
     <el-form :model="form" ref="ruleFormRef" :rules="rules" label-width="6rem">
-      <el-form-item label="课程id" v-if="!is_created">
-        <el-input v-model="form.cid" placeholder="课程id" disabled />
+      <el-form-item label="Course id" v-if="!is_created">
+        <el-input v-model="form.cid" placeholder="Course id" disabled />
       </el-form-item>
-      <el-form-item label="课程名称" prop="cname">
-        <el-input v-model.trim="form.cname" placeholder="课程名称" />
+      <el-form-item label="Course Name" prop="cname">
+        <el-input v-model.trim="form.cname" placeholder="Course name" />
       </el-form-item>
-      <el-form-item label="学分" prop="credit">
-        <el-input v-model.trim.number="form.credit" placeholder="学分" />
+      <el-form-item label="Credit" prop="credit">
+        <el-input v-model.trim.number="form.credit" placeholder="Credit" />
       </el-form-item>
-      <el-form-item label="教师名称" v-if="!is_created">
-        <el-input v-model="form.tname" placeholder="教师名称" disabled />
+      <el-form-item label="Teacher Name" v-if="!is_created">
+        <el-input v-model="form.tname" placeholder="Teacher name" disabled />
       </el-form-item>
-      <el-form-item label="教师id" prop="tid">
-        <el-input v-model.trim="form.tid" placeholder="教师id" />
+      <el-form-item label="Teacher id" prop="tid">
+        <el-input v-model.trim="form.tid" placeholder="Teacher id" />
       </el-form-item>
-      <el-form-item label="是否开放" prop="is_open">
-        <el-select v-model="form.is_open" placeholder="是否开放">
-          <el-option label="未开放" :value="0" />
-          <el-option label="开放" :value="1" />
+      <el-form-item label="Status" prop="is_open">
+        <el-select v-model="form.is_open" placeholder="Status">
+          <el-option label="Closed" :value="0" />
+          <el-option label="Open" :value="1" />
         </el-select>
       </el-form-item>
-      <el-form-item label="课程类别" prop="type">
-        <el-select v-model="form.type" placeholder="课程类别">
-          <el-option label="必修" :value="1" />
-          <el-option label="限选" :value="2" />
-          <el-option label="选修" :value="3" />
+      <el-form-item label="Course Type" prop="type">
+        <el-select v-model="form.type" placeholder="Course Type">
+          <el-option label="Required" :value="1" />
+          <el-option label="Optional" :value="2" />
+          <el-option label="Elective" :value="3" />
         </el-select>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="isVisible = false">取消</el-button>
+        <el-button @click="isVisible = false">Cancel</el-button>
         <el-button
           type="primary"
           v-if="is_created"
           @click="addCourse(ruleFormRef)"
         >
-          添加
+          Add
         </el-button>
         <el-button type="primary" v-else @click="editCourse(ruleFormRef)">
-          修改
+          Edit
         </el-button>
       </span>
     </template>
@@ -110,10 +110,10 @@ const editCourse = async (formEl) => {
       isVisible.value = false;
       return;
     }
-    ElMessage.error("编辑课程失败");
+    ElMessage.error("Edit Course Failed");
   } catch (error) {
     console.error(error);
-    ElMessage.error("编辑课程失败");
+    ElMessage.error("Edit Course Failed");
   }
 };
 const addCourse = async (formEl) => {

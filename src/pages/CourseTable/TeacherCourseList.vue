@@ -18,23 +18,23 @@
             <el-table-column align="center" label="学号" prop="uid" />
             <el-table-column
               align="center"
-              label="评价分数"
+              label="Evaluation Score"
               prop="ev_score"
               :formatter="scoreFormat"
             />
             <el-table-column align="center" label="姓名" prop="stu_name" />
             <el-table-column
               align="center"
-              label="成绩"
+              label="Score"
               prop="stu_score"
               :formatter="scoreFormat"
             />
             <el-table-column align="center" width="200">
-              <template #header> 操作 </template>
+              <template #header> Action </template>
               <template #default="scope">
-                <el-popover placement="top" title="请打分:">
+                <el-popover placement="top" title="Please score:">
                   <template #reference>
-                    <el-button size="small" type="success">打分</el-button>
+                    <el-button size="small" type="success">Score</el-button>
                   </template>
                   <el-input
                     type="number"
@@ -42,7 +42,7 @@
                     :max="100"
                     v-model="stu_score"
                     size="small"
-                    placeholder="请输入学生分数"
+                    placeholder="Please enter the student score"
                   />
 
                   <el-button
@@ -50,7 +50,7 @@
                     size="small"
                     @click="submitScore(scope.row)"
                     :class="$style.popoverBtn"
-                    >提交</el-button
+                    >Submit</el-button
                   >
                 </el-popover>
               </template>
@@ -58,20 +58,20 @@
           </el-table>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="cid" label="课程id" />
-      <el-table-column align="center" prop="is_open" label="是否开放">
+      <el-table-column align="center" prop="cid" label="Course id" />
+      <el-table-column align="center" prop="is_open" label="Status">
         <template #default="scope">
           <el-tag
             size="small"
             effect="dark"
             :type="scope.row.is_open === 0 ? 'danger' : 'success'"
-            >{{ scope.row.is_open === 0 ? "已结束" : "开放中" }}</el-tag
+            >{{ scope.row.is_open === 0 ? "Closed" : "Open" }}</el-tag
           >
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="cname" label="课程名" />
-      <el-table-column align="center" prop="credit" label="学分" />
-      <el-table-column align="center" prop="type" label="类别">
+      <el-table-column align="center" prop="cname" label="Course Name" />
+      <el-table-column align="center" prop="credit" label="Credit" />
+      <el-table-column align="center" prop="type" label="Category">
         <template #default="scope">
           <div
             :class="$style.typeTag"
@@ -87,10 +87,10 @@
           >
             {{
               scope.row.type === 1
-                ? "必修"
+                ? "Required"
                 : scope.row.type === 2
-                ? "限选"
-                : "选修"
+                ? "Elective"
+                : "Optional"
             }}
           </div>
         </template>
@@ -127,7 +127,7 @@ const submitScore = async (row) => {
     stu_score.value > 100 ||
     stu_score.value % 1 !== 0
   ) {
-    return ElMessage.error("成绩数据不合法");
+    return ElMessage.error("Invalid score data");
   }
 
   try {

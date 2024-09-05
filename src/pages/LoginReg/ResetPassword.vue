@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.card">
-    <span :class="$style.title">重设密码</span>
+    <span :class="$style.title">Reset Password</span>
     <el-form
       ref="ruleFormRef"
       :model="form"
@@ -8,10 +8,14 @@
       label-width="6rem"
       size="large"
     >
-      <el-form-item label="密码：" prop="password">
+      <el-form-item label="Password" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item label="确认密码：" prop="passwordRepeat" :error="repeatErr">
+      <el-form-item
+        label="Confirm Password"
+        prop="passwordRepeat"
+        :error="repeatErr"
+      >
         <el-input v-model="form.passwordRepeat" type="password" show-password />
       </el-form-item>
       <el-form-item>
@@ -19,7 +23,7 @@
           :class="$style.submitBtn"
           type="primary"
           @click="submitForm(ruleFormRef)"
-          >提交</el-button
+          >Submit</el-button
         >
       </el-form-item>
     </el-form>
@@ -47,14 +51,14 @@ const submitForm = async (formEl) => {
   try {
     await formEl.validate();
     if (form.password !== form.passwordRepeat) {
-      repeatErr.value = "密码不一致";
+      repeatErr.value = "Password not match";
       return;
     } else {
       repeatErr.value = "";
     }
     const data = await api.resetPassword(form.password, form.passwordRepeat);
     if (data.status === 0) {
-      ElMessage.success(data.message + "正在跳转到登陆页面...");
+      ElMessage.success(data.message + " Redirecting to login page...");
       router.push({ name: "Login" });
     }
   } catch (err) {

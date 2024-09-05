@@ -1,10 +1,19 @@
 export const change_myinfo_rule = {
   email: [
-    { required: true, message: "邮箱不得为空", trigger: "blur" },
-    { type: "email", message: "请填写正确的邮箱形式", trigger: "blur" },
+    { required: true, message: "Email cannot be empty", trigger: "blur" },
+    {
+      type: "email",
+      message: "Please enter a valid email address",
+      trigger: "blur",
+    },
   ],
   username: [
-    { required: true, message: "用户名不得为空", trigger: "blur" },
-    { min: 1, max: 12, message: "用户名为1-12位", trigger: "blur" },
+    { required: true, message: "Username cannot be empty", trigger: "blur" },
+    {
+      min: 1,
+      max: 12,
+      message: "Username needs to be 1-12 digits/letters",
+      trigger: "blur",
+    },
   ],
 };

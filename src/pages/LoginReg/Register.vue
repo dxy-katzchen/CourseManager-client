@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.card">
-    <span :class="$style.title">注册</span>
+    <span :class="$style.title">Register</span>
     <el-form
       ref="ruleFormRef"
       :model="form"
@@ -8,19 +8,24 @@
       label-width="6rem"
       size="large"
     >
-      <el-form-item label="学/工号：" prop="id">
+      <el-form-item label="ID" prop="id">
         <el-input v-model="form.id" />
       </el-form-item>
-      <el-form-item label="用户名：" prop="username">
+      <el-form-item label="Username" prop="username">
         <el-input v-model="form.username" />
       </el-form-item>
-      <el-form-item label="邮箱：" prop="email">
+      <el-form-item label="Email" prop="email">
         <el-input v-model="form.email" />
       </el-form-item>
-      <el-form-item label="密码：" prop="password"  type="password" show-password>
+      <el-form-item
+        label="Password"
+        prop="password"
+        type="password"
+        show-password
+      >
         <el-input v-model="form.password" />
       </el-form-item>
-      <el-form-item label="身份" prop="role">
+      <el-form-item label="Role" prop="role">
         <el-radio-group v-model="form.role.selected">
           <el-radio v-for="role in form.role.roleList" :label="role.value">
             {{ role.name }}
@@ -33,7 +38,7 @@
           :class="$style.submitBtn"
           type="primary"
           @click="submitForm(ruleFormRef)"
-          >提交</el-button
+          >Submit</el-button
         >
       </el-form-item>
     </el-form>
@@ -58,9 +63,9 @@ const form = reactive({
   email: "",
   role: {
     roleList: [
-      { value: 1, name: "学生" },
-      { value: 2, name: "老师" },
-      { value: 3, name: "管理员" },
+      { value: 1, name: "Student" },
+      { value: 2, name: "Teacher" },
+      { value: 3, name: "Admin" },
     ],
     //默认学生
     selected: 1,
@@ -83,7 +88,7 @@ const submitForm = async (formEl) => {
     );
 
     if (data.status === 0) {
-      ElMessage.success(data.message + " 正在为您跳转到登陆界面...");
+      ElMessage.success(data.message + " Redirecting to login page...");
 
       //TODO:跳转到登录界面
       router.push({ name: "Login" });

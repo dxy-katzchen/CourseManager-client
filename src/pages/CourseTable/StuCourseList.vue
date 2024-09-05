@@ -12,20 +12,20 @@
   />
   <div :class="$style.tableCard">
     <el-table :data="dataRef">
-      <el-table-column align="center" prop="cid" label="课程id" />
-      <el-table-column align="center" prop="is_open" label="是否开放">
+      <el-table-column align="center" prop="cid" label="Course ID" />
+      <el-table-column align="center" prop="is_open" label="Status">
         <template #default="scope">
           <el-tag
             size="small"
             effect="dark"
             :type="scope.row.is_open === 0 ? 'danger' : 'success'"
-            >{{ scope.row.is_open === 0 ? "已结束" : "开放中" }}</el-tag
+            >{{ scope.row.is_open === 0 ? "Closed" : "Open" }}</el-tag
           >
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="cname" label="课程名" />
-      <el-table-column align="center" prop="credit" label="学分" />
-      <el-table-column align="center" prop="type" label="类别">
+      <el-table-column align="center" prop="cname" label="Course Name" />
+      <el-table-column align="center" prop="credit" label="Credit" />
+      <el-table-column align="center" prop="type" label="Type">
         <template #default="scope">
           <div
             :class="$style.typeTag"
@@ -41,42 +41,42 @@
           >
             {{
               scope.row.type === 1
-                ? "必修"
+                ? "Required"
                 : scope.row.type === 2
-                ? "限选"
-                : "选修"
+                ? "Optional"
+                : "Elective"
             }}
           </div>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="tname" label="任课教师" />
+      <el-table-column align="center" prop="tname" label="Teacher Name" />
       <el-table-column
         align="center"
         prop="stu_score"
-        label="我的分数"
+        label="My Score"
         :formatter="scoreFormat"
       />
       <el-table-column
         align="center"
         prop="ev_score"
-        label="我的评价"
+        label="My Evaluation"
         :formatter="scoreFormat"
       />
       <el-table-column align="center" width="200">
-        <template #header> 操作 </template>
+        <template #header> Action </template>
 
         <template #default="scope">
           <el-popover
             placement="top"
             v-if="scope.row.is_open === 0"
-            title="请评价:"
+            title="Please evaluate:"
           >
             <template #reference>
               <el-button
                 size="small"
                 type="success"
                 :disabled="scope.row.ev_score !== null"
-                >评价</el-button
+                >Evaluate</el-button
               >
             </template>
             <el-rate v-model="score" allow-half :colors="colors" />
@@ -86,7 +86,7 @@
               size="small"
               @click="submitScore(scope.row)"
               :class="$style.popoverBtn"
-              >提交</el-button
+              >Submit</el-button
             >
           </el-popover>
 
@@ -95,7 +95,7 @@
             type="danger"
             v-if="scope.row.is_open === 1"
             @click="withdrawal(scope.$index, scope.row)"
-            >退课</el-button
+            >Withdraw</el-button
           >
         </template>
       </el-table-column>
@@ -123,8 +123,6 @@ onMounted(async () => {
 const submitScore = async (row) => {
   const { cid } = row;
   try {
-  
-
     const { status, message } = await api.stuEvalute(cid, ev_score.value);
     if (status === 0) ElMessage.success(message);
   } catch (error) {

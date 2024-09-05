@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.card">
-    <span :class="$style.title">登录</span>
+    <span :class="$style.title">Login</span>
     <el-form
       ref="ruleFormRef"
       :model="form"
@@ -8,13 +8,13 @@
       label-width="6rem"
       size="large"
     >
-      <el-form-item label="学/工号：" prop="id">
+      <el-form-item label="Student/Teacher ID:" prop="id">
         <el-input v-model="form.id" />
       </el-form-item>
-      <el-form-item label="密码：" prop="password">
+      <el-form-item label="Password:" prop="password">
         <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
-      <el-form-item label="验证码" :error="is_human_error">
+      <el-form-item label="Check Code:" :error="is_human_error">
         <Captcha @getData="getData" />
       </el-form-item>
       <el-form-item>
@@ -22,7 +22,7 @@
           :class="$style.submitBtn"
           type="primary"
           @click="submitForm(ruleFormRef)"
-          >提交</el-button
+          >Submit</el-button
         >
       </el-form-item>
     </el-form>
@@ -53,7 +53,7 @@ const userInfo = useInfoStore();
 
 const rules = reactive(user_login_rule);
 const getData = (val) => {
-  is_human_error.value = val ? "" : "验证码错误";
+  is_human_error.value = val ? "" : "Check Code Error";
 };
 const submitForm = async (formEl) => {
   if (!formEl) return;

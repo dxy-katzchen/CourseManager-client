@@ -14,10 +14,10 @@
         <div :class="$style.type" :style="typeColor">
           {{ typeName }}
         </div>
-        <div :class="$style.author">作者 : {{ articleDetail.author }}</div>
+        <div :class="$style.author">Author : {{ articleDetail.author }}</div>
         <span :class="$style.date">
-          <i class="iconfont icon-clock" :class="$style.clock" /> 发布于 :
-          {{ articleDetail.create_time }} &nbsp;&nbsp;最后编辑于 :
+          <i class="iconfont icon-clock" :class="$style.clock" /> Published :
+          {{ articleDetail.create_time }} &nbsp;&nbsp;Last Edited :
           {{ articleDetail.edit_time }}
         </span>
       </div>
@@ -137,7 +137,7 @@ const typeName = computed(() =>
         font-size: 0.9rem;
         margin-bottom: 1rem;
         color: rgba(0, 0, 0, 0.5);
-        .clock{
+        .clock {
           margin-right: 0.2rem;
         }
       }

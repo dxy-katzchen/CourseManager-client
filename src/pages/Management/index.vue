@@ -19,26 +19,24 @@ import ArticleList from "./articleList.vue";
 
 const activeName = ref(1);
 const articleList = reactive([
-  { label: "社会实践", id: 1 },
-  { label: "课外活动", id: 2 },
-  { label: "研究成果", id: 3 },
+  { label: "Social Practice", id: 1 },
+  { label: "Extracurricular Activities", id: 2 },
+  { label: "Research", id: 3 },
 ]);
 </script>
 
 <style module lang="less">
-.content{
-  padding-left:1rem;
+.content {
+  padding-left: 1rem;
   .pane {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
-}
-
 </style>
 <style lang="less" scoped>
-:deep(.el-tabs__item)  {
-  background: rgba(255, 255, 255, 0.5)
+:deep(.el-tabs__item) {
+  background: rgba(255, 255, 255, 0.5);
 }
-
 </style>

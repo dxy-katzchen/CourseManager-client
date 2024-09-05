@@ -16,10 +16,10 @@
     <el-table-column align="center" prop="author" label="作者" />
     <el-table-column align="center" prop="edit_time" label="编辑时间" />
     <el-table-column align="center" width="200" v-if="role === 3">
-      <template #header> 操作 </template>
+      <template #header> Operation </template>
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-          >编辑</el-button
+          >Edit</el-button
         >
         <el-button
           size="small"

@@ -8,24 +8,24 @@
     >
       <el-sub-menu index="1">
         <template #title>
-          <span>课程相关</span>
+          <span>Course</span>
         </template>
-        <el-menu-item index="/courseTable">课程列表</el-menu-item>
+        <el-menu-item index="/courseTable">Course List</el-menu-item>
         <el-menu-item index="/studentCourseList" v-if="role === 1"
-          >我选的课</el-menu-item
+          >My Courses</el-menu-item
         >
         <el-menu-item index="/teacherCourseList" v-if="role === 2"
-          >我教的课</el-menu-item
+          >My Courses</el-menu-item
         >
       </el-sub-menu>
       <el-sub-menu index="2">
         <template #title>
-          <span>学工信息</span>
+          <span>Student Affairs</span>
         </template>
-        <el-menu-item index="/management">首页</el-menu-item>
+        <el-menu-item index="/management">Home</el-menu-item>
         <template v-if="role === 3">
-          <el-menu-item index="/editArticle">创建文章</el-menu-item>
-          <el-menu-item index="/bin">回收站</el-menu-item>
+          <el-menu-item index="/editArticle">Create Article</el-menu-item>
+          <el-menu-item index="/bin">Recycle Bin</el-menu-item>
         </template>
       </el-sub-menu>
     </el-menu>
@@ -49,16 +49,15 @@ const { role } = userInfo.user;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 1rem;
   overflow: hidden;
-  padding-top:0.2rem;
+  padding-top: 0.2rem;
   .menu {
     height: 100%;
-   
   }
 }
 </style>
-<style lang="less"  scoped>
+<style lang="less" scoped>
 :deep(.el-menu-item:hover) {
   background-color: rgba(255, 255, 255, 0.6) !important;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 </style>

@@ -2,9 +2,9 @@
   <div :class="$style.mainPageTabBar">
     <img :src="cherry" alt="" style="width: 3rem" />
     <span :class="$style.title">CourseTable </span>
-    <span :class="$style.ch">课程管理系统</span>
+    <span :class="$style.ch">Course Management System</span>
     <div :class="$style.middle"></div>
-    <span :class="$style.username"> {{ userInfo.user.username }} , 你好!</span>
+    <span :class="$style.username"> {{ userInfo.user.username }} , Hi!</span>
     <Popover />
   </div>
 </template>

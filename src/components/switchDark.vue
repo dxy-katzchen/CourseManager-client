@@ -25,6 +25,6 @@ watch(is_dark, (newval) => {
 <style module lang="less">
 .switch {
   --el-switch-on-color: rgba(7, 25, 47, 0.1);
-  --el-switch-off-color: rgb(124, 144, 242, 0.1);
+  --el-switch-off-color: 0x63c;
 }
 </style>

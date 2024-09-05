@@ -1,8 +1,8 @@
 <template>
   <div :class="$style.topBar">
-    <router-link :to="{ name: 'Login' }">登录</router-link>
-    <router-link :to="{ name: 'Register' }">注册</router-link>
-    <router-link :to="{ name: 'ForgetPassword' }">忘记密码</router-link>
+    <router-link :to="{ name: 'Login' }">Login</router-link>
+    <router-link :to="{ name: 'Register' }">Register</router-link>
+    <router-link :to="{ name: 'ForgetPassword' }">Forget Password</router-link>
     <SwitchDark :class="$style.switch" />
   </div>
 </template>

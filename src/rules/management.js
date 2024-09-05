@@ -1,8 +1,5 @@
 export const edit_article_rule = {
-    author: [
-      { required: true, message: "作者不得为空", trigger: "blur" },
-   
-    ],
-   
-  };
-  
+  author: [
+    { required: true, message: "Author cannot be empty", trigger: "blur" },
+  ],
+};

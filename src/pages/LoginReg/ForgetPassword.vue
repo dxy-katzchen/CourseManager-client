@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.card">
-    <span :class="$style.title">忘记密码</span>
+    <span :class="$style.title">Forget Password</span>
     <el-form
       ref="ruleFormRef"
       :model="form"
@@ -8,10 +8,10 @@
       label-width="6rem"
       size="large"
     >
-      <el-form-item label="邮箱：" prop="email">
+      <el-form-item label="Email:" prop="email">
         <el-input v-model="form.email" />
       </el-form-item>
-      <el-form-item label="验证码：" prop="checkCode">
+      <el-form-item label="Check Code:" prop="checkCode">
         <el-input
           v-model="form.checkCode"
           style="width: 50%; margin-right: 10%"
@@ -20,7 +20,7 @@
           :disabled="timer !== 0"
           @click="sendEmail(ruleFormRef)"
           style="width: 40%"
-          >{{ timer === 0 ? "获取验证码" : `${timer}秒后发送` }}</el-button
+          >{{ timer === 0 ? "Get Check Code" : `${timer}s later` }}</el-button
         >
       </el-form-item>
       <el-form-item>
@@ -28,7 +28,7 @@
           :class="$style.submitBtn"
           type="primary"
           @click="varifyCheckCode(ruleFormRef)"
-          >提交</el-button
+          >Submit</el-button
         >
       </el-form-item>
     </el-form>
@@ -42,8 +42,6 @@ import { useIntervalFn } from "@vueuse/core";
 import api from "../../axios";
 
 import { useRouter } from "vue-router";
-
-
 
 import {
   forget_check_email_rule,
@@ -91,9 +89,9 @@ const sendEmail = async (formEl) => {
     if (data.status === 0) {
       ElNotification.success({
         title: data.message,
-        message: "邮箱已发送,请注意查收",
+        message: "Email sent, please check",
       });
-     
+
       showCodeRule.value = true;
     }
   } catch (err) {

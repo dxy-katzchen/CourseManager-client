@@ -13,10 +13,10 @@
         <div :class="$style.email">
           {{
             userInfo.user.role === 1
-              ? "学生"
+              ? "Student"
               : userInfo.user.role === 2
-              ? "教师"
-              : "管理员"
+              ? "Teacher"
+              : "Admin"
           }}
         </div>
         <div :class="$style.email">{{ userInfo.user.email }}</div>
@@ -39,14 +39,14 @@
             @click="open(item.value)"
             v-show="!showEditor"
             type="primary"
-            >编辑</el-button
+            >Edit</el-button
           >
           <el-button
             :class="$style.editBtn"
             @click="submit(item.key, index)"
             v-show="showEditor"
             type="primary"
-            >提交</el-button
+            >Submit</el-button
           >
 
           <md-editor v-model="item.value" v-show="!showEditor" preview-only />
@@ -72,7 +72,7 @@ import { ElMessage } from "element-plus";
 import BackGround from "./BackGround.vue";
 import api from "@/axios";
 
-import  UploadImg  from "@/Hooks/UpLoadImg.js";
+import UploadImg from "@/Hooks/UpLoadImg.js";
 
 const router = useRouter();
 const userInfo = useInfoStore();
@@ -95,22 +95,22 @@ const getUserPageInfo = async () => {
     for (const [key, value] of Object.entries(myPageInfo)) {
       switch (key) {
         case "comment":
-          infoArr.push({ name: "简介", key, value });
+          infoArr.push({ name: "Introduction", key, value });
           continue;
         case "blog":
-          infoArr.push({ name: "博客", key, value });
+          infoArr.push({ name: "Blog", key, value });
           continue;
         case "book":
           if (!isTeacher.value) continue;
-          infoArr.push({ name: "论文著作", key, value });
+          infoArr.push({ name: "Paper", key, value });
           continue;
         case "search":
           if (!isTeacher.value) continue;
-          infoArr.push({ name: "研究方向", key, value });
+          infoArr.push({ name: "Research Direction", key, value });
           continue;
         case "teachcourse":
           if (!isTeacher.value) continue;
-          infoArr.push({ name: "教授课程", key, value });
+          infoArr.push({ name: "Teaching Course", key, value });
           continue;
       }
     }
@@ -124,7 +124,7 @@ const changeTab = (tabName) => {
   text.value = infoArr[Number(tabName)].value;
 };
 const Upload = async (files, callback) => {
- await UploadImg(files,callback)
+  await UploadImg(files, callback);
 };
 
 const open = async (value) => {

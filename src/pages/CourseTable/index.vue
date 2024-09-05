@@ -4,68 +4,68 @@
       <el-form-item>
         <el-input
           v-model.trim.number="queryForm.cid"
-          placeholder="课程id"
+          placeholder="Course ID"
           @blur="query"
         />
       </el-form-item>
       <el-form-item>
         <el-input
           v-model.trim="queryForm.cname"
-          placeholder="课程名称"
+          placeholder="Course Name"
           @blur="query"
         />
       </el-form-item>
       <el-form-item>
         <el-input
           v-model.trim="queryForm.tname"
-          placeholder="教师名称"
+          placeholder="Teacher Name"
           @blur="query"
         />
       </el-form-item>
 
-      <el-form-item label="是否开放">
+      <el-form-item label="Status">
         <el-select
           v-model="queryForm.is_open"
-          placeholder="是否开放"
+          placeholder="Status"
           @change="query"
         >
-          <el-option label="所有" :value="-1" />
-          <el-option label="未开放" :value="0" />
-          <el-option label="开放" :value="1" />
+          <el-option label="All" :value="-1" />
+          <el-option label="Closed" :value="0" />
+          <el-option label="Open" :value="1" />
         </el-select>
       </el-form-item>
-      <el-form-item label="课程类别">
+      <el-form-item label="Course Type">
         <el-select
           v-model="queryForm.type"
-          placeholder="课程类别"
+          placeholder="Course Type"
           @change="query"
         >
-          <el-option label="所有" :value="-1" />
-          <el-option label="必修" :value="1" />
-          <el-option label="限选" :value="2" />
-          <el-option label="选修" :value="3" />
+          <el-option label="All" :value="-1" />
+          <el-option label="Required" :value="1" />
+          <el-option label="Optional" :value="2" />
+          <el-option label="Elective" :value="3" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="reset">重置</el-button>
+        <el-button type="primary" @click="reset">Reset</el-button>
       </el-form-item>
     </el-form>
     <div :class="$style.tableCard">
       <el-table :data="dataRef">
-        <el-table-column align="center" prop="cid" label="课程id" />
-        <el-table-column align="center" prop="is_open" label="是否开放">
+        <el-table-column align="center" prop="cid" label="Course ID" />
+        <el-table-column align="center" prop="is_open" label="Status">
           <template #default="scope">
             <el-tag
               size="small"
               effect="dark"
               :type="scope.row.is_open === 0 ? 'danger' : 'success'"
-              >{{ scope.row.is_open === 0 ? "未开放" : "已开放" }}</el-tag
+              >{{ scope.row.is_open === 0 ? "Closed" : "Open" }}</el-tag
             >
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="cname" label="课程名" />
-        <el-table-column align="center" prop="credit" label="学分" />
-        <el-table-column align="center" prop="type" label="类别">
+        <el-table-column align="center" prop="cname" label="Course Name" />
+        <el-table-column align="center" prop="credit" label="Credit" />
+        <el-table-column align="center" prop="type" label="Course Type">
           <template #default="scope">
             <div
               :class="$style.typeTag"
@@ -81,21 +81,21 @@
             >
               {{
                 scope.row.type === 1
-                  ? "必修"
+                  ? "Required"
                   : scope.row.type === 2
-                  ? "限选"
-                  : "选修"
+                  ? "Elective"
+                  : "Optional"
               }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="tname" label="任课教师" />
+        <el-table-column align="center" prop="tname" label="Teacher Name" />
         <el-table-column
           align="center"
           width="200"
           v-if="role === 1 || role === 3"
         >
-          <template #header> 操作 </template>
+          <template #header> Operation </template>
           <template #default="scope">
             <el-button
               size="small"
@@ -103,20 +103,20 @@
               plain
               @click="handleStuChoose(scope.$index, scope.row)"
               v-if="role === 1"
-              >选课</el-button
+              >Choose</el-button
             >
             <el-button
               size="small"
               @click="handleEdit(scope.$index, scope.row)"
               v-if="role === 3"
-              >编辑</el-button
+              >Edit</el-button
             >
             <el-button
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
               v-if="role === 3"
-              >删除</el-button
+              >Delete</el-button
             >
           </template>
         </el-table-column>
@@ -140,7 +140,7 @@
     type="primary"
     :class="$style.addCourseBtn"
   >
-    + 添加课程
+    + Add Course
   </el-button>
   <AddCourseDialog v-model:visible="is_visible" :courseInfo="courseRow" />
 </template>
@@ -273,7 +273,7 @@ watch(queryForm, async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem ;
+  padding: 2rem;
 
   .query {
     display: flex;

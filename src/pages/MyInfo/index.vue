@@ -8,7 +8,7 @@
       ></i>
     </div>
     <div :class="$style.myInfo">
-      <span :class="$style.title"> 我的信息 </span>
+      <span :class="$style.title"> My Information </span>
 
       <el-form
         ref="infoFormRef"
@@ -40,24 +40,24 @@
                 <div :class="$style.role" :style="roleColor">
                   {{
                     form.role === 1
-                      ? "学生"
+                      ? "Student"
                       : form.role === 2
-                      ? "教师"
-                      : "管理员"
+                      ? "Teacher"
+                      : "Admin"
                   }}
                 </div>
               </div>
             </td>
 
             <td :class="$style.tableInput">
-              <el-form-item label="学/工号:">
+              <el-form-item label="ID:">
                 <el-input v-model="form.uid" disabled />
               </el-form-item>
             </td>
           </tr>
           <tr>
             <td :class="$style.tableInput">
-              <el-form-item label="邮箱:" prop="email">
+              <el-form-item label="Email:" prop="email">
                 <el-input
                   v-model="form.email"
                   @blur="changeInfo(infoFormRef)"
@@ -67,7 +67,7 @@
           </tr>
           <tr>
             <td :class="$style.tableInput">
-              <el-form-item label="用户名:" prop="username">
+              <el-form-item label="Username:" prop="username">
                 <el-input
                   v-model="form.username"
                   @blur="changeInfo(infoFormRef)"
@@ -77,29 +77,29 @@
           </tr>
           <tr>
             <td :class="$style.tableInput">
-              <el-form-item label="主页">
+              <el-form-item label="My Page">
                 <button
                   v-show="form.upid"
                   :class="$style.myPageBtn"
                   @click="goToMyPage"
                 >
-                  进入主页
+                  Enter My Page
                 </button>
                 <button
                   v-show="!form.upid"
                   :class="$style.myPageBtn"
                   @click="createMyPage"
                 >
-                  创建主页
+                  Create My Page
                 </button>
               </el-form-item>
             </td>
           </tr>
           <tr>
             <td :class="$style.tableInput">
-              <el-form-item label="密码">
+              <el-form-item label="Password">
                 <button :class="$style.myPageBtn" @click="is_visible = true">
-                  修改密码
+                  Change Password
                 </button>
               </el-form-item>
             </td>
@@ -146,7 +146,7 @@ const upload = async ({ file }) => {
       await changeInfo(infoFormRef.value);
       break;
     default:
-      ElMessage.error("上传失败");
+      ElMessage.error("Upload failed");
       break;
   }
 };

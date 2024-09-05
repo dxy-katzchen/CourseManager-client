@@ -7,9 +7,11 @@
     ></i>
     <input type="text" :class="$style.title" v-model="PageDetail.title" />
     <button v-if="props.mid" :class="$style.submitBtn" @click="submit">
-      修改文章
+      Edit Article
     </button>
-    <button v-else :class="$style.submitBtn" @click="submit">发布文章</button>
+    <button v-else :class="$style.submitBtn" @click="submit">
+      Publish Article
+    </button>
   </div>
   <div :class="$style.editorContent">
     <MdEditor
@@ -18,33 +20,37 @@
       v-model="PageDetail.content"
     />
   </div>
-  <el-dialog v-model="dialogVisible" title="发布文章">
+  <el-dialog v-model="dialogVisible" title="Publish Article">
     <el-form :model="PageDetail" :rules="rules">
-      <el-form-item label="封面" label-width="10rem">
+      <el-form-item label="Cover" label-width="10rem">
         <el-input v-model="PageDetail.banner_pic" />
       </el-form-item>
       <el-form-item
-        label="封面预览"
+        label="Cover Preview"
         v-show="PageDetail.banner_pic.length > 0"
         label-width="10rem"
       >
         <img :src="PageDetail.banner_pic" alt="" :class="$style.pic" />
       </el-form-item>
-      <el-form-item label="作者" label-width="10rem" prop="author">
+      <el-form-item label="Author" label-width="10rem" prop="author">
         <el-input v-model="PageDetail.author" />
       </el-form-item>
-      <el-form-item label="类别" label-width="10rem">
+      <el-form-item label="Category" label-width="10rem">
         <el-radio-group v-model="PageDetail.type">
-          <el-radio :label="1" :v-model="1" size="large">社会实践</el-radio>
-          <el-radio :label="2" :v-model="2" size="large">课外活动</el-radio>
-          <el-radio :label="3" :v-model="3" size="large">研究成果</el-radio>
+          <el-radio :label="1" :v-model="1" size="large"
+            >Social Practice</el-radio
+          >
+          <el-radio :label="2" :v-model="2" size="large"
+            >Extracurricular Activities</el-radio
+          >
+          <el-radio :label="3" :v-model="3" size="large">Research</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="publish"> 发布 </el-button>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="publish"> Publish </el-button>
       </span>
     </template>
   </el-dialog>
@@ -148,7 +154,6 @@ const publish = async () => {
     ElMessage.error(error);
   }
 };
-
 </script>
 
 <style module lang="less">

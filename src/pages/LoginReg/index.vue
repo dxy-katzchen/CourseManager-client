@@ -4,7 +4,9 @@
       <TopBar />
       <div :class="$style.titleContent">
         <span :class="$style.enFont">CourseManager</span>
-        <span :class="$style.chFont">智慧教学管理系统</span>
+        <span :class="$style.chFont"
+          >Intelligent Teaching Management System</span
+        >
       </div>
     </div>
     <div :class="$style.right">
@@ -57,7 +59,7 @@ import BackGround from "./BackGround.vue";
 </style>
 <style>
 /* 渐变设置 */
-.fade-enter-from{
+.fade-enter-from {
   transform: translateY(-30rem);
   opacity: 0;
 }
