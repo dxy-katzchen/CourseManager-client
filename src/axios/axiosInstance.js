@@ -4,9 +4,9 @@ import { ElMessage } from "element-plus";
 import { useInfoStore } from "@/store";
 
 const instance = axios.create({
-  // baseURL: "http://127.0.0.1:89",
+  baseURL: "http://127.0.0.1:89",
   //Server
-  baseURL: "/ccc/",
+  // baseURL: "/ccc/",
   timeout: 2000,
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
