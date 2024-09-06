@@ -37,6 +37,7 @@ import { useInfoStore } from "../../store";
 import { user_login_rule } from "@/rules/LoginReg.js";
 import Captcha from "../../components/captcha.vue";
 import { useRouter } from "vue-router";
+// import { log } from "three/webgpu";
 
 const router = useRouter();
 
@@ -63,16 +64,15 @@ const submitForm = async (formEl) => {
     const res = await api.login(form.id, form.password);
     if (res.status === 0) {
       userInfo.token = res.token;
-
       const { data, status } = await api.getUserInfo();
-
+      console.log(data);
       if (status === 0) {
         userInfo.user = data;
+        console.log(data);
         await createUserPageIfNotExist(data);
+        ElMessage.success(res.message);
+        router.replace({ name: "Index" });
       }
-
-      ElMessage.success(res.message);
-      router.replace({ name: "Index" });
     }
   } catch (err) {
     ElMessage.error(err);
@@ -83,8 +83,9 @@ const createUserPageIfNotExist = async (data) => {
     try {
       const res = await api.createMyPage();
       if (res.status !== 0) {
-        ElMessage.error(res.message);
+        return ElMessage.error(res.message);
       }
+      userInfo.user.upid = res.data.upid;
     } catch (error) {
       ElMessage.error(error);
     }

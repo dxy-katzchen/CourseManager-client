@@ -5,8 +5,8 @@ import { useInfoStore } from "@/store";
 
 const instance = axios.create({
   baseURL: "http://127.0.0.1:89",
-  //服务器
-  // baseURL: "http://101.43.193.7/CMapi",
+  //Server
+  // baseURL: "/ccc/",
   timeout: 2000,
   headers: {
     "Content-Type": "application/x-www-form-urlencoded",
@@ -16,7 +16,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const uri = config.url;
-    // 不以 /user/ 开头, 加 token
+    // does not start with /user/, add token
     if (!/$\/user\//.test(uri)) {
       const userInfo = useInfoStore();
       config.headers.set("Authorization", userInfo.token);
@@ -24,13 +24,12 @@ instance.interceptors.request.use(
     return config;
   },
   (err) => {
-    ElMessage.error("请求失败", err);
+    ElMessage.error("Request Failed", err);
     return err;
   }
 );
-//响应拦截器
+
 instance.interceptors.response.use(
-  //这个地方打包的时候需要改一下
   (res) => {
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message);
