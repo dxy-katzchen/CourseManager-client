@@ -17,6 +17,7 @@
     <MdEditor
       :class="$style.editor"
       @onUploadImg="Upload"
+      language="en-US"
       v-model="PageDetail.content"
     />
   </div>

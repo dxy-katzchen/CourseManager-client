@@ -22,6 +22,7 @@
         </span>
       </div>
       <MdEditor
+        language="en-US"
         :class="$style.editor"
         v-model="articleDetail.content"
         preview-only

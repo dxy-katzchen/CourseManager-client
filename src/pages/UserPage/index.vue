@@ -49,10 +49,16 @@
             >Submit</el-button
           >
 
-          <md-editor v-model="item.value" v-show="!showEditor" preview-only />
+          <md-editor
+            language="en-US"
+            v-model="item.value"
+            v-show="!showEditor"
+            preview-only
+          />
           <md-editor
             v-model="text"
             v-show="showEditor"
+            language="en-US"
             @onUploadImg="Upload"
             style="margin-top: 4rem"
           />
@@ -134,9 +140,8 @@ const open = async (value) => {
 const submit = async (key, index) => {
   try {
     const data = await api.updateUserInfo(key, text.value);
+
     if (data.status === 0) {
-      // infoArr[index][key] = text.value;
-      // console.log(infoArr[index][key]);
       await getUserPageInfo();
 
       ElMessage.success(data.message);

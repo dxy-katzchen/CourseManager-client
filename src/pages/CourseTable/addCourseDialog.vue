@@ -6,17 +6,17 @@
     :title="is_created ? 'Add Course' : 'Edit Course'"
     :class="$style.dialog"
   >
-    <el-form :model="form" ref="ruleFormRef" :rules="rules" label-width="6rem">
+    <el-form :model="form" ref="ruleFormRef" :rules="rules" label-width="7rem">
       <el-form-item label="Course id" v-if="!is_created">
         <el-input v-model="form.cid" placeholder="Course id" disabled />
       </el-form-item>
-      <el-form-item label="Course Name" prop="cname">
+      <el-form-item label="Name" prop="cname">
         <el-input v-model.trim="form.cname" placeholder="Course name" />
       </el-form-item>
       <el-form-item label="Credit" prop="credit">
         <el-input v-model.trim.number="form.credit" placeholder="Credit" />
       </el-form-item>
-      <el-form-item label="Teacher Name" v-if="!is_created">
+      <el-form-item label="Teacher" v-if="!is_created">
         <el-input v-model="form.tname" placeholder="Teacher name" disabled />
       </el-form-item>
       <el-form-item label="Teacher id" prop="tid">
@@ -28,7 +28,7 @@
           <el-option label="Open" :value="1" />
         </el-select>
       </el-form-item>
-      <el-form-item label="Course Type" prop="type">
+      <el-form-item label="Type" prop="type">
         <el-select v-model="form.type" placeholder="Course Type">
           <el-option label="Required" :value="1" />
           <el-option label="Optional" :value="2" />

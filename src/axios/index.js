@@ -97,6 +97,7 @@ const api = {
     }),
   updateUserInfo: async (name, value) => {
     const userInfo = useInfoStore();
+    console.log(userInfo.user.upid);
     return await axios({
       url: "/userpage/update",
       method: "POST",

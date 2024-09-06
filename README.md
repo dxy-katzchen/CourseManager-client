@@ -17,7 +17,7 @@ vite
 
 ## WalkThrough
 
-### Login/Register
+### General functions
 
 #### login
 
@@ -35,4 +35,23 @@ If you have registered, we will send you an email to reset your password.
 ![](https://s2.loli.net/2024/09/06/ZzAX5MPKNhiBDjV.png)
 Enter the verification code, you will be redirected to the login page.
 
-###
+### Admin
+
+#### Course Management
+
+In the Course->Course List section in the left hand side, Admin can add/edit/delete course.
+You can also filter the course by course name/ID/Teacher name/Course Status in all roles.
+Support
+
+##### Add course
+
+![](https://s2.loli.net/2024/09/06/spvJArkN513I2Xy.png)
+![](https://s2.loli.net/2024/09/06/MgqczrQO34pwJe7.png)
+
+##### Edit course
+
+![](https://s2.loli.net/2024/09/06/lwGEJ9hAYRnNKmO.png)
+
+##### Delete course
+
+![](https://s2.loli.net/2024/09/06/I2viwk1cqUNsj3D.png)
