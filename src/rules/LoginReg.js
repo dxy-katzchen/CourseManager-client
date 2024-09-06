@@ -1,11 +1,11 @@
 //注册规则
 export const user_register_rule = {
   id: [
-    { required: true, message: "Student ID cannot be empty", trigger: "blur" },
+    { required: true, message: "ID cannot be empty", trigger: "blur" },
     {
       min: 12,
       max: 12,
-      message: "Student ID needs to be 12 digits",
+      message: "ID needs to be 12 digits",
       trigger: "blur",
     },
   ],

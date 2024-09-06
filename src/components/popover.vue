@@ -1,7 +1,7 @@
 <template>
   <el-popover trigger="hover" placement="bottom" popper-class="infoPopover">
     <template #reference>
-      <img :src="userInfo.user.avatar || peach" alt="" class="avatar" />
+      <img :src="userInfo.user.avatar" alt="" class="avatar" />
     </template>
     <template class="popoverList" #default>
       <router-link :to="{ name: 'Userpage' }" class="popoverItem"
@@ -16,7 +16,6 @@
 </template>
 
 <script setup>
-import peach from "@/assets/peach.svg";
 import { useInfoStore } from "@/store";
 import { useRouter } from "vue-router";
 

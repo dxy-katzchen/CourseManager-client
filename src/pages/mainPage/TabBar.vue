@@ -2,7 +2,7 @@
   <div :class="$style.mainPageTabBar">
     <img :src="cherry" alt="" style="width: 3rem" />
     <span :class="$style.title">CourseTable </span>
-    <span :class="$style.ch">Course Management System</span>
+    <!-- <span :class="$style.ch">Course Management System</span> -->
     <div :class="$style.middle"></div>
     <span :class="$style.username"> {{ userInfo.user.username }} , Hi!</span>
     <Popover />

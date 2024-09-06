@@ -83,7 +83,7 @@
                   :class="$style.myPageBtn"
                   @click="goToMyPage"
                 >
-                  Enter My Page
+                  Enter
                 </button>
                 <button
                   v-show="!form.upid"

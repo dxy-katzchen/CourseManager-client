@@ -12,9 +12,9 @@
   />
 
   <el-table :class="$style.table" :data="dataRef" @row-click="goDetails">
-    <el-table-column align="center" prop="title" label="题目" />
-    <el-table-column align="center" prop="author" label="作者" />
-    <el-table-column align="center" prop="edit_time" label="编辑时间" />
+    <el-table-column align="center" prop="title" label="Title" />
+    <el-table-column align="center" prop="author" label="Author" />
+    <el-table-column align="center" prop="edit_time" label="Edit Time" />
     <el-table-column align="center" width="200" v-if="role === 3">
       <template #header> Operation </template>
       <template #default="scope">

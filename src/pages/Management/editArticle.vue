@@ -191,7 +191,7 @@ const publish = async () => {
     }
   }
   .submitBtn {
-    letter-spacing: 1px;
+    // letter-spacing: 1px;
     display: inline-block;
     width: 8rem;
     height: 2.8rem;

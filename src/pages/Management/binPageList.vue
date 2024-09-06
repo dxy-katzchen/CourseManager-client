@@ -15,9 +15,9 @@
 
     <div :class="$style.tableCard">
       <el-table :data="dataRef" @row-click="goDetails">
-        <el-table-column align="center" prop="title" label="题目" />
-        <el-table-column align="center" prop="author" label="作者" />
-        <el-table-column align="center" prop="edit_time" label="编辑时间" />
+        <el-table-column align="center" prop="title" label="Title" />
+        <el-table-column align="center" prop="author" label="Author" />
+        <el-table-column align="center" prop="edit_time" label="Edit Time" />
         <el-table-column align="center" width="200">
           <template #header> Operation </template>
           <template #default="scope">
@@ -113,7 +113,7 @@ const handlePagChange = async () => {
     font-size: 2rem;
     color: blueviolet;
     font-weight: bold;
-    letter-spacing: 4px;
+    // letter-spacing: 4px;
   }
   .pagination {
     display: flex;

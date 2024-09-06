@@ -45,7 +45,7 @@ import BackGround from "./BackGround.vue";
     }
     .chFont {
       font-size: 1.5rem;
-      letter-spacing: 0.1rem;
+      // letter-spacing: 0.1rem;
     }
   }
 }

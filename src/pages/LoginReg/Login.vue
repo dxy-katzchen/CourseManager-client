@@ -68,14 +68,26 @@ const submitForm = async (formEl) => {
 
       if (status === 0) {
         userInfo.user = data;
+        await createUserPageIfNotExist(data);
       }
 
       ElMessage.success(res.message);
-
       router.replace({ name: "Index" });
     }
   } catch (err) {
     ElMessage.error(err);
+  }
+};
+const createUserPageIfNotExist = async (data) => {
+  if (!data.upid) {
+    try {
+      const res = await api.createMyPage();
+      if (res.status !== 0) {
+        ElMessage.error(res.message);
+      }
+    } catch (error) {
+      ElMessage.error(error);
+    }
   }
 };
 </script>
