@@ -35,6 +35,22 @@ If you have registered, we will send you an email to reset your password.
 ![](https://s2.loli.net/2024/09/06/ZzAX5MPKNhiBDjV.png)
 Enter the verification code, you will be redirected to the login page.
 
+#### Profile
+
+![](https://s2.loli.net/2024/09/07/ZYN28IOVMmqac94.png)
+Hover the avatar to show the popover, click "Profile" to show the profile page.
+In the profile page, click "Edit" to use markdown editor to edit your Personal information.
+
+![](https://s2.loli.net/2024/09/07/q5URFKB6xZ2Cj8m.png)
+
+After editing, click "Submit" to save the changes.
+
+You will see the changes displayed on the profile page.
+
+![](https://s2.loli.net/2024/09/07/QciLCGqvebkXFP4.png)
+
+### Student
+
 ### Admin
 
 #### Course Management

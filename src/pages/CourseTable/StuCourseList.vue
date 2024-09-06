@@ -43,8 +43,8 @@
               scope.row.type === 1
                 ? "Required"
                 : scope.row.type === 2
-                ? "Optional"
-                : "Elective"
+                ? "Elective"
+                : "Optional"
             }}
           </div>
         </template>

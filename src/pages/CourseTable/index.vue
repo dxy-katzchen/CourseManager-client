@@ -42,8 +42,8 @@
         >
           <el-option label="All" :value="-1" />
           <el-option label="Required" :value="1" />
-          <el-option label="Optional" :value="2" />
-          <el-option label="Elective" :value="3" />
+          <el-option label="Elective" :value="2" />
+          <el-option label="Optional" :value="3" />
         </el-select>
       </el-form-item>
       <el-form-item>

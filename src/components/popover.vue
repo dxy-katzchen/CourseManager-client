@@ -5,7 +5,7 @@
     </template>
     <template class="popoverList" #default>
       <router-link :to="{ name: 'Userpage' }" class="popoverItem"
-        >Home Page</router-link
+        >Profile</router-link
       >
       <router-link :to="{ name: 'MyInfo' }" class="popoverItem"
         >Personal Centre</router-link
