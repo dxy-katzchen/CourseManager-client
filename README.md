@@ -1,6 +1,11 @@
 # 🎓 Front-end of Course Manager
 
-This is the front-end part of the **Course Manager** system. View the back-end part [here](https://github.com/dxy-katzchen/CourseManager-Server).  
+This is the front-end part of the **Course Manager** system. View the back-end part [here](https://github.com/dxy-katzchen/CourseManager-Server).
+
+☁️ The project is deployed on AWS EC2. You can access the live site [here](https://courseManager.sabinalovecat.com).
+
+## 📖 Introduction
+
 `CourseManager` is an Instructional Management System (IMS) that enables managing school activities like course enrollment, grade management, and viewing information for students, teachers, and administrators.
 
 ## 🌟 Functionality
