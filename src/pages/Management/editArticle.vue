@@ -7,11 +7,9 @@
     ></i>
     <input type="text" :class="$style.title" v-model="PageDetail.title" />
     <button v-if="props.mid" :class="$style.submitBtn" @click="submit">
-      Edit Article
+      Edit
     </button>
-    <button v-else :class="$style.submitBtn" @click="submit">
-      Publish Article
-    </button>
+    <button v-else :class="$style.submitBtn" @click="submit">Publish</button>
   </div>
   <div :class="$style.editorContent">
     <MdEditor

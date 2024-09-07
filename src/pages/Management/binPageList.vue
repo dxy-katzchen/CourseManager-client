@@ -21,8 +21,10 @@
         <el-table-column align="center" width="200">
           <template #header> Operation </template>
           <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-              >Edit</el-button
+            <el-button
+              size="small"
+              @click="handleRecover(scope.$index, scope.row)"
+              >Recover</el-button
             >
             <el-button
               size="small"
@@ -90,10 +92,21 @@ const goDetails = (row, column) => {
     router.push({ name: "ArticleDetail", query: { mid } });
   }
 };
-const handleEdit = (_, row) => {
+const handleRecover = async (index, row) => {
   const { mid } = row;
 
-  router.push({ name: "EditArticle", query: { mid } });
+  try {
+    const { status, message } = await api.recover(mid);
+    if (status !== 0) {
+      ElMessage.error(message);
+      return;
+    }
+    ElMessage.success(message);
+    dataRef.value.splice(index, 1);
+    await getTableData();
+  } catch (error) {
+    ElMessage.error(error);
+  }
 };
 
 const handlePagChange = async () => {

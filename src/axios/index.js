@@ -153,6 +153,15 @@ const api = {
         mid,
       },
     }),
+
+  recover: async (mid) =>
+    await axios({
+      url: "/manage/recover",
+      method: "POST",
+      data: {
+        mid,
+      },
+    }),
   getBinList: async (pageSize, pageCurr) =>
     await axios({
       url: "/manage/getBinList",

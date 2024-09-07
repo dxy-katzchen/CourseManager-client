@@ -71,10 +71,10 @@ const typeColor = computed(
 );
 const typeName = computed(() =>
   articleDetail.type == 1
-    ? "社会实践"
+    ? "Social Practice"
     : articleDetail.type == 2
-    ? "课外活动"
-    : "研究成果"
+    ? "Extracurricular Activities"
+    : "Research"
 );
 </script>
 

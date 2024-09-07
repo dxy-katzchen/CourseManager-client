@@ -182,7 +182,7 @@ const withdrawal = async (_, row) => {
     line-height: 22px;
     border-radius: 20px;
     padding: 0 7px;
-    width: 3.1rem;
+    width: 5rem;
     margin: 0 auto;
   }
 }
