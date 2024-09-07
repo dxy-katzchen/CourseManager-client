@@ -78,6 +78,7 @@ const userInfo = useInfoStore();
   cursor: pointer;
   margin-top: 0.3rem;
   right: 2rem;
+  object-fit: cover;
 }
 .popoverList {
   display: flex;

@@ -208,6 +208,7 @@ const isTeacher = computed(() =>
     padding: 5rem;
 
     .avatar {
+      object-fit: cover;
       display: block;
       border-radius: 2rem;
       width: 13rem;
