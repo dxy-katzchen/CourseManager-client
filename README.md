@@ -35,6 +35,7 @@ The Course Management System has three roles. The following outlines the system'
 ### 🔐 Authorization
 
 Uses **jsonwebtoken** for access control. After login, a token is generated and sent to the front-end with user information. For each request, the front-end must send the token for identity verification. On the back-end, user information is verified to prevent unauthorized access.
+Because jwt could be reverse-engineered, I filtered out the sensitive information like password and email from the jwt payload to ensure the security of the system.
 
 ### 🧪 Validation
 
@@ -51,7 +52,7 @@ Uses **svg-captcha** for CAPTCHA verification. Upon login, users input the CAPTC
 
 ### 🔑 Encryption
 
-**bcryptjs** is used to hash passwords before storing them in the database. Each plaintext password is hashed multiple times, making the result unique and ensuring that the passwords cannot be reverse-engineered.
+**bcryptjs** is used to hash passwords before storing them in the database. The passwords cannot be reverse-engineered, by using this client-side encryption strategyto ensure that the passwords are secure.
 
 ### 🚦 Route Redirection
 
