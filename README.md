@@ -82,7 +82,7 @@ The project follows a front-end and back-end separation model. The primary devel
 
 - **Environment**: Node.js v20.17.0
 - **Framework**: Express
-- **Database**: MySQL
+- **Database**: MySQL 8
 - **Request Validation Middleware**: Joi, `express-joi`
 - **Password Encryption**: bcryptjs
 - **Cross-Origin Handling**: CORS
