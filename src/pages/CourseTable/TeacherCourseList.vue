@@ -15,14 +15,14 @@
       <el-table-column type="expand">
         <template #default="props">
           <el-table :data="props.row.stuList" border>
-            <el-table-column align="center" label="学号" prop="uid" />
+            <el-table-column align="center" label="ID" prop="uid" />
             <el-table-column
               align="center"
               label="Evaluation Score"
               prop="ev_score"
               :formatter="scoreFormat"
             />
-            <el-table-column align="center" label="姓名" prop="stu_name" />
+            <el-table-column align="center" label="Name" prop="stu_name" />
             <el-table-column
               align="center"
               label="Score"
@@ -207,7 +207,7 @@ const withdrawal = async (_, row) => {
     line-height: 22px;
     border-radius: 20px;
     padding: 0 7px;
-    width: 3.1rem;
+    width: 5rem;
     margin: 0 auto;
   }
 }
