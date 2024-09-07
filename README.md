@@ -104,6 +104,24 @@ vite
 
 ## 📜 WalkThrough
 
+You can test the site with the following accounts:
+
+- student
+
+  - ID:111111111111
+  - password:12345678
+
+- teacher
+
+  - ID:222222222222
+  - password:12345678
+
+- admin
+  - ID:333333333333
+  - password:12345678
+
+If you wang to test using emial to find back your password, should register using your email, or change the email in the above accounts to your own email.
+
 ### 👩‍🎓 Student
 
 #### 📚 Course enrolment
